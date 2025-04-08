@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import defaultAvatar from '../assets/default-avatar.jpeg';
 
-// Profile Photo Upload Component
 const ProfilePhotoSection = () => {
   const [profileImage, setProfileImage] = useState(null);
   const fileInputRef = useRef(null);
@@ -53,7 +52,6 @@ const ProfilePhotoSection = () => {
   );
 };
 
-// Personal Info (Full Name & Age) Component
 const PersonalInfoSection = () => {
   const [formData, setFormData] = useState({
     fullName: '',
@@ -70,7 +68,6 @@ const PersonalInfoSection = () => {
 
   return (
     <div className="space-y-4">
-      {/* Full Name Input */}
       <div>
         <label htmlFor="fullName" className="block text-xs font-medium text-gray-700 mb-1">
           Full Name
@@ -92,7 +89,6 @@ const PersonalInfoSection = () => {
         </div>
       </div>
 
-      {/* Age Input */}
       <div>
         <label htmlFor="age" className="block text-xs font-medium text-gray-700 mb-1">
           Age
@@ -119,64 +115,210 @@ const PersonalInfoSection = () => {
   );
 };
 
+const MedicalInfoSection = () => {
+  const [medicalData, setMedicalData] = useState({
+    bloodGroup: '',
+    pastDiseases: [],
+    familyHistory: []
+  });
+
+  const bloodGroups = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
+  
+  const diseaseOptions = [
+    'Asthma', 
+    'Diabetes', 
+    'Hypertension', 
+    'Heart Disease', 
+    'Cancer', 
+    'Stroke', 
+    'Arthritis', 
+    'Depression',
+    'Thyroid Disorders'
+  ];
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setMedicalData({
+      ...medicalData,
+      [name]: value
+    });
+  };
+
+  const handleMultiSelect = (e) => {
+    const { name, options } = e.target;
+    const value = Array.from(options)
+      .filter(option => option.selected)
+      .map(option => option.value);
+    
+    setMedicalData({
+      ...medicalData,
+      [name]: value
+    });
+  };
+
+  return (
+    <div className="space-y-4">
+      <div>
+        <label htmlFor="bloodGroup" className="block text-xs font-medium text-gray-700 mb-1">
+          Blood Group
+        </label>
+        <div className="relative rounded-md">
+          <select
+            name="bloodGroup"
+            id="bloodGroup"
+            value={medicalData.bloodGroup}
+            onChange={handleChange}
+            className="block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-transparent appearance-none"
+          >
+            <option value="">Select Blood Group</option>
+            {bloodGroups.map((group) => (
+              <option key={group} value={group}>{group}</option>
+            ))}
+          </select>
+          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-400">
+            <i className="bx bx-chevron-down text-sm"></i>
+          </div>
+        </div>
+      </div>
+      
+      <div>
+        <label htmlFor="pastDiseases" className="block text-xs font-medium text-gray-700 mb-1">
+          Past Diseases
+        </label>
+        <div className="relative rounded-md">
+          <select
+            multiple
+            name="pastDiseases"
+            id="pastDiseases"
+            value={medicalData.pastDiseases}
+            onChange={handleMultiSelect}
+            className="block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-transparent"
+            size={4}
+          >
+            {diseaseOptions.map((disease) => (
+              <option key={disease} value={disease}>{disease}</option>
+            ))}
+          </select>
+          <p className="mt-1 text-xs text-gray-500">Hold Ctrl (or Cmd) to select multiple options</p>
+        </div>
+      </div>
+      
+      <div>
+        <label htmlFor="familyHistory" className="block text-xs font-medium text-gray-700 mb-1">
+          Family History
+        </label>
+        <div className="relative rounded-md">
+          <select
+            multiple
+            name="familyHistory"
+            id="familyHistory"
+            value={medicalData.familyHistory}
+            onChange={handleMultiSelect}
+            className="block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-transparent"
+            size={4}
+          >
+            {diseaseOptions.map((disease) => (
+              <option key={disease} value={disease}>{disease}</option>
+            ))}
+          </select>
+          <p className="mt-1 text-xs text-gray-500">Hold Ctrl (or Cmd) to select multiple options</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const HealthInfoSection = () => {
+  const [healthData, setHealthData] = useState({
+    medications: '',
+    allergies: ''
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setHealthData({
+      ...healthData,
+      [name]: value
+    });
+  };
+
+  return (
+    <div className="space-y-4">
+      <div>
+        <label htmlFor="medications" className="block text-xs font-medium text-gray-700 mb-1">
+          Current Medications
+        </label>
+        <div className="relative rounded-md">
+          <textarea
+            name="medications"
+            id="medications"
+            rows={3}
+            value={healthData.medications}
+            onChange={handleChange}
+            placeholder="Enter medications separated by commas"
+            className="block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-transparent"
+          />
+          <div className="absolute top-3 right-0 pr-3 flex items-center pointer-events-none">
+            <i className="bx bx-capsule text-gray-400 text-sm"></i>
+          </div>
+        </div>
+        <p className="mt-1 text-xs text-gray-500">Example: Aspirin, Metformin, Lisinopril</p>
+      </div>
+      
+      <div>
+        <label htmlFor="allergies" className="block text-xs font-medium text-gray-700 mb-1">
+          Allergies
+        </label>
+        <div className="relative rounded-md">
+          <textarea
+            name="allergies"
+            id="allergies"
+            rows={3}
+            value={healthData.allergies}
+            onChange={handleChange}
+            placeholder="Enter allergies separated by commas"
+            className="block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-transparent"
+          />
+          <div className="absolute top-3 right-0 pr-3 flex items-center pointer-events-none">
+            <i className="bx bx-test-tube text-gray-400 text-sm"></i>
+          </div>
+        </div>
+        <p className="mt-1 text-xs text-gray-500">Example: Peanuts, Penicillin, Latex</p>
+      </div>
+    </div>
+  );
+};
+
 const ProfileSummary = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-white py-6 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full bg-white rounded-lg shadow-lg overflow-hidden border border-gray-100">
-        {/* Header Section */}
         <div className="bg-black py-5 px-4 relative">
           <h1 className="text-center text-2xl font-bold text-white">Profile Summary</h1>
           <p className="mt-1 text-center text-xs text-gray-400 max-w-sm mx-auto">
             Complete your health profile for personalized care
           </p>
           
-          {/* Decorative elements */}
           <div className="absolute -bottom-3 left-0 right-0 h-6 bg-white" style={{
             clipPath: 'polygon(0 100%, 100% 100%, 100% 0, 0 100%)',
             opacity: 0.1
           }}></div>
         </div>
         
-        {/* Form Section */}
         <div className="p-6 bg-white">
-          {/* Your components */}
           <ProfilePhotoSection />
           <PersonalInfoSection />
           
-          {/* Placeholder for Prasad's dropdown menus */}
           <div className="mt-6 mb-6">
             <h3 className="text-sm font-medium text-gray-700 mb-3">Medical Information</h3>
-            {/* Blood Group dropdown will go here */}
-            <div className="mb-4">
-              {/* Prasad will add Blood Group dropdown here */}
-            </div>
-            
-            {/* Past Diseases dropdown will go here */}
-            <div className="mb-4">
-              {/* Prasad will add Past Diseases dropdown here */}
-            </div>
-            
-            {/* Family History dropdown will go here */}
-            <div className="mb-4">
-              {/* Prasad will add Family History dropdown here */}
-            </div>
+            <MedicalInfoSection />
           </div>
           
-          {/* Placeholder for Bakkiyalakshmi's input fields */}
           <div className="mt-6 mb-6">
             <h3 className="text-sm font-medium text-gray-700 mb-3">Additional Health Information</h3>
-            {/* Current Medications input will go here */}
-            <div className="mb-4">
-              {/* Bakkiyalakshmi will add Current Medications input here */}
-            </div>
-            
-            {/* Allergies input will go here */}
-            <div className="mb-4">
-              {/* Bakkiyalakshmi will add Allergies input here */}
-            </div>
+            <HealthInfoSection />
           </div>
           
-          {/* Save Button */}
           <div className="mt-8">
             <button
               type="submit"

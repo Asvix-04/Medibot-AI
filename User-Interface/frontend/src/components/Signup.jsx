@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import medibot_logo from '../assets/medibot_logo.jpg';
+import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import { auth } from '../firebase';
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +11,7 @@ const Signup = () => {
     password: '',
     confirmPassword: '',
     phoneNumber: '',
+    countryCode: '',
     userType: 'Patient'
   });
   
@@ -37,9 +40,23 @@ const Signup = () => {
     }
   };
   
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        formData.email,
+        formData.password
+      );
+      
+      await sendEmailVerification(userCredential.user);
+      
+      alert("Account created! Please check your email to verify your account.");
+      
+    } catch (error) {
+      console.error("Error creating account:", error);
+      alert(`Error: ${error.message}`);
+    }
   };
   
   return (
@@ -189,18 +206,32 @@ const Signup = () => {
                 <label htmlFor="phoneNumber" className="block text-xs font-medium text-gray-700 mb-1">
                   Phone Number <span className="text-gray-400 text-xs">(Optional)</span>
                 </label>
-                <div className="relative rounded-md">
-                  <input
-                    type="tel"
-                    name="phoneNumber"
-                    id="phoneNumber"
-                    value={formData.phoneNumber}
-                    onChange={handleChange}
-                    placeholder="+1 (555) 123-4567"
-                    className="block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-transparent"
-                  />
-                  <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                    <i className="bx bx-phone text-gray-400 text-sm"></i>
+                <div className="flex space-x-2">
+                  <div className="relative w-20">
+                    <input
+                      type="text"
+                      name="countryCode"
+                      id="countryCode"
+                      value={formData.countryCode}
+                      onChange={handleChange}
+                      placeholder="+91"
+                      maxLength="4"
+                      className="block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-transparent"
+                    />
+                  </div>
+                  <div className="relative rounded-md flex-1">
+                    <input
+                      type="tel"
+                      name="phoneNumber"
+                      id="phoneNumber"
+                      value={formData.phoneNumber}
+                      onChange={handleChange}
+                      placeholder="(555) 123-4567"
+                      className="block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-transparent"
+                    />
+                    <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                      <i className="bx bx-phone text-gray-400 text-sm"></i>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import medibot_logo from '../assets/medibot_logo.jpg';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../firebase';
 
 const Signin = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -31,13 +32,12 @@ const Signin = () => {
       // Check if email is verified
       if (!userCredential.user.emailVerified) {
         alert("Please verify your email before signing in");
-        // Optionally add option to resend verification email
         return;
       }
       
-      // Proceed with login
+      // Proceed with login and redirect
       console.log("Login successful!");
-      // Redirect to dashboard/profile
+      navigate('/profile');
       
     } catch (error) {
       console.error("Error signing in:", error);

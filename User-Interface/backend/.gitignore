@@ -1,0 +1,7 @@
+# Security - Never commit these files
+firebaseServiceAccount.json
+.env
+
+# Node.js
+node_modules/
+npm-debug.log

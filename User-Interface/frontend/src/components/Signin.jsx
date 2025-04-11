@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import medibot_logo from '../assets/medibot_logo.jpg';
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from '../firebase';
 
 const Signin = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -17,9 +20,29 @@ const Signin = () => {
     });
   };
   
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Login submitted:', formData);
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        formData.email,
+        formData.password
+      );
+      
+      // Check if email is verified
+      if (!userCredential.user.emailVerified) {
+        alert("Please verify your email before signing in");
+        return;
+      }
+      
+      // Proceed with login and redirect
+      console.log("Login successful!");
+      navigate('/profile');
+      
+    } catch (error) {
+      console.error("Error signing in:", error);
+      alert(`Error: ${error.message}`);
+    }
   };
   
   return (

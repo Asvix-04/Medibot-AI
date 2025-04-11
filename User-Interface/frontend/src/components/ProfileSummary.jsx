@@ -1,5 +1,8 @@
 import React, { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import defaultAvatar from '../assets/default-avatar.jpeg';
+import { doc, setDoc } from "firebase/firestore";
+import { auth, db } from '../firebase';
 
 const ProfilePhotoSection = () => {
   const [profileImage, setProfileImage] = useState(null);
@@ -22,6 +25,7 @@ const ProfilePhotoSection = () => {
   
   return (
     <div className="flex flex-col items-center mb-6">
+      {/* Image upload UI */}
       <div 
         onClick={handleImageClick} 
         className="relative w-32 h-32 rounded-full overflow-hidden border-2 border-gray-300 cursor-pointer group"
@@ -52,12 +56,7 @@ const ProfilePhotoSection = () => {
   );
 };
 
-const PersonalInfoSection = () => {
-  const [formData, setFormData] = useState({
-    fullName: '',
-    age: ''
-  });
-
+const PersonalInfoSection = ({ formData, setFormData }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -68,6 +67,7 @@ const PersonalInfoSection = () => {
 
   return (
     <div className="space-y-4">
+      {/* Personal info fields */}
       <div>
         <label htmlFor="fullName" className="block text-xs font-medium text-gray-700 mb-1">
           Full Name
@@ -115,13 +115,7 @@ const PersonalInfoSection = () => {
   );
 };
 
-const MedicalInfoSection = () => {
-  const [medicalData, setMedicalData] = useState({
-    bloodGroup: '',
-    pastDiseases: [],
-    familyHistory: []
-  });
-
+const MedicalInfoSection = ({ formData, setFormData }) => {
   const bloodGroups = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
   
   const diseaseOptions = [
@@ -138,8 +132,8 @@ const MedicalInfoSection = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setMedicalData({
-      ...medicalData,
+    setFormData({
+      ...formData,
       [name]: value
     });
   };
@@ -150,14 +144,15 @@ const MedicalInfoSection = () => {
       .filter(option => option.selected)
       .map(option => option.value);
     
-    setMedicalData({
-      ...medicalData,
+    setFormData({
+      ...formData,
       [name]: value
     });
   };
 
   return (
     <div className="space-y-4">
+      {/* Medical fields */}
       <div>
         <label htmlFor="bloodGroup" className="block text-xs font-medium text-gray-700 mb-1">
           Blood Group
@@ -166,7 +161,7 @@ const MedicalInfoSection = () => {
           <select
             name="bloodGroup"
             id="bloodGroup"
-            value={medicalData.bloodGroup}
+            value={formData.bloodGroup}
             onChange={handleChange}
             className="block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-transparent appearance-none"
           >
@@ -190,7 +185,7 @@ const MedicalInfoSection = () => {
             multiple
             name="pastDiseases"
             id="pastDiseases"
-            value={medicalData.pastDiseases}
+            value={formData.pastDiseases}
             onChange={handleMultiSelect}
             className="block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-transparent"
             size={4}
@@ -212,7 +207,7 @@ const MedicalInfoSection = () => {
             multiple
             name="familyHistory"
             id="familyHistory"
-            value={medicalData.familyHistory}
+            value={formData.familyHistory}
             onChange={handleMultiSelect}
             className="block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-transparent"
             size={4}
@@ -228,16 +223,11 @@ const MedicalInfoSection = () => {
   );
 };
 
-const HealthInfoSection = () => {
-  const [healthData, setHealthData] = useState({
-    medications: '',
-    allergies: ''
-  });
-
+const HealthInfoSection = ({ formData, setFormData }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setHealthData({
-      ...healthData,
+    setFormData({
+      ...formData,
       [name]: value
     });
   };
@@ -253,7 +243,7 @@ const HealthInfoSection = () => {
             name="medications"
             id="medications"
             rows={3}
-            value={healthData.medications}
+            value={formData.medications}
             onChange={handleChange}
             placeholder="Enter medications separated by commas"
             className="block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-transparent"
@@ -274,7 +264,7 @@ const HealthInfoSection = () => {
             name="allergies"
             id="allergies"
             rows={3}
-            value={healthData.allergies}
+            value={formData.allergies}
             onChange={handleChange}
             placeholder="Enter allergies separated by commas"
             className="block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-transparent"
@@ -290,6 +280,57 @@ const HealthInfoSection = () => {
 };
 
 const ProfileSummary = () => {
+  const navigate = useNavigate();
+  const [personalInfo, setPersonalInfo] = useState({
+    fullName: '',
+    age: ''
+  });
+  const [medicalData, setMedicalData] = useState({
+    bloodGroup: '',
+    pastDiseases: [],
+    familyHistory: []
+  });
+  const [healthData, setHealthData] = useState({
+    medications: '',
+    allergies: ''
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("Form submitted"); // Debug log
+    
+    try {
+      const user = auth.currentUser;
+      if (!user) throw new Error("No user is signed in");
+      console.log("Current user:", user); // Debug log
+      
+      // Combine data from all sections
+      const profileData = {
+        fullName: personalInfo.fullName,
+        age: personalInfo.age,
+        bloodGroup: medicalData.bloodGroup,
+        pastDiseases: medicalData.pastDiseases,
+        familyHistory: medicalData.familyHistory,
+        medications: healthData.medications,
+        allergies: healthData.allergies,
+        updatedAt: new Date()
+      };
+      
+      console.log("Saving profile data:", profileData); // Debug log
+      
+      // Save to Firestore
+      await setDoc(doc(db, "users", user.uid), profileData);
+      console.log("Data saved successfully"); // Debug log
+      
+      // Success message and navigation
+      alert("Profile saved successfully!");
+      navigate('/user-profile'); // Navigate to profile view
+    } catch (error) {
+      console.error("Error saving profile:", error);
+      alert("Error saving profile: " + error.message);
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-white py-6 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full bg-white rounded-lg shadow-lg overflow-hidden border border-gray-100">
@@ -305,18 +346,27 @@ const ProfileSummary = () => {
           }}></div>
         </div>
         
-        <div className="p-6 bg-white">
+        <form onSubmit={handleSubmit} className="p-6 bg-white">
           <ProfilePhotoSection />
-          <PersonalInfoSection />
+          <PersonalInfoSection 
+            formData={personalInfo}
+            setFormData={setPersonalInfo}
+          />
           
           <div className="mt-6 mb-6">
             <h3 className="text-sm font-medium text-gray-700 mb-3">Medical Information</h3>
-            <MedicalInfoSection />
+            <MedicalInfoSection 
+              formData={medicalData}
+              setFormData={setMedicalData}
+            />
           </div>
           
           <div className="mt-6 mb-6">
             <h3 className="text-sm font-medium text-gray-700 mb-3">Additional Health Information</h3>
-            <HealthInfoSection />
+            <HealthInfoSection 
+              formData={healthData}
+              setFormData={setHealthData}
+            />
           </div>
           
           <div className="mt-8">
@@ -330,7 +380,7 @@ const ProfileSummary = () => {
               Save Profile
             </button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

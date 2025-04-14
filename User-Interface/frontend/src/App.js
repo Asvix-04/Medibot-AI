@@ -11,7 +11,11 @@ import ProtectedRoute from './components/ProtectedRoute';
 import UserProfile from './components/UserProfile';
 import ChatPage from './pages/ChatPage';
 import Navigation from './components/Navigation';
+import HealthDashboard from './components/dashboard/HealthDashboard';
+import { SettingsLayout } from './components/settings';
 import './App.css';
+import { ToastProvider } from './context/ToastContext';
+import ToastContainer from './components/ui/ToastContainer';
 
 // Create an AppContent component to use the useLocation hook
 const AppContent = () => {
@@ -53,6 +57,22 @@ const AppContent = () => {
               </ProtectedRoute>
             } 
           />
+          <Route 
+            path="/health-dashboard" 
+            element={
+              <ProtectedRoute>
+                <HealthDashboard />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/settings/*" 
+            element={
+              <ProtectedRoute>
+                <SettingsLayout />
+              </ProtectedRoute>
+            } 
+          />
           <Route path="/" element={<Signin />} />
         </Routes>
       </div>
@@ -60,14 +80,17 @@ const AppContent = () => {
   );
 };
 
-function App() {
+const App = () => {
   return (
-    <Router>
+    <ToastProvider>
       <div className="App">
-        <AppContent />
+        <Router>
+          <ToastContainer />
+          <AppContent />
+        </Router>
       </div>
-    </Router>
+    </ToastProvider>
   );
-}
+};
 
 export default App;

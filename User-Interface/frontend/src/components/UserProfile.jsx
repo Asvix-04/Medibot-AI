@@ -8,12 +8,18 @@ const UserProfile = () => {
   const [userData, setUserData] = useState({
     photoURL: null,
     fullName: '',
-    age: '',
-    bloodGroup: '',
-    pastDiseases: [],
-    familyHistory: [],
-    medications: '',
-    allergies: ''
+    displayName: '',
+    dateOfBirth: '',
+    gender: '',
+    email: '',
+    emailVerified: false,
+    phoneNumber: '',
+    location: '',
+    language: 'en',
+    timezone: 'UTC',
+    darkMode: false,
+    shareData: false,
+    updatedAt: null
   });
   
   const [loading, setLoading] = useState(true);
@@ -29,13 +35,27 @@ const UserProfile = () => {
           throw new Error("No user is signed in");
         }
         
-        // Get user document from Firestore
+        // Get profile data from Firestore
         const userDoc = await getDoc(doc(db, "users", user.uid));
         
         if (userDoc.exists()) {
+          const data = userDoc.data();
+          
           setUserData({
-            photoURL: user.photoURL || null,
-            ...userDoc.data()
+            photoURL: user.photoURL || data.photoURL || null,
+            fullName: data.fullName || '',
+            displayName: data.displayName || '',
+            dateOfBirth: data.dateOfBirth || '',
+            gender: data.gender || '',
+            email: user.email || '',
+            emailVerified: user.emailVerified || false,
+            phoneNumber: data.phoneNumber || '',
+            location: data.location || '',
+            language: data.language || 'en',
+            timezone: data.timezone || 'UTC',
+            darkMode: data.darkMode || false,
+            shareData: data.shareData || false,
+            updatedAt: data.updatedAt ? new Date(data.updatedAt.toDate()) : null
           });
         } else {
           throw new Error("User profile not found");
@@ -58,27 +78,37 @@ const UserProfile = () => {
   
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-white">
-        <div className="animate-spin h-12 w-12 border-4 border-black border-t-transparent rounded-full"></div>
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="animate-spin h-12 w-12 border-4 border-purple-500 border-t-transparent rounded-full"></div>
       </div>
     );
   }
   
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-white">
-        <div className="text-center p-6">
-          <div className="text-red-600 text-5xl mb-4">
-            <i className="bx bx-error-circle"></i>
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center p-8 bg-white rounded-lg shadow-lg border border-gray-100 max-w-md">
+          <div className="text-red-500 text-5xl mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-20 w-20 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
           </div>
           <h2 className="text-xl font-bold text-gray-900 mb-2">Error Loading Profile</h2>
-          <p className="text-gray-600 mb-4">{error}</p>
-          <button 
-            onClick={() => window.location.reload()}
-            className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800"
-          >
-            Try Again
-          </button>
+          <p className="text-gray-600 mb-6">{error}</p>
+          <div className="flex space-x-3 justify-center">
+            <button 
+              onClick={() => window.location.reload()}
+              className="px-4 py-2 bg-purple-600 text-white text-sm rounded-md hover:bg-purple-700 transition-colors duration-300"
+            >
+              Try Again
+            </button>
+            <button 
+              onClick={() => navigate('/profile')}
+              className="px-4 py-2 bg-gray-200 text-gray-800 text-sm rounded-md hover:bg-gray-300 transition-colors duration-300"
+            >
+              Edit Profile
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -86,122 +116,209 @@ const UserProfile = () => {
   
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-black py-5 px-4 relative">
-        <h1 className="text-center text-2xl font-bold text-white">User Profile</h1>
-        <p className="mt-1 text-center text-xs text-gray-400 max-w-sm mx-auto">
-          Your personal health information
+      {/* Header - Modern gradient */}
+      <div className="bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-500 py-8 px-4 relative text-white">
+        <h1 className="text-center text-3xl font-bold">User Profile</h1>
+        <p className="mt-2 text-center text-white/80 max-w-lg mx-auto">
+          Your personal information and preferences
         </p>
         
-        <div className="absolute -bottom-3 left-0 right-0 h-6 bg-gray-50" style={{
+        <div className="absolute -bottom-5 left-0 right-0 h-10 bg-gray-50" style={{
           clipPath: 'polygon(0 100%, 100% 100%, 100% 0, 0 100%)',
-          opacity: 0.1
+          opacity: 0.3
         }}></div>
       </div>
       
-      <div className="container mx-auto px-4 py-6 max-w-3xl">
+      <div className="container mx-auto px-4 py-6 max-w-4xl -mt-5">
         {/* Profile Overview Card */}
-        <div className="bg-white rounded-lg shadow-md overflow-hidden mb-6">
-          <div className="p-6 flex flex-col items-center sm:flex-row sm:items-start">
-            <div className="flex-shrink-0 mb-4 sm:mb-0 sm:mr-6">
-              <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-gray-300">
+        <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-8 border border-gray-100 relative z-10">
+          <div className="p-8 flex flex-col md:flex-row md:items-center">
+            <div className="flex-shrink-0 mb-6 md:mb-0 md:mr-8 flex flex-col items-center md:items-start">
+              <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-indigo-100 shadow-lg relative">
                 <img 
                   src={userData.photoURL || defaultAvatar} 
                   alt="Profile" 
                   className="w-full h-full object-cover"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-indigo-900/30 to-transparent"></div>
               </div>
-            </div>
-            <div className="flex-grow text-center sm:text-left">
-              <h2 className="text-2xl font-bold text-gray-900">{userData.fullName}</h2>
-              <p className="text-gray-600">Age: {userData.age} years</p>
-              <p className="text-gray-600">Blood Group: {userData.bloodGroup}</p>
-              <div className="mt-4">
+              
+              <div className="mt-6 flex space-x-2">
                 <button
                   onClick={handleEditProfile}
-                  className="px-4 py-2 bg-black text-white text-sm rounded-md hover:bg-gray-800"
+                  className="px-4 py-2 bg-purple-600 text-white text-sm rounded-full hover:bg-purple-700 transition-colors duration-300 flex items-center shadow-md"
                 >
-                  <i className="bx bx-edit mr-1"></i> Edit Profile
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                  </svg>
+                  Edit Profile
                 </button>
               </div>
             </div>
-          </div>
-        </div>
-        
-        {/* Medical Information */}
-        <div className="bg-white rounded-lg shadow-md overflow-hidden mb-6">
-          <div className="border-b border-gray-200">
-            <h3 className="text-lg font-medium text-gray-900 px-6 py-4 bg-gray-50">Medical Information</h3>
-          </div>
-          
-          <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <h4 className="text-sm font-medium text-gray-700 mb-2">Past Diseases</h4>
-              {userData.pastDiseases.length > 0 ? (
-                <ul className="list-disc pl-5 text-gray-600">
-                  {userData.pastDiseases.map((disease, index) => (
-                    <li key={index}>{disease}</li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="text-gray-500 italic">None reported</p>
+            
+            <div className="flex-grow text-center md:text-left py-4 md:pr-6 md:pl-6 md:border-l md:border-gray-200">
+              <h2 className="text-3xl font-bold text-gray-900 mb-1">{userData.fullName}</h2>
+              {userData.displayName && (
+                <p className="text-gray-600 text-lg mb-4">@{userData.displayName}</p>
               )}
-            </div>
-            <div>
-              <h4 className="text-sm font-medium text-gray-700 mb-2">Family History</h4>
-              {userData.familyHistory.length > 0 ? (
-                <ul className="list-disc pl-5 text-gray-600">
-                  {userData.familyHistory.map((condition, index) => (
-                    <li key={index}>{condition}</li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="text-gray-500 italic">None reported</p>
-              )}
+              
+              <div className="flex flex-wrap gap-3 justify-center md:justify-start mt-4">
+                {userData.emailVerified && (
+                  <div className="inline-flex items-center bg-green-50 px-3 py-1 rounded-full text-sm text-green-700 font-medium">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                    Verified Account
+                  </div>
+                )}
+                
+                <div className="inline-flex items-center bg-purple-50 px-3 py-1 rounded-full text-sm text-purple-700 font-medium">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                  {userData.phoneNumber || "No phone added"}
+                </div>
+              </div>
             </div>
           </div>
         </div>
         
-        {/* Additional Health Information */}
-        <div className="bg-white rounded-lg shadow-md overflow-hidden">
-          <div className="border-b border-gray-200">
-            <h3 className="text-lg font-medium text-gray-900 px-6 py-4 bg-gray-50">Additional Health Information</h3>
-          </div>
-          
-          <div className="p-6">
-            <div className="mb-6">
-              <h4 className="text-sm font-medium text-gray-700 mb-2">Current Medications</h4>
-              {userData.medications ? (
-                <p className="text-gray-600">{userData.medications}</p>
-              ) : (
-                <p className="text-gray-500 italic">No current medications</p>
-              )}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Personal Information */}
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+            <div className="border-b border-gray-200">
+              <h3 className="text-lg font-medium text-white px-6 py-4 bg-gradient-to-r from-indigo-600 to-blue-500 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                Personal Information
+              </h3>
             </div>
             
-            <div>
-              <h4 className="text-sm font-medium text-gray-700 mb-2">Allergies</h4>
-              {userData.allergies ? (
-                <p className="text-gray-600">{userData.allergies}</p>
-              ) : (
-                <p className="text-gray-500 italic">No known allergies</p>
-              )}
+            <div className="p-6">
+              <div className="space-y-4">
+                <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                  <span className="text-sm font-medium text-gray-500">Full Name</span>
+                  <span className="text-sm text-gray-900">{userData.fullName}</span>
+                </div>
+                
+                {userData.displayName && (
+                  <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                    <span className="text-sm font-medium text-gray-500">Display Name</span>
+                    <span className="text-sm text-gray-900">@{userData.displayName}</span>
+                  </div>
+                )}
+                
+                {userData.dateOfBirth && (
+                  <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                    <span className="text-sm font-medium text-gray-500">Date of Birth</span>
+                    <span className="text-sm text-gray-900">{new Date(userData.dateOfBirth).toLocaleDateString()}</span>
+                  </div>
+                )}
+                
+                {userData.gender && (
+                  <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                    <span className="text-sm font-medium text-gray-500">Gender</span>
+                    <span className="text-sm text-gray-900 capitalize">{userData.gender}</span>
+                  </div>
+                )}
+                
+                <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                  <span className="text-sm font-medium text-gray-500">Email</span>
+                  <div className="flex items-center">
+                    <span className="text-sm text-gray-900">{userData.email}</span>
+                    {userData.emailVerified && (
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-green-500 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                    )}
+                  </div>
+                </div>
+                
+                {userData.location && (
+                  <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                    <span className="text-sm font-medium text-gray-500">Location</span>
+                    <span className="text-sm text-gray-900">{userData.location}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+          
+          {/* Preferences */}
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+            <div className="border-b border-gray-200">
+              <h3 className="text-lg font-medium text-white px-6 py-4 bg-gradient-to-r from-purple-600 to-pink-500 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                Preferences
+              </h3>
+            </div>
+            
+            <div className="p-6">
+              <div className="space-y-4">
+                <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                  <span className="text-sm font-medium text-gray-500">Language</span>
+                  <span className="text-sm text-gray-900">
+                    {userData.language === 'en' ? 'English' :
+                     userData.language === 'es' ? 'Spanish' :
+                     userData.language === 'fr' ? 'French' :
+                     userData.language === 'de' ? 'German' :
+                     userData.language === 'zh' ? 'Chinese' :
+                     userData.language === 'hi' ? 'Hindi' :
+                     userData.language === 'ar' ? 'Arabic' : userData.language}
+                  </span>
+                </div>
+                
+                <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                  <span className="text-sm font-medium text-gray-500">Timezone</span>
+                  <span className="text-sm text-gray-900">{userData.timezone}</span>
+                </div>
+                
+                <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                  <span className="text-sm font-medium text-gray-500">Email Notifications</span>
+                  <span className={`px-2 py-1 text-xs rounded-full ${userData.receiveEmails ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}`}>
+                    {userData.receiveEmails ? 'Enabled' : 'Disabled'}
+                  </span>
+                </div>
+                
+                <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                  <span className="text-sm font-medium text-gray-500">Dark Mode</span>
+                  <span className={`px-2 py-1 text-xs rounded-full ${userData.darkMode ? 'bg-purple-100 text-purple-800' : 'bg-gray-100 text-gray-800'}`}>
+                    {userData.darkMode ? 'Enabled' : 'Disabled'}
+                  </span>
+                </div>
+                
+                <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                  <span className="text-sm font-medium text-gray-500">Data Sharing</span>
+                  <span className={`px-2 py-1 text-xs rounded-full ${userData.shareData ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800'}`}>
+                    {userData.shareData ? 'Enabled' : 'Disabled'}
+                  </span>
+                </div>
+                
+                {userData.updatedAt && (
+                  <div className="flex justify-between items-center py-2">
+                    <span className="text-sm font-medium text-gray-500">Last Updated</span>
+                    <span className="text-xs text-gray-500">{userData.updatedAt.toLocaleDateString()} at {userData.updatedAt.toLocaleTimeString()}</span>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
         
         {/* Actions */}
-        <div className="mt-6 flex justify-end">
+        <div className="mt-8 flex justify-center">
           <button
-            onClick={() => navigate('/dashboard')}
-            className="px-4 py-2 border border-black text-black text-sm rounded-md mr-3 hover:bg-gray-100"
+            onClick={() => navigate('/chat')}
+            className="px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-sm rounded-lg hover:from-purple-700 hover:to-indigo-700 transition-colors duration-300 flex items-center shadow-lg"
           >
-            Back to Dashboard
-          </button>
-          <button
-            onClick={handleEditProfile}
-            className="px-4 py-2 bg-black text-white text-sm rounded-md hover:bg-gray-800"
-          >
-            Edit Profile
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+            </svg>
+            Chat with Medibot
           </button>
         </div>
       </div>

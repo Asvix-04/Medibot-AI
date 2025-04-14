@@ -6,6 +6,7 @@ const dotenv = require('dotenv');
 const userRoutes = require('./routes/userRoutes');
 const healthDataRoutes = require('./routes/healthDataRoutes');
 const authRoutes = require('./routes/authRoutes');
+const conversationRoutes = require('./routes/conversationRoutes');
 
 // Load environment variables
 dotenv.config();
@@ -26,6 +27,7 @@ mongoose.connect(process.env.MONGO_URI)
 app.use('/api/users', userRoutes);
 app.use('/api/health', healthDataRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/conversations', conversationRoutes);
 
 // Root route
 app.get('/', (req, res) => {

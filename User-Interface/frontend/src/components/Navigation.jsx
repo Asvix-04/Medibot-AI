@@ -36,16 +36,16 @@ const Navigation = () => {
         {currentUser && (
           <div className="flex items-center space-x-4">
             <Link 
-              to="/profile" 
-              className={`text-sm font-medium ${location.pathname === '/profile' ? 'text-black' : 'text-gray-600 hover:text-black'}`}
-            >
-              Edit Profile
-            </Link>
-            <Link 
               to="/user-profile" 
               className={`text-sm font-medium ${location.pathname === '/user-profile' ? 'text-black' : 'text-gray-600 hover:text-black'}`}
             >
               View Profile
+            </Link>
+            <Link 
+              to="/health-dashboard" 
+              className={`text-sm font-medium ${location.pathname === '/health-dashboard' ? 'text-black' : 'text-gray-600 hover:text-black'}`}
+            >
+              Dashboard
             </Link>
             <Link 
               to="/chat" 

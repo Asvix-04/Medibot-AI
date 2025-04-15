@@ -15,13 +15,13 @@ The project is divided into two main components:
 
 ### Authentication Pages
 
-#### Signup (`Signup.jsx`)
+#### Sign Up (`Signup.jsx`)
 - Allows new users to create an account  
-- Collects essential user information (name, email, password)  
+- Collects essential user information (name, email, mobile number and password)  
 - Includes terms of service and privacy policy consent  
 - Sends verification email to confirm user identity  
 
-#### Signin (`Signin.jsx`)
+#### Sign In (`Signin.jsx`)
 - Handles user authentication  
 - Validates email verification status  
 - Redirects to appropriate pages based on auth status  
@@ -48,7 +48,7 @@ The project is divided into two main components:
 
 ### User Profile (`UserProfile.jsx`)
 - Displays user's complete health profile  
-- Shows medical history and current health information  
+- Shows medical history and current health informations  
 - Provides access to edit profile details  
 - Links to AI chat functionality  
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Signup from './components/Signup';
 import Signin from './components/Signin';
@@ -13,14 +13,16 @@ import ChatPage from './pages/ChatPage';
 import Navigation from './components/Navigation';
 import HealthDashboard from './components/dashboard/HealthDashboard';
 import { SettingsLayout } from './components/settings';
+import MedicationManager from './components/dashboard/MedicationManager';
 import './App.css';
 import { ToastProvider } from './context/ToastContext';
 import ToastContainer from './components/ui/ToastContainer';
+import ErrorBoundary from './components/common/ErrorBoundary';
 
-// Create an AppContent component to use the useLocation hook
 const AppContent = () => {
   const location = useLocation();
   const isChatPage = location.pathname === '/chat';
+  const [darkMode] = useState(false); 
   
   return (
     <>
@@ -71,6 +73,14 @@ const AppContent = () => {
               <ProtectedRoute>
                 <SettingsLayout />
               </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/medication-manager" 
+            element={
+              <ErrorBoundary>
+                <MedicationManager darkMode={darkMode} />
+              </ErrorBoundary>
             } 
           />
           <Route path="/" element={<Signin />} />

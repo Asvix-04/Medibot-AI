@@ -37,7 +37,7 @@ const MedicationManager = ({ darkMode }) => {
   // Fetch medications on component mount
   useEffect(() => {
     fetchMedications();
-  }, []);
+  }, [fetchMedications]);
   
   // Add this effect after your other useEffect hooks
   useEffect(() => {

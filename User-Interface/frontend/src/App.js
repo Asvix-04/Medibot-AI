@@ -18,6 +18,7 @@ import './App.css';
 import { ToastProvider } from './context/ToastContext';
 import ToastContainer from './components/ui/ToastContainer';
 import ErrorBoundary from './components/common/ErrorBoundary';
+import AppointmentScheduler from './components/appointments/AppointmentScheduler';
 
 const AppContent = () => {
   const location = useLocation();
@@ -81,6 +82,16 @@ const AppContent = () => {
               <ErrorBoundary>
                 <MedicationManager darkMode={darkMode} />
               </ErrorBoundary>
+            } 
+          />
+          <Route 
+            path="/appointments" 
+            element={
+              <ProtectedRoute>
+                <ErrorBoundary>
+                  <AppointmentScheduler darkMode={darkMode} />
+                </ErrorBoundary>
+              </ProtectedRoute>
             } 
           />
           <Route path="/" element={<Signin />} />

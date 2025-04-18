@@ -631,10 +631,16 @@ const HealthDashboard = ({ darkMode = false }) => {
                   </div>
                 ))}
                 <div className="flex justify-between items-center pt-2">
-                  <button className="text-sm text-blue-600 hover:text-blue-800">
+                  <button 
+                    onClick={() => navigate('/appointments', { state: { view: 'all' } })}
+                    className="text-sm text-blue-600 hover:text-blue-800"
+                  >
                     View all appointments
                   </button>
-                  <button className="text-sm px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                  <button 
+                    onClick={() => navigate('/appointments')} 
+                    className="text-sm px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  >
                     Schedule appointment
                   </button>
                 </div>

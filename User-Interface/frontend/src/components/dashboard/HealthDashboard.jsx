@@ -11,6 +11,8 @@ import {
   Legend 
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import HealthMetricsForm from './HealthMetricsForm';
+import { useNavigate } from 'react-router-dom';
 
 // Register ChartJS components
 ChartJS.register(
@@ -23,7 +25,7 @@ ChartJS.register(
   Legend
 );
 
-const HealthDashboard = () => {
+const HealthDashboard = ({ darkMode = false }) => {
   // State management
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -37,6 +39,8 @@ const HealthDashboard = () => {
   const [medications, setMedications] = useState([]);
   const [upcomingAppointments, setUpcomingAppointments] = useState([]);
   const [healthGoals, setHealthGoals] = useState([]);
+  const [showAddMetricForm, setShowAddMetricForm] = useState(false);
+  const navigate = useNavigate();
   
   // Mock data for demonstration
   useEffect(() => {
@@ -491,10 +495,16 @@ const HealthDashboard = () => {
               ))}
               
               <div className="flex justify-between items-center pt-2">
-                <button className="text-sm text-indigo-600 hover:text-indigo-800">
+                <button 
+                  className="text-sm text-indigo-600 hover:text-indigo-800"
+                  onClick={() => navigate('/medication-manager')}
+                >
                   View all medications
                 </button>
-                <button className="text-sm px-3 py-1 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
+                <button 
+                  className="text-sm px-3 py-1 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                  onClick={() => navigate('/medication-manager', { state: { openAddForm: true } })}
+                >
                   Add medication
                 </button>
               </div>
@@ -621,10 +631,16 @@ const HealthDashboard = () => {
                   </div>
                 ))}
                 <div className="flex justify-between items-center pt-2">
-                  <button className="text-sm text-blue-600 hover:text-blue-800">
+                  <button 
+                    onClick={() => navigate('/appointments', { state: { view: 'all' } })}
+                    className="text-sm text-blue-600 hover:text-blue-800"
+                  >
                     View all appointments
                   </button>
-                  <button className="text-sm px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                  <button 
+                    onClick={() => navigate('/appointments')} 
+                    className="text-sm px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  >
                     Schedule appointment
                   </button>
                 </div>
@@ -696,7 +712,9 @@ const HealthDashboard = () => {
 
       {/* Footer with action buttons */}
       <div className="flex justify-center space-x-4">
-        <button className="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors flex items-center">
+        <button 
+          onClick={() => setShowAddMetricForm(true)} 
+          className="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors flex items-center">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
@@ -709,6 +727,42 @@ const HealthDashboard = () => {
           Export Health Report
         </button>
       </div>
+
+      {/* Form modal */}
+      {showAddMetricForm && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+          <div className="max-w-2xl w-full mx-4">
+            <div className="relative">
+              {/* Close button */}
+              <button 
+                className="absolute -top-4 -right-4 bg-white dark:bg-gray-800 p-2 rounded-full shadow-lg"
+                onClick={() => setShowAddMetricForm(false)}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-500 dark:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+              
+              {/* Form component */}
+              <HealthMetricsForm 
+                onSuccess={(metricType, newData) => {
+                  // Update your local state here to refresh the dashboard
+                  // For example, if it's blood pressure:
+                  if (metricType === 'bloodPressure') {
+                    setHealthMetrics(prev => ({
+                      ...prev,
+                      bloodPressure: [...prev.bloodPressure, newData]
+                    }));
+                  }
+                  // Close the form
+                  setShowAddMetricForm(false);
+                }} 
+                darkMode={darkMode}
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

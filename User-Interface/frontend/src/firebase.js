@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth, GoogleAuthProvider } from "firebase/auth"; // Add GoogleAuthProvider
 import { getFirestore, enableIndexedDbPersistence } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -14,6 +14,12 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+const googleProvider = new GoogleAuthProvider(); // Create provider instance
+
+// Configure Google provider (optional)
+googleProvider.setCustomParameters({
+  prompt: 'select_account' // Always prompt for account selection
+});
 
 // Enable offline persistence
 enableIndexedDbPersistence(db)
@@ -21,4 +27,4 @@ enableIndexedDbPersistence(db)
     console.error("Firebase persistence error:", err);
   });
 
-export { auth, db };
+export { auth, db, googleProvider }; // Export googleProvider

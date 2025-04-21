@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import ChatMessage from './ChatMessage';
+import SuggestionChips from './SuggestionChips';
 import TypingIndicator from './TypingIndicator';
 import medibot_logo from '../../assets/medibot_logo.jpg';
 
@@ -20,6 +21,47 @@ const ChatArea = ({ messages, darkMode, isTyping = false, onSendMessage }) => {
       onSendMessage(suggestion);
     }
   };
+  
+  // Generate follow-up suggestions based on context
+  const getSuggestions = () => {
+    // If there are no bot messages, return empty array
+    if (!messages.length) return [];
+    
+    // Get the last bot message
+    const lastBotMessage = [...messages].reverse().find(m => m.role === 'bot');
+    if (!lastBotMessage) return [];
+    
+    const content = lastBotMessage.content.toLowerCase();
+    
+    // Generate contextual suggestions based on last bot message content
+    if (content.includes('medication') || content.includes('drug') || content.includes('medicine')) {
+      return [
+        "What are the side effects?", 
+        "How often should I take it?", 
+        "Can I take it with food?"
+      ];
+    } 
+    else if (content.includes('symptom') || content.includes('pain') || content.includes('feeling')) {
+      return [
+        "Could this be serious?", 
+        "What tests might I need?", 
+        "When should I see a doctor?"
+      ];
+    }
+    else if (content.includes('diet') || content.includes('nutrition') || content.includes('food')) {
+      return [
+        "Foods I should avoid?", 
+        "Recommended daily intake?", 
+        "Healthy alternatives?"
+      ];
+    }
+    // Default suggestions
+    return [
+      "Tell me more", 
+      "What else should I know?", 
+      "Any related conditions?"
+    ];
+  };
 
   return (
     <div className="flex flex-col space-y-4 max-w-3xl mx-auto">
@@ -27,7 +69,7 @@ const ChatArea = ({ messages, darkMode, isTyping = false, onSendMessage }) => {
         <div className="flex flex-col items-center justify-center h-full py-12">
           <div className="p-4 rounded-full bg-gradient-to-r from-purple-100 via-sky-100 to-indigo-100 dark:from-purple-900/30 dark:via-sky-900/30 dark:to-indigo-900/30">
             <img 
-              src={medibot_logo} // Use the imported logo
+              src={medibot_logo}
               alt="Medibot Logo" 
               className="w-16 h-16 rounded-full border-2 border-white shadow-lg"
             />
@@ -57,15 +99,28 @@ const ChatArea = ({ messages, darkMode, isTyping = false, onSendMessage }) => {
         </div>
       ) : (
         <>
+          {/* All messages */}
           {messages.map((message) => (
             <ChatMessage
               key={message.id}
               message={message}
               darkMode={darkMode}
-              onSuggestionClick={handleSuggestionClick}
             />
           ))}
+          
+          {/* Typing indicator */}
           {isTyping && <TypingIndicator darkMode={darkMode} />}
+          
+          {/* Single set of follow-up suggestions at the bottom */}
+          {messages.length > 0 && !isTyping && messages[messages.length-1].role === 'bot' && (
+            <div className="mt-4 mb-2">
+              <SuggestionChips
+                suggestions={getSuggestions()}
+                onSuggestionClick={handleSuggestionClick}
+                darkMode={darkMode}
+              />
+            </div>
+          )}
         </>
       )}
       <div ref={messagesEndRef} />

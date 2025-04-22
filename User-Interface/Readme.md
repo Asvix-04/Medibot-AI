@@ -7,7 +7,7 @@ Medibot-AI/
 ```
 
 ## Backend Structure
-
+```
 backend/
 ├── controllers/
 │   ├── authController.js          # Handles authentication operations
@@ -34,9 +34,9 @@ backend/
 ├── index.js                        # Main server entry point
 ├── firebaseServiceAccount.json     # Firebase credentials (not in git)
 └── package.json                    # Node dependencies and scripts
-
+```
 ## Frontend Structure
-
+```
 frontend/
 ├── public/
 │   ├── favicon.ico                 # Site favicon
@@ -125,7 +125,7 @@ frontend/
 ├── package.json                          # NPM dependencies and scripts
 ├── README.md                             # Frontend documentation
 └── tailwind.config.js                    # Tailwind CSS configuration
-
+```
 
 ## Key Components and Their Purposes
 

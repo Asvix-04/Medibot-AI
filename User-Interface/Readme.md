@@ -1,9 +1,10 @@
+```
 Medibot-AI/
 ├── User-Interface/
-│   ├── backend/            # Backend server and API
-│   ├── frontend/           # React frontend application
-│   └── Readme.md           # Project documentation
-
+│   ├── backend/          # Backend server and API
+│   ├── frontend/         # React frontend application
+│   └── Readme.md         # Project documentation
+```
 
 ## Backend Structure
 

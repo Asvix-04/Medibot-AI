@@ -139,35 +139,35 @@ frontend/
 
 ### User Profile System
 
-Comprehensive health profile management
+> Comprehensive health profile management
 
-Personal information and medical history tracking
+> Personal information and medical history tracking
 
-Profile photo upload and management
+> Profile photo upload and management
 
 ### Chat Interface
 
-AI-powered chat assistant for health inquiries
+> AI-powered chat assistant for health inquiries
 
-Conversation history management
+> Conversation history management
 
-Responsive design with dark/light mode support
+> Responsive design with dark/light mode support
 
 ### Health Dashboard
 
-Visualization of key health metrics
+> Visualization of key health metrics
 
-Medication tracking and reminders
+> Medication tracking and reminders
 
-Appointment scheduling and management
+> Appointment scheduling and management
 
 ### Settings and Customization
 
-Application preferences and personalization
+> Application preferences and personalization
 
-Security and privacy controls
+> Security and privacy controls
 
-Data management (export, backup, deletion)
+> Data management (export, backup, deletion)
 
 
 #### Sign Up (`Signup.jsx`)

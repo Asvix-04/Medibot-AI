@@ -168,9 +168,18 @@ Security and privacy controls
 
 Data management (export, backup, deletion)
 
-### Appointment System
 
-Schedule medical appointments
+#### Sign Up (`Signup.jsx`)
+- Allows new users to create an account  
+- Collects essential user information (name, email, mobile number and password)  
+- Includes terms of service and privacy policy consent  
+- Sends verification email to confirm user identity  
+
+#### Sign In (`Signin.jsx`)
+- Handles user authentication  
+- Validates email verification status  
+- Redirects to appropriate pages based on auth status  
+
 
 Google Maps integration for finding nearby facilities
 
@@ -182,7 +191,15 @@ Track current and past medications
 
 Set reminders for medication doses
 
+
 Generate printable medication lists
+
+### User Profile (`UserProfile.jsx`)
+- Displays user's complete health profile  
+- Shows medical history and current health informations  
+- Provides access to edit profile details  
+- Links to AI chat functionality  
+
 
 ### Health Reports
 

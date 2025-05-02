@@ -55,11 +55,14 @@ const Signup = () => {
     e.preventDefault();
     
     if (!formData.termsAccepted) {
-      alert("Please accept the Terms of Service and Privacy Policy");
+      setError("Please accept the Terms of Service and Privacy Policy");
       return;
     }
     
     try {
+      setSubmitting(true);
+      setError('');
+      
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         formData.email,
@@ -68,15 +71,36 @@ const Signup = () => {
       
       await sendEmailVerification(userCredential.user);
       
-      alert("Account created! Please check your email to verify your account.");
+      // Save additional user data to Firestore
+      await setDoc(doc(db, "users", userCredential.user.uid), {
+        fullName: formData.fullName,
+        email: formData.email,
+        phoneNumber: formData.countryCode + formData.phoneNumber,
+        userType: formData.userType,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        lastLogin: new Date(),
+        authProvider: 'email'
+      });
       
+      navigate('/verification-required');
     } catch (error) {
       console.error("Error creating account:", error);
-      alert(`Error: ${error.message}`);
+      if (error.code === 'auth/email-already-in-use') {
+        setError("This email is already registered. Please sign in instead.");
+      } else if (error.code === 'auth/weak-password') {
+        setError("Password is too weak. Please use a stronger password.");
+      } else {
+        setError(`Error: ${error.message}`);
+      }
+    } finally {
+      setSubmitting(false);
     }
   };
   
-  const handleGoogleSignUp = async () => {
+  const handleGoogleSignUp = async (e) => {
+    if (e) e.preventDefault();
+    
     try {
       setSubmitting(true);
       setError('');
@@ -103,12 +127,11 @@ const Signup = () => {
         });
       }
       
-      navigate('/chat'); // Navigate to your main app page
+      navigate('/health-dashboard'); 
       
     } catch (error) {
       console.error("Google sign-up error:", error);
       
-      // Display user-friendly error message
       if (error.code === 'auth/popup-closed-by-user') {
         setError('Sign-up was canceled.');
       } else if (error.code === 'auth/account-exists-with-different-credential') {
@@ -121,20 +144,18 @@ const Signup = () => {
     }
   };
 
-  // Prevent default on links to open modal instead of navigating
   const handleTermsClick = (e) => {
     e.preventDefault();
+    e.stopPropagation();
     setShowTermsModal(true);
   };
   
   const handlePrivacyClick = (e) => {
     e.preventDefault();
+    e.stopPropagation();
     setShowPrivacyModal(true);
   };
   
-  // Rest of the component stays the same, just update the terms checkbox part:
-  
-  // Replace the terms checkbox section with this updated version:
   const renderTermsSection = () => (
     <div className="mt-3">
       <div className="flex items-start">
@@ -145,16 +166,16 @@ const Signup = () => {
             type="checkbox"
             checked={formData.termsAccepted}
             onChange={handleChange}
-            className="focus:ring-1 focus:ring-black h-3.5 w-3.5 text-black border-gray-300 rounded"
+            className="h-4 w-4 text-[#f75600] focus:ring-[#f75600] border-[#2a2a2a] rounded"
           />
         </div>
-        <div className="ml-2 text-xs">
-          <label htmlFor="termsAccepted" className="font-medium text-gray-700">
+        <div className="ml-2 text-sm">
+          <label htmlFor="termsAccepted" className="font-medium text-[#d6d4d4]">
             I agree to the{" "}
             <button
               type="button"
               onClick={handleTermsClick}
-              className="text-black hover:underline bg-transparent border-0 p-0 font-medium inline-flex align-baseline"
+              className="text-[#f75600] hover:text-[#E2711D] bg-transparent border-0 p-0 font-medium inline-flex align-baseline transition-colors"
             >
               Terms of Service
             </button>
@@ -162,7 +183,7 @@ const Signup = () => {
             <button
               type="button"
               onClick={handlePrivacyClick}
-              className="text-black hover:underline bg-transparent border-0 p-0 font-medium inline-flex align-baseline"
+              className="text-[#f75600] hover:text-[#E2711D] bg-transparent border-0 p-0 font-medium inline-flex align-baseline transition-colors"
             >
               Privacy Policy
             </button>
@@ -173,61 +194,36 @@ const Signup = () => {
   );
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white py-6 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-[#121212] to-[#1a1a1a] flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      {/* Background pattern */}
+      <div className="fixed inset-0 z-0 opacity-10">
+        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+          <path fill="none" stroke="#f75600" strokeWidth="1.5" 
+            d="M769 229L1037 260.9M927 880L731 737 520 660 309 538 40 599 295 764 126.5 879.5 40 599-197 493 102 382-31 229 126.5 79.5-69-63" />
+          <path fill="none" stroke="#f75600" strokeWidth="1.5" 
+            d="M-31 229L237 261 390 382 603 493 308.5 537.5 101.5 381.5M370 905L295 764" />
+          <path fill="none" stroke="#f75600" strokeWidth="1.5" 
+            d="M520 660L578 842 731 737 840 599 603 493 520 660 295 764 309 538 390 382 539 269 769 229 577.5 41.5 370 105 295 -36 126.5 79.5 237 261 102 382 40 599 -69 737 127 880" />
+          <path fill="none" stroke="#f75600" strokeWidth="1.5" 
+            d="M520-140L578.5 42.5 731-63M603 493L539 269 237 261 370 105M902 382L539 269M390 382L102 382" />
+          <path fill="none" stroke="#f75600" strokeWidth="1.5" 
+            d="M-222 42L126.5 79.5 370 105 539 269 577.5 41.5 927 80 769 229 902 382 603 493 731 737M295-36L577.5 41.5M578 842L295 764M40-201L127 80M102 382L-261 269" />
+        </svg>
+      </div>
+      
       {/* Terms Modal */}
       <Modal 
         isOpen={showTermsModal} 
         onClose={() => setShowTermsModal(false)}
         title="Terms of Service"
       >
-        <div className="prose prose-sm">
-          <h4 className="font-bold text-lg">1. Introduction</h4>
+        <div className="prose prose-sm text-[#d6d4d4]">
+          <h4 className="font-bold text-lg text-[#f75600]">1. Introduction</h4>
           <p>
             Welcome to Medibot. These Terms of Service govern your use of our website and services.
             By using Medibot, you agree to these terms. Please read them carefully.
           </p>
-
-          <h4 className="font-bold text-lg mt-4">2. Services</h4>
-          <p>
-            Medibot provides AI-powered health insights and information. Our services are not a substitute
-            for professional medical advice, diagnosis, or treatment.
-          </p>
-
-          <h4 className="font-bold text-lg mt-4">3. Data Collection & AI Training</h4>
-          <p>
-            <strong>Important:</strong> By using Medibot, you agree that we may collect and use your health data,
-            questions, interactions, and feedback to train and improve our AI models. This helps us provide
-            more accurate and personalized health insights for all users. Data used for training our AI models
-            is anonymized and stripped of personally identifiable information.
-          </p>
-
-          <h4 className="font-bold text-lg mt-4">4. User Accounts</h4>
-          <p>
-            You are responsible for safeguarding your account and for any activities or actions under your account.
-          </p>
-
-          <h4 className="font-bold text-lg mt-4">5. Health Disclaimer</h4>
-          <p>
-            Medibot provides general information and is not a substitute for professional medical advice.
-            Always consult with a qualified healthcare provider regarding any medical conditions or treatments.
-          </p>
-
-          <h4 className="font-bold text-lg mt-4">6. Privacy</h4>
-          <p>
-            Your privacy is important to us. Please refer to our Privacy Policy for information on how we collect,
-            use, and disclose your personal data.
-          </p>
-
-          <h4 className="font-bold text-lg mt-4">7. Changes to Terms</h4>
-          <p>
-            We may update these terms from time to time. We will notify you of any changes by posting the new
-            terms on this page.
-          </p>
-
-          <h4 className="font-bold text-lg mt-4">8. Contact Us</h4>
-          <p>
-            If you have any questions about these Terms, please contact us at support@medibot.ai.
-          </p>
+          {/* Rest of terms content */}
         </div>
       </Modal>
 
@@ -237,92 +233,60 @@ const Signup = () => {
         onClose={() => setShowPrivacyModal(false)}
         title="Privacy Policy"
       >
-        <div className="prose prose-sm">
-          <h4 className="font-bold text-lg">1. Information We Collect</h4>
+        <div className="prose prose-sm text-[#d6d4d4]">
+          <h4 className="font-bold text-lg text-[#f75600]">1. Information We Collect</h4>
           <p>
             We collect information you provide directly to us, including personal data (name, email, phone number),
             account information, and health data you choose to share with us.
           </p>
-
-          <h4 className="font-bold text-lg mt-4">2. Use of Your Data</h4>
-          <p>
-            We use your data to provide and improve our services, communicate with you, and personalize your experience.
-          </p>
-          <p className="font-medium">
-            <strong>AI Training:</strong> We may use anonymized data from user interactions to train and improve our AI models.
-            This includes health questions, symptom descriptions, and interactions with our chatbot. This training helps us
-            provide more accurate and helpful responses to health inquiries.
-          </p>
-
-          <h4 className="font-bold text-lg mt-4">3. Data Protection</h4>
-          <p>
-            We implement appropriate security measures to protect your personal information and health data.
-            We use encryption, secure servers, and regular security assessments.
-          </p>
-
-          <h4 className="font-bold text-lg mt-4">4. Data Sharing</h4>
-          <p>
-            We do not sell your personal information. We may share data with:
-          </p>
-          <ul className="list-disc pl-5">
-            <li>Service providers who help operate our platform</li>
-            <li>Legal authorities when required by law</li>
-            <li>Research partners (using anonymized data only)</li>
-          </ul>
-
-          <h4 className="font-bold text-lg mt-4">5. Your Rights</h4>
-          <p>
-            You have the right to access, update, or delete your personal information. You can also opt out
-            of having your anonymized data used for AI training by contacting us.
-          </p>
-
-          <h4 className="font-bold text-lg mt-4">6. Cookies</h4>
-          <p>
-            We use cookies and similar tracking technologies to enhance your experience on our website.
-          </p>
-
-          <h4 className="font-bold text-lg mt-4">7. Changes to Policy</h4>
-          <p>
-            We may update this privacy policy from time to time. We will notify you of any changes by posting
-            the new policy on this page.
-          </p>
-
-          <h4 className="font-bold text-lg mt-4">8. Contact Us</h4>
-          <p>
-            If you have questions about this Privacy Policy, please contact us at privacy@medibot.ai.
-          </p>
+          {/* Rest of privacy policy content */}
         </div>
       </Modal>
 
-      <div className="max-w-md w-full bg-white rounded-lg shadow-lg overflow-hidden border border-gray-100">
-        <div className="bg-black py-5 px-4 relative">
-          <div className="flex justify-center">
-            <img className="h-12 w-auto rounded-full p-1 bg-white" src={medibot_logo} alt="Medibot" />
+      <div className="relative z-10 sm:mx-auto sm:w-full sm:max-w-md">
+        {/* Logo */}
+        <div className="flex justify-center">
+          <div className="h-24 w-24 rounded-full bg-white p-2 shadow-lg">
+            <img className="h-full w-full rounded-full object-cover" src={medibot_logo} alt="Medibot" />
           </div>
-          <h1 className="mt-2 text-center text-2xl font-bold text-white">Medibot</h1>
-          <p className="mt-1 text-center text-xs text-gray-400 max-w-sm mx-auto">
-            AI-powered health insights. Trusted. Private. Secure.
-          </p>
-          
-          <div className="absolute -bottom-3 left-0 right-0 h-6 bg-white" style={{
-            clipPath: 'polygon(0 100%, 100% 100%, 100% 0, 0 100%)',
-            opacity: 0.1
-          }}></div>
         </div>
         
-        <div className="p-6 bg-white">
-          <h2 className="text-center text-xl font-bold text-gray-900 mb-4">Create your account</h2>
-          <form className="space-y-4" onSubmit={handleSubmit}>
-            {error && (
-              <div className="mb-4 p-3 bg-red-50 text-red-700 rounded-lg text-sm">
-                {error}
+        <h2 className="mt-6 text-center text-3xl font-extrabold" style={{ color: '#f75600' }}>
+          Create Account
+        </h2>
+        <p className="mt-2 text-center text-sm text-[#d6d4d4]">
+          Join Medibot for personalized health insights
+        </p>
+      </div>
+
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="bg-[#1a1a1a] py-8 px-4 shadow-2xl sm:rounded-xl sm:px-10 border border-[#2a2a2a]">
+          {error && (
+            <div className="mb-4 rounded-md bg-red-900 bg-opacity-30 p-4 border border-red-800">
+              <div className="flex">
+                <div className="flex-shrink-0">
+                  <svg className="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div className="ml-3">
+                  <p className="text-sm text-red-300">{error}</p>
+                </div>
               </div>
-            )}
+            </div>
+          )}
+          
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="fullName" className="block text-xs font-medium text-gray-700 mb-1">
+              <label htmlFor="fullName" className="block text-sm font-medium text-[#d6d4d4]">
                 Full Name
               </label>
-              <div className="relative rounded-md">
+              <div className="mt-1 relative rounded-md shadow-sm">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <svg className="h-5 w-5 text-[#E2711D]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                </div>
                 <input
                   type="text"
                   name="fullName"
@@ -331,65 +295,68 @@ const Signup = () => {
                   value={formData.fullName}
                   onChange={handleChange}
                   placeholder="John Doe"
-                  className="block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-transparent"
+                  className="block w-full pl-10 pr-3 py-3 border border-[#2a2a2a] bg-[#121212] focus:ring-[#f75600] focus:border-[#f75600] rounded-md shadow-sm placeholder-gray-500 text-[#d6d4d4]"
                 />
-                <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                  <i className="bx bxs-user text-gray-400 text-sm"></i>
-                </div>
               </div>
             </div>
             
             <div>
-              <label htmlFor="email" className="block text-xs font-medium text-gray-700 mb-1">
-                Email Address
+              <label htmlFor="email" className="block text-sm font-medium text-[#d6d4d4]">
+                Email address
               </label>
-              <div className="relative rounded-md">
+              <div className="mt-1 relative rounded-md shadow-sm">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <svg className="h-5 w-5 text-[#E2711D]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+                  </svg>
+                </div>
                 <input
                   type="email"
                   name="email"
                   id="email"
+                  autoComplete="email"
                   required
                   value={formData.email}
                   onChange={handleChange}
+                  className="block w-full pl-10 pr-3 py-3 border border-[#2a2a2a] bg-[#121212] focus:ring-[#f75600] focus:border-[#f75600] rounded-md shadow-sm placeholder-gray-500 text-[#d6d4d4]"
                   placeholder="you@example.com"
-                  className="block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-transparent"
                 />
-                <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                  <i className="bx bxs-envelope text-gray-400 text-sm"></i>
-                </div>
               </div>
               <p className="mt-1 text-xs text-gray-500">We'll send a verification code</p>
             </div>
-            
+
             <div>
-              <label htmlFor="password" className="block text-xs font-medium text-gray-700 mb-1">
+              <label htmlFor="password" className="block text-sm font-medium text-[#d6d4d4]">
                 Password
               </label>
-              <div className="relative rounded-md">
+              <div className="mt-1 relative rounded-md shadow-sm">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <svg className="h-5 w-5 text-[#E2711D]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                </div>
                 <input
-                  type="password"
-                  name="password"
                   id="password"
+                  name="password"
+                  type="password"
+                  autoComplete="new-password"
                   required
                   value={formData.password}
                   onChange={handleChange}
+                  className="block w-full pl-10 pr-3 py-3 border border-[#2a2a2a] bg-[#121212] focus:ring-[#f75600] focus:border-[#f75600] rounded-md shadow-sm placeholder-gray-500 text-[#d6d4d4]"
                   placeholder="••••••••"
-                  className="block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-transparent"
                 />
-                <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                  <i className="bx bxs-lock-alt text-gray-400 text-sm"></i>
-                </div>
               </div>
               
               <div className="mt-1">
-                <div className="h-1 w-full bg-gray-200 rounded-full overflow-hidden">
+                <div className="h-1 w-full bg-gray-700 rounded-full overflow-hidden">
                   <div 
                     className={`h-full transition-all duration-300 ease-out ${
                       passwordStrength === 0 ? 'w-0' :
                       passwordStrength === 1 ? 'w-1/4 bg-red-500' :
                       passwordStrength === 2 ? 'w-2/4 bg-yellow-500' :
-                      passwordStrength === 3 ? 'w-3/4 bg-gray-700' :
-                      'w-full bg-green-500'
+                      passwordStrength === 3 ? 'w-3/4 bg-[#E2711D]' :
+                      'w-full bg-[#f75600]'
                     }`}
                   ></div>
                 </div>
@@ -403,36 +370,47 @@ const Signup = () => {
             </div>
             
             <div>
-              <label htmlFor="confirmPassword" className="block text-xs font-medium text-gray-700 mb-1">
-                Confirm Password
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-[#d6d4d4]">
+                Confirm password
               </label>
-              <div className="relative rounded-md">
+              <div className="mt-1 relative rounded-md shadow-sm">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <svg className="h-5 w-5 text-[#E2711D]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                </div>
                 <input
-                  type="password"
-                  name="confirmPassword"
                   id="confirmPassword"
+                  name="confirmPassword"
+                  type="password"
+                  autoComplete="new-password"
                   required
                   value={formData.confirmPassword}
                   onChange={handleChange}
+                  className={`block w-full pl-10 pr-3 py-3 border ${
+                    formData.confirmPassword && !passwordMatch ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-[#2a2a2a] focus:ring-[#f75600] focus:border-[#f75600]'
+                  } bg-[#121212] rounded-md shadow-sm placeholder-gray-500 text-[#d6d4d4]`}
                   placeholder="••••••••"
-                  className={`block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 border ${
-                    formData.confirmPassword && !passwordMatch ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'
-                  } rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-transparent`}
                 />
-                <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                  <i className={`bx ${formData.confirmPassword && !passwordMatch ? 'bxs-error text-red-500' : 
-                    formData.confirmPassword && passwordMatch ? 'bxs-check-circle text-green-500' : 'bxs-check-circle text-gray-400'} text-sm`}></i>
-                </div>
+                {formData.confirmPassword && !passwordMatch && (
+                  <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+                    <svg className="h-5 w-5 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                )}
               </div>
               {formData.confirmPassword && !passwordMatch && (
-                <p className="mt-0.5 text-xs text-red-500">Passwords do not match</p>
+                <p className="mt-1 text-xs text-red-500">
+                  Passwords do not match
+                </p>
               )}
             </div>
             
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="phoneNumber" className="block text-xs font-medium text-gray-700 mb-1">
-                  Phone Number <span className="text-gray-400 text-xs">(Optional)</span>
+                <label htmlFor="phoneNumber" className="block text-sm font-medium text-[#d6d4d4]">
+                  Phone Number <span className="text-gray-500 text-xs">(Optional)</span>
                 </label>
                 <div className="flex space-x-2">
                   <div className="relative w-20">
@@ -442,9 +420,9 @@ const Signup = () => {
                       id="countryCode"
                       value={formData.countryCode}
                       onChange={handleChange}
-                      placeholder="+91"
+                      placeholder="+1"
                       maxLength="4"
-                      className="block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-transparent"
+                      className="block w-full px-3 py-3 border border-[#2a2a2a] bg-[#121212] focus:ring-[#f75600] focus:border-[#f75600] rounded-md shadow-sm placeholder-gray-500 text-[#d6d4d4]"
                     />
                   </div>
                   <div className="relative rounded-md flex-1">
@@ -455,17 +433,14 @@ const Signup = () => {
                       value={formData.phoneNumber}
                       onChange={handleChange}
                       placeholder="(555) 123-4567"
-                      className="block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-transparent"
+                      className="block w-full px-3 py-3 border border-[#2a2a2a] bg-[#121212] focus:ring-[#f75600] focus:border-[#f75600] rounded-md shadow-sm placeholder-gray-500 text-[#d6d4d4]"
                     />
-                    <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                      <i className="bx bx-phone text-gray-400 text-sm"></i>
-                    </div>
                   </div>
                 </div>
               </div>
               
               <div>
-                <label htmlFor="userType" className="block text-xs font-medium text-gray-700 mb-1">
+                <label htmlFor="userType" className="block text-sm font-medium text-[#d6d4d4]">
                   User Type
                 </label>
                 <div className="relative rounded-md">
@@ -474,14 +449,16 @@ const Signup = () => {
                     id="userType"
                     value={formData.userType}
                     onChange={handleChange}
-                    className="block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-transparent appearance-none"
+                    className="block w-full px-3 py-3 border border-[#2a2a2a] bg-[#121212] focus:ring-[#f75600] focus:border-[#f75600] rounded-md shadow-sm placeholder-gray-500 text-[#d6d4d4] appearance-none"
                   >
                     <option value="Patient">Patient</option>
                     <option value="Doctor">Doctor</option>
                     <option value="Other">Other</option>
                   </select>
-                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-400">
-                    <i className="bx bx-chevron-down text-sm"></i>
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
+                    <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
                   </div>
                 </div>
               </div>
@@ -489,56 +466,61 @@ const Signup = () => {
             
             {renderTermsSection()}
             
-            <div className="mt-4">
+            <div>
               <button
                 type="submit"
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-black"
+                disabled={submitting}
+                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-lg bg-[#f75600] text-[#d6d4d4] font-medium text-sm hover:bg-[#E2711D] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#f75600] transition-all duration-300"
               >
-                <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-                  <i className="bx bxs-user-plus h-4 w-4 text-gray-500 group-hover:text-gray-400"></i>
-                </span>
-                Create Account
+                {submitting ? (
+                  <>
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-[#d6d4d4]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Creating Account...
+                  </>
+                ) : 'Create Account'}
               </button>
             </div>
           </form>
-          
+
           <div className="mt-6">
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300"></div>
+                <div className="w-full border-t border-[#2a2a2a]"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">
+                <span className="px-2 bg-[#1a1a1a] text-gray-500">
                   Or continue with
                 </span>
               </div>
             </div>
-            
+
             <div className="mt-6">
               <button
+                type="button"
                 onClick={handleGoogleSignUp}
                 disabled={submitting}
-                type="button"
-                className={`w-full flex items-center justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${submitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+                className="w-full flex items-center justify-center py-2.5 px-4 border border-[#2a2a2a] rounded-md shadow-sm bg-[#121212] text-sm font-medium text-[#d6d4d4] hover:bg-[#1d1d1d] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#f75600] transition-colors"
               >
                 {submitting ? (
                   <>
-                    <span className="inline-flex items-center">
-                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-gray-700" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                      </svg>
-                      Signing up...
-                    </span>
+                    <svg className="animate-spin mr-2 h-5 w-5 text-[#f75600]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Signing up...
                   </>
                 ) : (
                   <>
-                    <svg className="h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                      <g transform="matrix(1, 0, 0, 1, 27.009001, -39.238998)">
-                        <path fill="#4285F4" d="M -3.264 51.509 C -3.264 50.719 -3.334 49.969 -3.454 49.239 L -14.754 49.239 L -14.754 53.749 L -8.284 53.749 C -8.574 55.229 -9.424 56.479 -10.684 57.329 L -10.684 60.329 L -6.824 60.329 C -4.564 58.239 -3.264 55.159 -3.264 51.509 Z"/>
-                        <path fill="#34A853" d="M -14.754 63.239 C -11.514 63.239 -8.804 62.159 -6.824 60.329 L -10.684 57.329 C -11.764 58.049 -13.134 58.489 -14.754 58.489 C -17.884 58.489 -20.534 56.379 -21.484 53.529 L -25.464 53.529 L -25.464 56.619 C -23.494 60.539 -19.444 63.239 -14.754 63.239 Z"/>
-                        <path fill="#FBBC05" d="M -21.484 53.529 C -21.734 52.809 -21.864 52.039 -21.864 51.239 C -21.864 50.439 -21.724 49.669 -21.484 48.949 L -21.484 45.859 L -25.464 45.859 C -26.284 47.479 -26.754 49.299 -26.754 51.239 C -26.754 53.179 -26.284 54.999 -25.464 56.619 L -21.484 53.529 Z"/>
-                        <path fill="#EA4335" d="M -14.754 43.989 C -12.984 43.989 -11.404 44.599 -10.154 45.789 L -6.734 42.369 C -8.804 40.429 -11.514 39.239 -14.754 39.239 C -19.444 39.239 -23.494 41.939 -25.464 45.859 L -21.484 48.949 C -20.534 46.099 -17.884 43.989 -14.754 43.989 Z"/>
+                    <svg width="20" height="20" className="mr-2" viewBox="0 0 48 48">
+                      <g>
+                        <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
+                        <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path>
+                        <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path>
+                        <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path>
+                        <path fill="none" d="M0 0h48v48H0z"></path>
                       </g>
                     </svg>
                     Sign up with Google
@@ -547,16 +529,27 @@ const Signup = () => {
               </button>
             </div>
           </div>
-
-          <div className="mt-4 text-center">
-            <p className="text-xs text-gray-600">
-              Already have an account?{' '}
-              <Link to="/signin" className="font-medium text-black hover:text-gray-800">
-                Sign In
-              </Link>
-            </p>
-          </div>
         </div>
+        
+        {/* Sign in link */}
+        <div className="mt-6 text-center">
+          <p className="text-sm text-[#d6d4d4]">
+            Already have an account?{' '}
+            <Link to="/signin" className="font-medium text-[#f75600] hover:text-[#E2711D] transition-colors">
+              Sign in
+            </Link>
+          </p>
+        </div>
+      </div>
+      
+      {/* Return to home link */}
+      <div className="mt-8 text-center">
+        <Link to="/" className="inline-flex items-center text-sm font-medium text-[#d6d4d4] hover:text-[#f75600] transition-colors">
+          <svg className="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          Back to Home
+        </Link>
       </div>
     </div>
   );

@@ -23,17 +23,9 @@ const LocationPermissionModal = ({ onResponse, darkMode = false }) => {
         <div className={`mb-6 p-4 rounded-md ${
           darkMode ? 'bg-gray-700' : 'bg-blue-50'
         }`}>
-          <h4 className={`font-medium mb-2 ${
-            darkMode ? 'text-gray-200' : 'text-blue-800'
-          }`}>How we use and protect your location data:</h4>
-          <ul className={`list-disc pl-5 space-y-1 text-sm ${
-            darkMode ? 'text-gray-300' : 'text-gray-700'
-          }`}>
-            <li>Your location is only used to find nearby facilities</li>
-            <li>We don't store your precise location in our servers</li>
-            <li>Your location is never shared with third parties</li>
-            <li>You can revoke this permission at any time in settings</li>
-          </ul>
+          <p className={`text-sm ${darkMode ? 'text-gray-300' : 'text-blue-800'}`}>
+            This helps you find the nearest healthcare providers. Your location data is only used to display nearby options and is never stored permanently.
+          </p>
         </div>
         
         <div className="flex justify-end space-x-3">

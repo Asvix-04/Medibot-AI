@@ -22,7 +22,7 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-18" style={{ height: 72 }}>
         <Link to="/" className="flex items-center">
           <img src={medibot_logo} alt="Medibot" className="h-10 w-10 rounded-full p-1 bg-white" />
-          <span className="ml-2 text-2xl font-bold text-[#f75600]">Medibot</span>
+          <span className="ml-2 text-2xl font-bold text-[#6366f1]">Medibot</span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -54,7 +54,7 @@ const Header = () => {
           </Link>
           <Link 
             to="/signup" 
-            className="px-4 py-2 rounded-md text-[#d6d4d4] bg-[#f75600] hover:bg-[#E2711D] transition-colors"
+            className="px-4 py-2 rounded-md text-[#d6d4d4] bg-[#6366f1] hover:bg-[#4f46e5] transition-colors"
           >
             Sign Up
           </Link>

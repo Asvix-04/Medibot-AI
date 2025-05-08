@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
-import { auth, googleProvider, db } from '../firebase';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { auth, googleProvider } from '../firebase';
 import medibot_logo from '../assets/medibot_logo.jpg';
 
 const Signin = () => {
@@ -15,14 +14,20 @@ const Signin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
-    setIsLoading(true);
-
+    
     try {
+      setIsLoading(true);
+      setError('');
+      
+      // Sign in with email and password
       await signInWithEmailAndPassword(auth, email, password);
-      navigate('/health-dashboard');
-    } catch (err) {
-      setError('Invalid email or password. Please try again.');
+      
+      // Navigate to chat page instead of dashboard
+      navigate('/chat');
+    } catch (error) {
+      console.error("Error signing in:", error);
+      // Handle error cases
+      setError("Failed to sign in. Please check your credentials.");
     } finally {
       setIsLoading(false);
     }
@@ -32,37 +37,15 @@ const Signin = () => {
     try {
       setIsGoogleLoading(true);
       setError('');
-      const result = await signInWithPopup(auth, googleProvider);
-      const user = result.user;
-      const userDoc = await getDoc(doc(db, "users", user.uid));
-      if (!userDoc.exists()) {
-        await setDoc(doc(db, "users", user.uid), {
-          fullName: user.displayName || '',
-          email: user.email,
-          photoURL: user.photoURL,
-          phoneNumber: user.phoneNumber || '',
-          emailVerified: user.emailVerified,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          lastLogin: new Date(),
-          authProvider: 'google',
-          userType: 'Patient'
-        });
-      } else {
-        await setDoc(doc(db, "users", user.uid), {
-          lastLogin: new Date(),
-          updatedAt: new Date()
-        }, { merge: true });
-      }
-      navigate('/health-dashboard');
+      
+      // Sign in with Google - no need to store result if unused
+      await signInWithPopup(auth, googleProvider);
+      
+      // Navigate to chat page instead of dashboard
+      navigate('/chat');
     } catch (error) {
-      if (error.code === 'auth/popup-closed-by-user') {
-        setError('Sign-in was canceled.');
-      } else if (error.code === 'auth/account-exists-with-different-credential') {
-        setError('An account already exists with this email. Please try another sign-in method.');
-      } else {
-        setError('An error occurred during sign-in. Please try again.');
-      }
+      // Handle errors
+      setError("Failed to sign in with Google.");
     } finally {
       setIsGoogleLoading(false);
     }
@@ -73,9 +56,9 @@ const Signin = () => {
       {/* Background pattern */}
       <div className="fixed inset-0 z-0 opacity-10 pointer-events-none">
         <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
-          <circle cx="400" cy="400" r="350" stroke="#f75600" strokeWidth="2" fill="none" />
-          <circle cx="400" cy="400" r="250" stroke="#f75600" strokeWidth="2" fill="none" />
-          <circle cx="400" cy="400" r="150" stroke="#f75600" strokeWidth="2" fill="none" />
+          <circle cx="400" cy="400" r="350" stroke="#6366f1" strokeWidth="2" fill="none" />
+          <circle cx="400" cy="400" r="250" stroke="#6366f1" strokeWidth="2" fill="none" />
+          <circle cx="400" cy="400" r="150" stroke="#6366f1" strokeWidth="2" fill="none" />
         </svg>
       </div>
 
@@ -86,7 +69,7 @@ const Signin = () => {
             <img className="h-full w-full rounded-full object-cover" src={medibot_logo} alt="Medibot" />
           </div>
         </div>
-        <h2 className="mt-6 text-center text-3xl font-extrabold" style={{ color: '#f75600' }}>
+        <h2 className="mt-6 text-center text-3xl font-extrabold" style={{ color: '#6366f1' }}>
           Welcome Back
         </h2>
         <p className="mt-2 text-center text-sm" style={{ color: '#d6d4d4' }}>
@@ -118,7 +101,7 @@ const Signin = () => {
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <svg className="h-5 w-5" style={{ color: '#E2711D' }} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="h-5 w-5" style={{ color: '#818cf8' }} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
                   </svg>
                 </div>
@@ -130,7 +113,7 @@ const Signin = () => {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="block w-full pl-10 pr-3 py-3 border border-[#2a2a2a] bg-[#121212] rounded-md shadow-sm placeholder-gray-500 text-[#d6d4d4] focus:ring-[#f75600] focus:border-[#f75600]"
+                  className="block w-full pl-10 pr-3 py-3 border border-[#2a2a2a] bg-[#121212] rounded-md shadow-sm placeholder-gray-500 text-[#d6d4d4] focus:ring-[#6366f1] focus:border-[#6366f1]"
                   placeholder="you@example.com"
                 />
               </div>
@@ -139,13 +122,13 @@ const Signin = () => {
             <div>
               <label htmlFor="password" className="block text-sm font-medium flex justify-between" style={{ color: '#d6d4d4' }}>
                 <span>Password</span>
-                <Link to="/forgot-password" className="text-[#f75600] hover:text-[#E2711D] font-medium text-sm transition-colors duration-200">
+                <Link to="/forgot-password" className="text-[#6366f1] hover:text-[#4f46e5] font-medium text-sm transition-colors duration-200">
                   Forgot your password?
                 </Link>
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <svg className="h-5 w-5" style={{ color: '#E2711D' }} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="h-5 w-5" style={{ color: '#818cf8' }} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                   </svg>
                 </div>
@@ -157,7 +140,7 @@ const Signin = () => {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="block w-full pl-10 pr-3 py-3 border border-[#2a2a2a] bg-[#121212] rounded-md shadow-sm placeholder-gray-500 text-[#d6d4d4] focus:ring-[#f75600] focus:border-[#f75600]"
+                  className="block w-full pl-10 pr-3 py-3 border border-[#2a2a2a] bg-[#121212] rounded-md shadow-sm placeholder-gray-500 text-[#d6d4d4] focus:ring-[#6366f1] focus:border-[#6366f1]"
                   placeholder="••••••••"
                 />
               </div>
@@ -169,7 +152,7 @@ const Signin = () => {
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
-                  className="h-4 w-4 text-[#f75600] focus:ring-[#f75600] border-[#2a2a2a] rounded"
+                  className="h-4 w-4 text-[#6366f1] focus:ring-[#6366f1] border-[#2a2a2a] rounded"
                 />
                 <label htmlFor="remember-me" className="ml-2 block text-sm" style={{ color: '#d6d4d4' }}>
                   Remember me
@@ -181,7 +164,7 @@ const Signin = () => {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-lg bg-[#f75600] text-[#d6d4d4] font-medium text-sm hover:bg-[#E2711D] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#f75600] transition-all duration-300"
+                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-lg bg-[#6366f1] text-[#d6d4d4] font-medium text-sm hover:bg-[#4f46e5] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#6366f1] transition-all duration-300"
               >
                 {isLoading ? (
                   <>
@@ -213,11 +196,11 @@ const Signin = () => {
                 type="button"
                 onClick={handleGoogleSignIn}
                 disabled={isGoogleLoading}
-                className="w-full flex items-center justify-center py-2.5 px-4 border border-[#2a2a2a] rounded-md shadow-sm bg-[#121212] text-sm font-medium text-[#d6d4d4] hover:bg-[#232323] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#f75600] transition-colors"
+                className="w-full flex items-center justify-center py-2.5 px-4 border border-[#2a2a2a] rounded-md shadow-sm bg-[#121212] text-sm font-medium text-[#d6d4d4] hover:bg-[#232323] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#6366f1] transition-colors"
               >
                 {isGoogleLoading ? (
                   <>
-                    <svg className="animate-spin mr-2 h-5 w-5 text-[#f75600]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <svg className="animate-spin mr-2 h-5 w-5 text-[#6366f1]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
@@ -246,7 +229,7 @@ const Signin = () => {
         <div className="mt-6 text-center">
           <p className="text-sm" style={{ color: '#d6d4d4' }}>
             Don't have an account?{' '}
-            <Link to="/signup" className="font-medium text-[#f75600] hover:text-[#E2711D] transition-colors">
+            <Link to="/signup" className="font-medium text-[#6366f1] hover:text-[#4f46e5] transition-colors">
               Sign up for free
             </Link>
           </p>
@@ -255,7 +238,7 @@ const Signin = () => {
 
       {/* Return to home link */}
       <div className="mt-8 text-center">
-        <Link to="/" className="inline-flex items-center text-sm font-medium text-[#d6d4d4] hover:text-[#f75600] transition-colors">
+        <Link to="/" className="inline-flex items-center text-sm font-medium text-[#d6d4d4] hover:text-[#6366f1] transition-colors">
           <svg className="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>

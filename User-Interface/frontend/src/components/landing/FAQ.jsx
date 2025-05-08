@@ -37,11 +37,11 @@ const FAQ = () => {
   return (
     <section id="faq" className="py-20" style={{ background: '#121212' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center">
-          <h2 className="text-3xl font-extrabold sm:text-4xl" style={{ color: '#f75600' }}>
+        <div className="text-left">
+          <h2 className="text-3xl font-extrabold sm:text-4xl" style={{ color: '#6366f1' }}>
             Frequently Asked Questions
           </h2>
-          <p className="mt-4 max-w-2xl text-xl mx-auto" style={{ color: '#d6d4d4' }}>
+          <p className="mt-4 max-w-2xl text-xl" style={{ color: '#d6d4d4' }}>
             Everything you need to know about Medibot.
           </p>
         </div>
@@ -52,7 +52,7 @@ const FAQ = () => {
               <button
                 className="flex justify-between items-center w-full px-6 py-4 text-left rounded-lg focus:outline-none transition-colors duration-200"
                 style={{ 
-                  backgroundColor: openIndex === index ? '#f75600' : '#1a1a1a',
+                  backgroundColor: openIndex === index ? '#6366f1' : '#1a1a1a',
                   color: openIndex === index ? '#d6d4d4' : '#d6d4d4',
                 }}
                 onClick={() => toggleFaq(index)}
@@ -92,9 +92,9 @@ const FAQ = () => {
             <a 
               href="#contact" 
               className="font-medium hover:underline" 
-              style={{ color: '#E2711D' }}
-              onMouseOver={e => e.target.style.color = '#f75600'}
-              onMouseOut={e => e.target.style.color = '#E2711D'}
+              style={{ color: '#818cf8' }}
+              onMouseOver={e => e.target.style.color = '#6366f1'}
+              onMouseOut={e => e.target.style.color = '#818cf8'}
             >
               Contact our support team
             </a>

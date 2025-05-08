@@ -106,7 +106,7 @@ const ProfileDropdown = ({ darkMode, toggleDarkMode }) => {
 
             <Link
               to="/settings"
-              className="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+              className="w-full text-left block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 dark:hover:bg-gray-700"
             >
               <div className="flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">

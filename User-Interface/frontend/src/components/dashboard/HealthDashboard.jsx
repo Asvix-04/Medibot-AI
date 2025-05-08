@@ -247,15 +247,15 @@ const HealthDashboard = ({ darkMode = false }) => {
       {
         label: 'Systolic',
         data: healthMetrics.bloodPressure.map(item => item.systolic),
-        borderColor: 'rgba(147, 51, 234, 0.8)',
-        backgroundColor: 'rgba(147, 51, 234, 0.2)',
+        borderColor: 'rgba(247, 86, 0, 0.8)',
+        backgroundColor: 'rgba(247, 86, 0, 0.2)',
         tension: 0.4,
       },
       {
         label: 'Diastolic',
         data: healthMetrics.bloodPressure.map(item => item.diastolic),
-        borderColor: 'rgba(79, 70, 229, 0.8)',
-        backgroundColor: 'rgba(79, 70, 229, 0.2)',
+        borderColor: 'rgba(226, 113, 29, 0.8)',
+        backgroundColor: 'rgba(226, 113, 29, 0.2)',
         tension: 0.4,
       }
     ]
@@ -406,8 +406,8 @@ const HealthDashboard = ({ darkMode = false }) => {
       <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-100 p-6">
         {/* Quick Summary Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <div className="bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl p-5 text-white shadow-lg">
-            <div className="flex items-center justify-between mb-2">
+          <div className="bg-gradient-to-br from-[#f75600] to-[#E2711D] rounded-2xl p-5 text-white shadow-lg">
+            <div className="flex items-start mb-2">
               <h3 className="text-lg font-medium">Blood Pressure</h3>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
@@ -425,7 +425,7 @@ const HealthDashboard = ({ darkMode = false }) => {
           </div>
           
           <div className="bg-gradient-to-br from-red-500 to-pink-600 rounded-2xl p-5 text-white shadow-lg">
-            <div className="flex items-center justify-between mb-2">
+            <div className="flex items-start mb-2">
               <h3 className="text-lg font-medium">Heart Rate</h3>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
@@ -442,7 +442,7 @@ const HealthDashboard = ({ darkMode = false }) => {
           </div>
           
           <div className="bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl p-5 text-white shadow-lg">
-            <div className="flex items-center justify-between mb-2">
+            <div className="flex items-start mb-2">
               <h3 className="text-lg font-medium">Blood Glucose</h3>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
@@ -459,7 +459,7 @@ const HealthDashboard = ({ darkMode = false }) => {
           </div>
           
           <div className="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl p-5 text-white shadow-lg">
-            <div className="flex items-center justify-between mb-2">
+            <div className="flex items-start mb-2">
               <h3 className="text-lg font-medium">Weight</h3>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
@@ -479,7 +479,7 @@ const HealthDashboard = ({ darkMode = false }) => {
         {/* Medication Reminders */}
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 mb-8">
           <div className="border-b border-gray-200">
-            <h2 className="text-lg font-medium text-white px-6 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-t-lg flex items-center">
+            <h2 className="text-lg font-medium text-white px-6 py-4 bg-gradient-to-r from-[#f75600] to-[#E2711D] rounded-t-lg flex items-center">
               {/* Icon and title */}
             </h2>
           </div>

@@ -6,6 +6,7 @@ import ProfileDropdown from '../ui/ProfileDropdown';
 import Logo from '../ui/Logo';
 import { auth } from '../../firebase';
 import { Link } from 'react-router-dom';
+import FeedbackForm from '../feedback/FeedbackForm';
 
 const ChatLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -16,6 +17,7 @@ const ChatLayout = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [isTyping, setIsTyping] = useState(false); // Add this line
+  const [showFeedback, setShowFeedback] = useState(false); // Add this line
 
   // API base URL
   const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
@@ -283,9 +285,9 @@ const ChatLayout = () => {
       />
 
       {/* Main content */}
-      <div className="flex flex-col flex-1 h-full transition-all duration-200 dark:bg-gray-900">
+      <div className="flex flex-col flex-1 h-full transition-all duration-200 dark:bg-[#121212]">
         {/* Header */}
-        <header className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-purple-600 via-sky-500 to-indigo-600 dark:from-purple-700 dark:via-sky-700 dark:to-indigo-800 text-white shadow-md">
+        <header className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-[#f75600] to-[#E2711D] text-white shadow-md">
           <div className="flex items-center space-x-3">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -320,12 +322,21 @@ const ChatLayout = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
             </Link>
+            <button 
+              onClick={() => setShowFeedback(true)}
+              className="p-2 text-white hover:bg-white/20 rounded-full transition-colors"
+              aria-label="Give Feedback"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+              </svg>
+            </button>
             <ProfileDropdown darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
           </div>
         </header>
 
         {/* Chat area */}
-        <main className="flex-1 overflow-y-auto p-4">
+        <main className="flex-1 overflow-y-auto p-4 dark:bg-[#121212]">
           <ChatArea 
             messages={messages} 
             darkMode={darkMode} 
@@ -335,9 +346,10 @@ const ChatLayout = () => {
         </main>
 
         {/* Chat input */}
-        <div className="p-4 border-t border-gray-200 dark:border-gray-700">
+        <div className="p-4 border-t border-gray-200 dark:border-[#2a2a2a] dark:bg-[#1a1a1a]">
           <ChatInput onSendMessage={handleSendMessage} darkMode={darkMode} />
         </div>
+        <FeedbackForm isOpen={showFeedback} onClose={() => setShowFeedback(false)} />
       </div>
     </div>
   );

@@ -16,7 +16,6 @@ const ChatArea = ({ messages, darkMode, isTyping = false, onSendMessage }) => {
   }, [messages, isTyping]);
   
   const handleSuggestionClick = (suggestion) => {
-    // When a suggestion is clicked, send it as a new message
     if (onSendMessage) {
       onSendMessage(suggestion);
     }
@@ -67,33 +66,37 @@ const ChatArea = ({ messages, darkMode, isTyping = false, onSendMessage }) => {
     <div className="flex flex-col space-y-4 max-w-3xl mx-auto">
       {messages.length === 0 ? (
         <div className="flex flex-col items-center justify-center h-full py-12">
-          <div className="p-4 rounded-full bg-gradient-to-r from-purple-100 via-sky-100 to-indigo-100 dark:from-purple-900/30 dark:via-sky-900/30 dark:to-indigo-900/30">
+          {/* Updated welcome screen gradient to match theme */}
+          <div className="p-4 rounded-full bg-gradient-to-r from-[#1a1a1a] to-[#232323] border border-[#2a2a2a]">
             <img 
               src={medibot_logo}
               alt="Medibot Logo" 
-              className="w-16 h-16 rounded-full border-2 border-white shadow-lg"
+              className="w-16 h-16 rounded-full border-2 border-[#2a2a2a] shadow-lg"
             />
           </div>
-          <h1 className="mt-6 text-2xl font-bold text-gray-800 dark:text-white">
+          {/* Updated heading text color */}
+          <h1 className="mt-6 text-2xl font-bold text-[#d6d4d4]">
             How can I help you today?
           </h1>
-          <p className="mt-2 text-center text-gray-600 dark:text-gray-400 max-w-md">
+          {/* Updated paragraph text color */}
+          <p className="mt-2 text-center text-[#a8a8a8] max-w-md">
             I'm your medical assistant. Ask me about symptoms, health information, or medical advice.
           </p>
           <div className="mt-6 grid grid-cols-2 gap-3">
+            {/* Updated suggestion boxes */}
             <div 
-              className="p-3 rounded-lg border border-gray-200 bg-white dark:bg-gray-800 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow cursor-pointer hover:border-purple-300 dark:hover:border-purple-700"
+              className="p-3 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] shadow-sm hover:shadow-md transition-shadow cursor-pointer hover:border-[#f75600]"
               onClick={() => handleSuggestionClick("I have a headache and feeling tired. What could it be?")}
             >
-              <p className="text-sm font-medium text-purple-600 dark:text-purple-400">🩺 Symptom Checker</p>
-              <p className="text-xs text-gray-500">Describe your symptoms</p>
+              <p className="text-sm font-medium text-[#f75600]">🩺 Symptom Checker</p>
+              <p className="text-xs text-[#a8a8a8]">Describe your symptoms</p>
             </div>
             <div 
-              className="p-3 rounded-lg border border-gray-200 bg-white dark:bg-gray-800 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow cursor-pointer hover:border-purple-300 dark:hover:border-purple-700"
+              className="p-3 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] shadow-sm hover:shadow-md transition-shadow cursor-pointer hover:border-[#f75600]"
               onClick={() => handleSuggestionClick("Tell me about common blood pressure medications")}
             >
-              <p className="text-sm font-medium text-emerald-600 dark:text-emerald-400">💊 Medication Info</p>
-              <p className="text-xs text-gray-500">Learn about your prescriptions</p>
+              <p className="text-sm font-medium text-[#f75600]">💊 Medication Info</p>
+              <p className="text-xs text-[#a8a8a8]">Learn about your prescriptions</p>
             </div>
           </div>
         </div>

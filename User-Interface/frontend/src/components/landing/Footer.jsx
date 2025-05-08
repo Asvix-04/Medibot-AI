@@ -95,7 +95,7 @@ const Footer = () => {
                 src={medibot_logo}
                 alt="Medibot"
               />
-              <h2 className="text-2xl font-bold" style={{ color: '#f75600' }}>Medibot</h2>
+              <h2 className="text-2xl font-bold" style={{ color: '#6366f1' }}>Medibot</h2>
             </div>
             <p className="mt-4 text-sm max-w-xs" style={{ color: '#d6d4d4' }}>
               AI-powered health management platform that helps you track medications, monitor health metrics, 
@@ -111,7 +111,7 @@ const Footer = () => {
                   style={{ color: '#d6d4d4' }}
                   className="hover:text-white transition-colors"
                   aria-label={link.name}
-                  onMouseOver={e => {e.currentTarget.style.color = '#f75600'}}
+                  onMouseOver={e => {e.currentTarget.style.color = '#6366f1'}}
                   onMouseOut={e => {e.currentTarget.style.color = '#d6d4d4'}}
                 >
                   {link.icon}
@@ -123,7 +123,7 @@ const Footer = () => {
           {/* Links */}
           {footerLinks.map((category) => (
             <div key={category.title}>
-              <h3 style={{ color: '#E2711D' }} className="text-sm font-semibold tracking-wider uppercase">
+              <h3 style={{ color: '#818cf8' }} className="text-sm font-semibold tracking-wider uppercase">
                 {category.title}
               </h3>
               <ul className="mt-4 space-y-3">
@@ -133,7 +133,7 @@ const Footer = () => {
                       to={link.url} 
                       style={{ color: '#d6d4d4' }}
                       className="text-sm hover:text-white transition-colors"
-                      onMouseOver={e => {e.currentTarget.style.color = '#f75600'}}
+                      onMouseOver={e => {e.currentTarget.style.color = '#6366f1'}}
                       onMouseOut={e => {e.currentTarget.style.color = '#d6d4d4'}}
                     >
                       {link.name}
@@ -154,7 +154,7 @@ const Footer = () => {
               href="/privacy" 
               className="text-xs hover:text-white transition-colors"
               style={{ color: '#d6d4d4', opacity: 0.7 }}
-              onMouseOver={e => {e.currentTarget.style.color = '#f75600'; e.currentTarget.style.opacity = 1}}
+              onMouseOver={e => {e.currentTarget.style.color = '#6366f1'; e.currentTarget.style.opacity = 1}}
               onMouseOut={e => {e.currentTarget.style.color = '#d6d4d4'; e.currentTarget.style.opacity = 0.7}}
             >
               Privacy Policy
@@ -163,7 +163,7 @@ const Footer = () => {
               href="/terms" 
               className="text-xs hover:text-white transition-colors"
               style={{ color: '#d6d4d4', opacity: 0.7 }}
-              onMouseOver={e => {e.currentTarget.style.color = '#f75600'; e.currentTarget.style.opacity = 1}}
+              onMouseOver={e => {e.currentTarget.style.color = '#6366f1'; e.currentTarget.style.opacity = 1}}
               onMouseOut={e => {e.currentTarget.style.color = '#d6d4d4'; e.currentTarget.style.opacity = 0.7}}
             >
               Terms of Service
@@ -172,7 +172,7 @@ const Footer = () => {
               href="/cookies" 
               className="text-xs hover:text-white transition-colors"
               style={{ color: '#d6d4d4', opacity: 0.7 }}
-              onMouseOver={e => {e.currentTarget.style.color = '#f75600'; e.currentTarget.style.opacity = 1}}
+              onMouseOver={e => {e.currentTarget.style.color = '#6366f1'; e.currentTarget.style.opacity = 1}}
               onMouseOut={e => {e.currentTarget.style.color = '#d6d4d4'; e.currentTarget.style.opacity = 0.7}}
             >
               Cookie Policy

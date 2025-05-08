@@ -15,11 +15,7 @@ const ChatInput = ({ onSendMessage, darkMode }) => {
     <form onSubmit={handleSubmit} className="flex items-end">
       <div className="relative flex-1 mr-2">
         <textarea
-          className={`w-full p-3 pr-12 rounded-lg resize-none border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all ${
-            darkMode 
-              ? 'bg-gray-800 text-white border-gray-700' 
-              : 'bg-white text-gray-900'
-          }`}
+          className="w-full p-3 pr-12 rounded-lg resize-none border border-[#2a2a2a] bg-[#121212] text-[#d6d4d4] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#f75600] focus:border-[#f75600] transition-all"
           placeholder="Type your message here..."
           rows={1}
           value={message}
@@ -33,7 +29,7 @@ const ChatInput = ({ onSendMessage, darkMode }) => {
         />
         <button
           type="button"
-          className="absolute right-3 bottom-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+          className="absolute right-3 bottom-3 text-gray-500 hover:text-[#f75600] transition-colors"
           onClick={() => setMessage('')}
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -46,8 +42,8 @@ const ChatInput = ({ onSendMessage, darkMode }) => {
         disabled={!message.trim()}
         className={`p-3 rounded-lg ${
           message.trim()
-            ? 'bg-gradient-to-r from-sky-500 to-indigo-600 text-white hover:from-sky-600 hover:to-indigo-700 dark:from-sky-600 dark:to-indigo-700 dark:hover:from-sky-700 dark:hover:to-indigo-800'
-            : 'bg-gray-300 text-gray-500 cursor-not-allowed dark:bg-gray-700 dark:text-gray-400'
+            ? 'bg-gradient-to-r from-[#f75600] to-[#E2711D] text-[#d6d4d4] hover:shadow-md transition-all cursor-pointer'
+            : 'bg-[#1a1a1a] text-gray-500 border border-[#2a2a2a] cursor-not-allowed'
         }`}
       >
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">

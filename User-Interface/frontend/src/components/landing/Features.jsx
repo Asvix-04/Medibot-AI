@@ -62,7 +62,7 @@ const Features = () => {
     <section id="features" className="py-20" style={{ background: '#121212' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <h2 className="text-3xl font-extrabold sm:text-4xl" style={{ color: '#f75600' }}>
+          <h2 className="text-3xl font-extrabold sm:text-4xl" style={{ color: '#6366f1' }}>
             Everything you need to manage your health
           </h2>
           <p className="mt-4 max-w-2xl text-xl mx-auto" style={{ color: '#d6d4d4' }}>
@@ -82,17 +82,17 @@ const Features = () => {
               }}
               onMouseOver={e => {
                 e.currentTarget.style.boxShadow = '0 10px 15px rgba(0, 0, 0, 0.2)';
-                e.currentTarget.style.borderColor = '#f75600';
+                e.currentTarget.style.borderColor = '#6366f1';
               }}
               onMouseOut={e => {
                 e.currentTarget.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
                 e.currentTarget.style.borderColor = '#2a2a2a';
               }}
             >
-              <div className="mb-4" style={{ color: '#f75600' }}>
+              <div className="mb-4" style={{ color: '#6366f1' }}>
                 {feature.icon}
               </div>
-              <h3 className="text-xl font-bold mb-2" style={{ color: '#E2711D' }}>{feature.title}</h3>
+              <h3 className="text-xl font-bold mb-2" style={{ color: '#818cf8' }}>{feature.title}</h3>
               <p style={{ color: '#d6d4d4' }}>{feature.description}</p>
             </div>
           ))}

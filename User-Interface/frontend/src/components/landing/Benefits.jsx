@@ -44,7 +44,7 @@ const Benefits = () => {
     <section className="py-20 relative" style={{ background: 'linear-gradient(135deg, #121212 0%, #1a1a1a 100%)' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <h2 className="text-3xl font-extrabold sm:text-4xl" style={{ color: '#f75600' }}>
+          <h2 className="text-3xl font-extrabold sm:text-4xl" style={{ color: '#6366f1' }}>
             Benefits of Using Medibot
           </h2>
           <p className="mt-4 max-w-2xl text-xl mx-auto" style={{ color: '#d6d4d4' }}>
@@ -56,12 +56,12 @@ const Benefits = () => {
           {benefits.map((benefit, index) => (
             <div key={index} className="text-center">
               <div className="inline-flex items-center justify-center h-20 w-20 rounded-full mb-6" 
-                   style={{ backgroundColor: 'rgba(247, 86, 0, 0.15)' }}>
-                <div style={{ color: '#f75600' }}>
+                   style={{ backgroundColor: 'rgba(99, 102, 241, 0.15)' }}>
+                <div style={{ color: '#6366f1' }}>
                   {benefit.icon}
                 </div>
               </div>
-              <h3 className="text-xl font-bold mb-3" style={{ color: '#E2711D' }}>{benefit.title}</h3>
+              <h3 className="text-xl font-bold mb-3" style={{ color: '#818cf8' }}>{benefit.title}</h3>
               <p style={{ color: '#d6d4d4' }}>{benefit.description}</p>
             </div>
           ))}

@@ -18,7 +18,7 @@ const Sidebar = ({
         isOpen ? 'translate-x-0' : '-translate-x-full absolute'
       } dark:bg-gray-800 dark:border-gray-700 shadow-lg`}
     >
-      <div className="bg-gradient-to-r from-purple-600 via-sky-500 to-indigo-600 dark:from-purple-700 dark:via-sky-700 dark:to-indigo-800 p-4 text-white flex items-center">
+      <div className="bg-gradient-to-r from-[#6366f1] to-[#818cf8] p-4 text-white flex items-center">
         <div className="text-lg font-bold">Medibot Chat</div>
       </div>
       <SidebarHeader onNewChat={onNewChat} darkMode={darkMode} />

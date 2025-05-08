@@ -14,10 +14,10 @@ const Integration = () => {
     <section className="py-20 relative overflow-hidden" style={{ background: '#121212' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center">
-          <h2 className="text-3xl font-extrabold sm:text-4xl" style={{ color: '#f75600' }}>
+          <h2 className="text-3xl font-extrabold sm:text-4xl text-left" style={{ color: '#6366f1' }}>
             Seamless Integrations
           </h2>
-          <p className="mt-4 max-w-2xl text-xl mx-auto" style={{ color: '#d6d4d4' }}>
+          <p className="mt-4 max-w-2xl text-xl mx-auto text-left" style={{ color: '#d6d4d4' }}>
             Medibot works with your existing health technology ecosystem.
           </p>
         </div>
@@ -28,9 +28,9 @@ const Integration = () => {
               {integrations.map((integration, index) => (
                 <div key={index} className="flex items-center space-x-4" data-aos="fade-up" data-aos-delay={integration.delay}>
                   <div className="flex-shrink-0 h-12 w-12 rounded-full bg-opacity-10 flex items-center justify-center" 
-                       style={{ backgroundColor: 'rgba(247, 86, 0, 0.15)' }}>
+                       style={{ backgroundColor: 'rgba(99, 102, 241, 0.15)' }}>
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                         style={{ color: '#f75600' }}>
+                         style={{ color: '#6366f1' }}>
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
@@ -45,9 +45,9 @@ const Integration = () => {
               </p>
               <button 
                 className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md transition-colors duration-200"
-                style={{ backgroundColor: '#f75600', color: '#d6d4d4' }}
-                onMouseOver={e => {e.currentTarget.style.backgroundColor = '#E2711D'}}
-                onMouseOut={e => {e.currentTarget.style.backgroundColor = '#f75600'}}
+                style={{ backgroundColor: '#6366f1', color: '#d6d4d4' }}
+                onMouseOver={e => {e.currentTarget.style.backgroundColor = '#4f46e5'}}
+                onMouseOut={e => {e.currentTarget.style.backgroundColor = '#6366f1'}}
               >
                 Learn about integrations
                 <svg xmlns="http://www.w3.org/2000/svg" className="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -64,7 +64,7 @@ const Integration = () => {
         <svg width="404" height="404" fill="none" viewBox="0 0 404 404">
           <defs>
             <pattern id="integration-pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-              <rect x="0" y="0" width="4" height="4" fill="currentColor" className="opacity-10" style={{ color: '#f75600' }} />
+              <rect x="0" y="0" width="4" height="4" fill="currentColor" className="opacity-10" style={{ color: '#6366f1' }} />
             </pattern>
           </defs>
           <rect width="404" height="404" fill="url(#integration-pattern)" />

@@ -58,11 +58,11 @@ const About = () => {
           {aboutFeatures.map((feature, index) => (
             <div key={index} className="flex flex-col md:flex-row items-center text-center md:text-left">
               <div className="flex-shrink-0 flex items-center justify-center h-24 w-24 rounded-full mb-6 md:mb-0 md:mr-6" 
-                   style={{ background: 'rgba(247, 86, 0, 0.15)', color: '#f75600' }}>
+                   style={{ background: 'rgba(99, 102, 241, 0.15)', color: '#6366f1' }}>
                 {feature.icon}
               </div>
               <div>
-                <h3 className="text-2xl font-bold mb-3" style={{ color: '#f75600' }}>
+                <h3 className="text-2xl font-bold mb-3" style={{ color: '#6366f1' }}>
                   {feature.title}
                 </h3>
                 <p className="text-lg" style={{ color: '#d6d4d4' }}>
@@ -82,11 +82,11 @@ const About = () => {
               href="#features" 
               className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md transition-colors duration-300"
               style={{ 
-                backgroundColor: '#f75600',
+                backgroundColor: '#6366f1',
                 color: '#d6d4d4',
               }}
-              onMouseOver={e => {e.currentTarget.style.backgroundColor = '#E2711D'}}
-              onMouseOut={e => {e.currentTarget.style.backgroundColor = '#f75600'}}
+              onMouseOver={e => {e.currentTarget.style.backgroundColor = '#4f46e5'}}
+              onMouseOut={e => {e.currentTarget.style.backgroundColor = '#6366f1'}}
             >
               Explore Our Features
               <svg xmlns="http://www.w3.org/2000/svg" className="ml-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">

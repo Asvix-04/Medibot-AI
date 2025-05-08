@@ -18,18 +18,7 @@ const SettingsLayout = () => {
       <div className="bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-500 py-6 px-4 sm:px-6 lg:px-8 text-white">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <h1 className="text-2xl font-bold">Settings</h1>
-          
           {/* Mobile menu button */}
-          <button 
-            type="button"
-            className="md:hidden inline-flex items-center justify-center rounded-md p-2 text-white hover:bg-indigo-700 focus:outline-none"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            <span className="sr-only">Open main menu</span>
-            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-            </svg>
-          </button>
         </div>
       </div>
 

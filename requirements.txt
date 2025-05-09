@@ -4,3 +4,125 @@ numpy==1.26.0
 pyttsx3==2.90
 re==3.0.1
 warnings==0.1.1
+
+
+
+## Frontend Dependencies
+# React & Core Libraries
+react==19.1.0
+react-dom==19.1.0
+react-router-dom==7.5.0
+react-scripts==5.0.1
+web-vitals==2.1.4
+
+# Firebase
+firebase==11.6.0
+
+# UI & Components
+tailwindcss==3.4.17
+postcss==8.5.3
+autoprefixer==10.4.21
+boxicons==2.1.4
+react-icons==5.5.0
+
+# Data Visualization
+chart.js==4.4.8
+react-chartjs-2==5.3.0
+
+# API & Data Handling
+axios==1.8.4
+papaparse==5.5.2
+
+# PDF & File Generation
+jspdf==3.0.1
+file-saver==2.0.5
+html-to-image==1.11.13
+react-to-print==3.0.6
+
+# Maps & Location
+@googlemaps/js-api-loader==1.16.8
+
+# Testing
+@testing-library/react==16.3.0
+@testing-library/jest-dom==6.6.3
+@testing-library/user-event==13.5.0
+@testing-library/dom==10.4.0
+
+# Security
+zxcvbn==4.4.2
+
+## Backend Dependencies
+express==5.1.0
+cors==2.8.5
+dotenv==16.4.7
+firebase-admin==11.0.0
+mongoose==8.13.2
+file-saver==2.0.5
+html-to-image==1.11.13
+jspdf==3.0.1
+papaparse==5.5.2
+
+## Development Dependencies
+nodemon==3.1.9
+
+------------------
+
+How to Set Up and Run Medibot
+Follow these instructions to set up and view the Medibot User Interface:
+
+Prerequisites
+Node.js (v16 or higher)
+npm (v7 or higher)
+Git
+MongoDB (for backend)
+
+Step 1: Clone the Repository
+
+git clone https://github.com/yourusername/Medibot-AI.git
+cd Medibot-AI
+
+Step 2: Set Up Backend
+
+cd User-Interface/backend
+
+# Install dependencies
+npm install
+
+# Configure environment variables
+cp .env.example .env
+# Edit .env file with your MongoDB URI, Firebase credentials, etc.
+
+# Start backend server
+npm run dev
+
+Step 3: Set Up Frontend
+
+cd ../frontend
+
+# Install dependencies
+npm install
+
+# Configure environment variables
+cp .env.example .env
+# Add your Firebase config and Google Maps API key
+
+# Start development server
+npm start
+
+The application should now be running at http://localhost:3000.
+
+Step 4: Firebase Configuration
+Create a Firebase project at https://firebase.google.com
+Enable Authentication (Email/Password and Google Sign-in)
+Create a Firestore database
+Get your Firebase config and add it to firebase.js
+For backend, generate a Firebase Service Account key and save as firebaseServiceAccount.json
+
+Accessing Features
+Authentication: Start at the Sign In/Sign Up pages
+Chat: Access the AI chatbot through the main chat interface
+Health Dashboard: View and track health metrics
+Medication Manager: Manage current and past medications
+Appointments: Schedule and manage medical appointments
+Reports: Generate health reports from collected data
+Settings: Customize application preferences and manage data

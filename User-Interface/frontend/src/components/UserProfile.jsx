@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getDoc, doc } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from '../firebase';
 import defaultAvatar from '../assets/default-avatar.jpeg';
 
@@ -30,47 +31,80 @@ const UserProfile = () => {
     const fetchUserData = async () => {
       try {
         setLoading(true);
-        const user = auth.currentUser;
-        if (!user) {
-          throw new Error("No user is signed in");
-        }
         
-        // Get profile data from Firestore
-        const userDoc = await getDoc(doc(db, "users", user.uid));
-        
-        if (userDoc.exists()) {
-          const data = userDoc.data();
+        // Check auth state first
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
+          if (!user) {
+            setError("No user is signed in. Please sign in again.");
+            setLoading(false);
+            navigate('/signin');
+            return;
+          }
           
-          setUserData({
-            photoURL: user.photoURL || data.photoURL || null,
-            fullName: data.fullName || '',
-            displayName: data.displayName || '',
-            dateOfBirth: data.dateOfBirth || '',
-            gender: data.gender || '',
-            email: user.email || '',
-            emailVerified: user.emailVerified || false,
-            phoneNumber: data.phoneNumber || '',
-            location: data.location || '',
-            language: data.language || 'en',
-            timezone: data.timezone || 'UTC',
-            darkMode: data.darkMode || false,
-            shareData: data.shareData || false,
-            updatedAt: data.updatedAt ? new Date(data.updatedAt.toDate()) : null
-          });
-        } else {
-          throw new Error("User profile not found");
-        }
+          try {
+            // Check if the app is online
+            if (!navigator.onLine) {
+              console.log("User is offline, trying to use cached data");
+              
+              // Try to get cached data
+              const cachedUserData = localStorage.getItem(`user_profile_${user.uid}`);
+              if (cachedUserData) {
+                const parsedData = JSON.parse(cachedUserData);
+                console.log("Using cached user data:", parsedData);
+                setUserData(parsedData);
+                setLoading(false);
+                return;
+              } else {
+                throw new Error("No cached data available. Please connect to the internet and try again.");
+              }
+            }
+            
+            // Get profile data from Firestore
+            const userDoc = await getDoc(doc(db, "users", user.uid));
+            
+            console.log("Auth user:", auth.currentUser);
+            console.log("Document path:", `users/${auth.currentUser?.uid}`);
+            console.log("Document exists:", userDoc.exists());
+            console.log("Document data:", userDoc.data());
+
+            if (userDoc.exists()) {
+              const userData = userDoc.data();
+              
+              // Store data in localStorage for offline access
+              try {
+                localStorage.setItem(`user_profile_${user.uid}`, JSON.stringify(userData));
+              } catch (storageError) {
+                console.warn("Could not cache profile data:", storageError);
+              }
+              
+              setUserData(userData);
+            } else {
+              setError("User profile not found. Please complete your profile.");
+            }
+          } catch (error) {
+            console.error("Error fetching user data:", error);
+            
+            // Check for specific offline error
+            if (error.message && error.message.includes("offline")) {
+              setError("You appear to be offline. Please check your internet connection and try again.");
+            } else {
+              setError(`Error loading profile: ${error.message}`);
+            }
+          } finally {
+            setLoading(false);
+          }
+        });
         
-      } catch (err) {
-        console.error("Error fetching profile:", err);
-        setError(err.message);
-      } finally {
+        return () => unsubscribe();
+      } catch (error) {
+        console.error("Error in auth state:", error);
         setLoading(false);
+        setError(`Authentication error: ${error.message}`);
       }
     };
     
     fetchUserData();
-  }, []);
+  }, [navigate]);
   
   const handleEditProfile = () => {
     navigate('/profile');
@@ -79,36 +113,31 @@ const UserProfile = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="animate-spin h-12 w-12 border-4 border-purple-500 border-t-transparent rounded-full"></div>
+        <div className="text-center p-8 max-w-md w-full bg-white rounded-lg shadow-lg border border-gray-100">
+          <div className="animate-spin h-12 w-12 border-4 border-black border-t-transparent rounded-full mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading your profile...</p>
+        </div>
       </div>
     );
   }
-  
+
   if (error) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="text-center p-8 bg-white rounded-lg shadow-lg border border-gray-100 max-w-md">
-          <div className="text-red-500 text-5xl mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-20 w-20 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div className="text-center p-8 max-w-md w-full bg-white rounded-lg shadow-lg border border-gray-100">
+          <div className="bg-red-100 p-3 rounded-full inline-block mb-4">
+            <svg className="h-8 w-8 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </div>
-          <h2 className="text-xl font-bold text-gray-900 mb-2">Error Loading Profile</h2>
-          <p className="text-gray-600 mb-6">{error}</p>
-          <div className="flex space-x-3 justify-center">
-            <button 
-              onClick={() => window.location.reload()}
-              className="px-4 py-2 bg-purple-600 text-white text-sm rounded-md hover:bg-purple-700 transition-colors duration-300"
-            >
-              Try Again
-            </button>
-            <button 
-              onClick={() => navigate('/profile')}
-              className="px-4 py-2 bg-gray-200 text-gray-800 text-sm rounded-md hover:bg-gray-300 transition-colors duration-300"
-            >
-              Edit Profile
-            </button>
-          </div>
+          <h3 className="text-lg font-medium text-gray-900 mb-2">Error Loading Profile</h3>
+          <p className="text-sm text-gray-600 mb-4">{error}</p>
+          <button 
+            onClick={() => window.location.reload()}
+            className="px-4 py-2 bg-black text-white text-sm rounded-md hover:bg-gray-800"
+          >
+            Try Again
+          </button>
         </div>
       </div>
     );

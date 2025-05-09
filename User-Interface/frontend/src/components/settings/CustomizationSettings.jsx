@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 const CustomizationSettings = () => {
   const [settings, setSettings] = useState({
     theme: 'auto',
-    accentColor: '#6366f1', // Default indigo color
+    accentColor: '#6366f1', // Changed from orange to indigo/violet
     fontSize: 'medium',
     chatLayout: 'standard',
     dashboardLayout: 'grid',
@@ -50,7 +50,7 @@ const CustomizationSettings = () => {
 
   return (
     <div>
-      <h2 className="text-xl font-bold text-gray-900 mb-6">Customization Settings</h2>
+      <h2 className="text-xl font-bold text-gray-900 mb-6 text-left">Customization Settings</h2>
       
       {message.text && (
         <div className={`mb-6 p-4 rounded-lg ${
@@ -63,8 +63,8 @@ const CustomizationSettings = () => {
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Theme Selection */}
         <div>
-          <h3 className="text-md font-medium text-gray-900 mb-2">Theme</h3>
-          <p className="text-sm text-gray-500 mb-3">
+          <h3 className="text-md font-medium text-gray-900 mb-2 text-left">Theme</h3>
+          <p className="text-sm text-gray-500 mb-3 text-left">
             Select your preferred theme for the Medibot interface
           </p>
           
@@ -74,8 +74,8 @@ const CustomizationSettings = () => {
                 key={themeOption}
                 className={`border rounded-lg p-4 cursor-pointer transition-all ${
                   settings.theme === themeOption 
-                    ? 'border-indigo-500 bg-indigo-50' 
-                    : 'border-gray-200 hover:border-indigo-300'
+                    ? 'border-[#6366f1] bg-[#6366f1]/10' 
+                    : 'border-gray-200 hover:border-[#6366f1]'
                 }`}
                 onClick={() => setSettings({...settings, theme: themeOption})}
               >
@@ -87,7 +87,7 @@ const CustomizationSettings = () => {
                     value={themeOption}
                     checked={settings.theme === themeOption}
                     onChange={handleChange}
-                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
+                    className="h-4 w-4 text-[#6366f1] focus:ring-[#6366f1] border-gray-300"
                   />
                   <label htmlFor={`theme-${themeOption}`} className="ml-3 block text-sm font-medium text-gray-700 capitalize">
                     {themeOption}
@@ -107,13 +107,13 @@ const CustomizationSettings = () => {
         
         {/* Accent Color */}
         <div>
-          <h3 className="text-md font-medium text-gray-900 mb-2">Accent Color</h3>
-          <p className="text-sm text-gray-500 mb-3">
+          <h3 className="text-md font-medium text-gray-900 mb-2 text-left">Accent Color</h3>
+          <p className="text-sm text-gray-500 mb-3 text-left">
             Choose your preferred accent color for buttons and highlights
           </p>
           
           <div className="flex flex-wrap gap-3">
-            {['#6366f1', '#8b5cf6', '#ec4899', '#14b8a6', '#22c55e', '#eab308', '#ef4444', '#64748b'].map((color) => (
+            {['#6366f1', '#818cf8', '#4f46e5', '#14b8a6', '#22c55e', '#eab308', '#ef4444', '#64748b'].map((color) => (
               <div 
                 key={color}
                 className={`h-8 w-8 rounded-full cursor-pointer border-2 ${
@@ -127,7 +127,7 @@ const CustomizationSettings = () => {
             <div className="relative">
               <div 
                 className={`h-8 w-8 rounded-full cursor-pointer border-2 flex items-center justify-center bg-white ${
-                  !['#6366f1', '#8b5cf6', '#ec4899', '#14b8a6', '#22c55e', '#eab308', '#ef4444', '#64748b'].includes(settings.accentColor) ? 'border-gray-800' : 'border-gray-300'
+                  !['#6366f1', '#818cf8', '#4f46e5', '#14b8a6', '#22c55e', '#eab308', '#ef4444', '#64748b'].includes(settings.accentColor) ? 'border-gray-800' : 'border-gray-300'
                 }`}
                 onClick={() => setShowColorPicker(!showColorPicker)}
               >
@@ -152,15 +152,15 @@ const CustomizationSettings = () => {
         
         {/* Font Size */}
         <div>
-          <h3 className="text-md font-medium text-gray-900 mb-2">Font Size</h3>
-          <p className="text-sm text-gray-500 mb-3">
+          <h3 className="text-md font-medium text-gray-900 mb-2 text-left">Font Size</h3>
+          <p className="text-sm text-gray-500 mb-3 text-left">
             Select your preferred font size for better readability
           </p>
           <select
             name="fontSize"
             value={settings.fontSize}
             onChange={handleChange}
-            className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#6366f1] focus:border-[#6366f1] sm:text-sm"
           >
             <option value="small">Small</option>
             <option value="medium">Medium (Default)</option>
@@ -171,8 +171,8 @@ const CustomizationSettings = () => {
         
         {/* Chat Layout */}
         <div>
-          <h3 className="text-md font-medium text-gray-900 mb-2">Chat Layout</h3>
-          <p className="text-sm text-gray-500 mb-3">
+          <h3 className="text-md font-medium text-gray-900 mb-2 text-left">Chat Layout</h3>
+          <p className="text-sm text-gray-500 mb-3 text-left">
             Choose how your chat interface is displayed
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -181,8 +181,8 @@ const CustomizationSettings = () => {
                 key={layoutOption}
                 className={`border rounded-lg p-4 cursor-pointer transition-all ${
                   settings.chatLayout === layoutOption 
-                    ? 'border-indigo-500 bg-indigo-50' 
-                    : 'border-gray-200 hover:border-indigo-300'
+                    ? 'border-[#6366f1] bg-[#6366f1]/10' 
+                    : 'border-gray-200 hover:border-[#6366f1]'
                 }`}
                 onClick={() => setSettings({...settings, chatLayout: layoutOption})}
               >
@@ -194,7 +194,7 @@ const CustomizationSettings = () => {
                     value={layoutOption}
                     checked={settings.chatLayout === layoutOption}
                     onChange={handleChange}
-                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
+                    className="h-4 w-4 text-[#6366f1] focus:ring-[#6366f1] border-gray-300"
                   />
                   <label htmlFor={`layout-${layoutOption}`} className="ml-3 block text-sm font-medium text-gray-700 capitalize">
                     {layoutOption}
@@ -213,15 +213,15 @@ const CustomizationSettings = () => {
         
         {/* Dashboard Layout */}
         <div>
-          <h3 className="text-md font-medium text-gray-900 mb-2">Dashboard Layout</h3>
-          <p className="text-sm text-gray-500 mb-3">
+          <h3 className="text-md font-medium text-gray-900 mb-2 text-left">Dashboard Layout</h3>
+          <p className="text-sm text-gray-500 mb-3 text-left">
             Choose how your health dashboard is organized
           </p>
           <select
             name="dashboardLayout"
             value={settings.dashboardLayout}
             onChange={handleChange}
-            className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#6366f1] focus:border-[#6366f1] sm:text-sm"
           >
             <option value="grid">Grid (Default)</option>
             <option value="list">List</option>
@@ -232,8 +232,8 @@ const CustomizationSettings = () => {
         
         {/* Accessibility Options */}
         <div>
-          <h3 className="text-md font-medium text-gray-900 mb-2">Accessibility</h3>
-          <p className="text-sm text-gray-500 mb-3">
+          <h3 className="text-md font-medium text-gray-900 mb-2 text-left">Accessibility</h3>
+          <p className="text-sm text-gray-500 mb-3 text-left">
             Enable accessibility features to improve your experience
           </p>
           
@@ -245,7 +245,7 @@ const CustomizationSettings = () => {
                 type="checkbox"
                 checked={settings.accessibility.highContrast}
                 onChange={handleChange}
-                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                className="h-4 w-4 text-[#6366f1] focus:ring-[#6366f1] border-gray-300 rounded"
               />
               <label htmlFor="high-contrast" className="ml-3 text-sm text-gray-700">
                 High contrast mode
@@ -259,7 +259,7 @@ const CustomizationSettings = () => {
                 type="checkbox"
                 checked={settings.accessibility.reducedMotion}
                 onChange={handleChange}
-                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                className="h-4 w-4 text-[#6366f1] focus:ring-[#6366f1] border-gray-300 rounded"
               />
               <label htmlFor="reduced-motion" className="ml-3 text-sm text-gray-700">
                 Reduce animations and motion
@@ -273,7 +273,7 @@ const CustomizationSettings = () => {
                 type="checkbox"
                 checked={settings.accessibility.largeFonts}
                 onChange={handleChange}
-                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                className="h-4 w-4 text-[#6366f1] focus:ring-[#6366f1] border-gray-300 rounded"
               />
               <label htmlFor="large-fonts" className="ml-3 text-sm text-gray-700">
                 Use larger fonts throughout
@@ -286,7 +286,7 @@ const CustomizationSettings = () => {
         <div className="pt-4">
           <button
             type="submit"
-            className="px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg hover:from-purple-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg hover:from-purple-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#6366f1]"
           >
             Save Customization Settings
           </button>

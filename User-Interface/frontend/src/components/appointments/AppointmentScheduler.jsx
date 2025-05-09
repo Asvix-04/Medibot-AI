@@ -5,6 +5,7 @@ import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import { useToast } from '../../context/ToastContext';
 import NearbyFacilitiesMap from './NearbyFacilitiesMap';
 import AppointmentList from './AppointmentList'; // Add this import
+import LocationPermissionModal from './LocationPermissionModal';
 
 const AppointmentScheduler = ({ darkMode = false }) => {
   const navigate = useNavigate();
@@ -84,8 +85,8 @@ const AppointmentScheduler = ({ darkMode = false }) => {
     setSelectedFacility(facility);
     setFormData({
       ...formData,
-      location: facility.name + ', ' + facility.vicinity,
-      facilityId: facility.place_id
+      location: facility.name + (facility.vicinity ? ', ' + facility.vicinity : ''),
+      facilityId: facility.place_id || ''
     });
   };
   
@@ -138,33 +139,17 @@ const AppointmentScheduler = ({ darkMode = false }) => {
   
   // Add this function to your component
   const getNearbyFacilities = (facilityType) => {
-    // Placeholder for when we don't have an API key
-    setError(`To see nearby ${facilityType}s, please configure your Google Maps API key.`);
+    // Convert facilityType to Google Maps Place type
+    let placeType = facilityType;
+    if (facilityType === 'hospital') placeType = 'hospital';
+    else if (facilityType === 'clinic') placeType = 'doctor';
+    else if (facilityType === 'pharmacy') placeType = 'pharmacy';
     
-    // For demo purposes, you could add some sample facilities
-    const sampleFacilities = {
-      hospital: [
-        { name: "General Hospital", vicinity: "123 Medical Ave", rating: 4.5 },
-        { name: "St. Mary's Hospital", vicinity: "456 Health Blvd", rating: 4.2 }
-      ],
-      clinic: [
-        { name: "Family Care Clinic", vicinity: "789 Wellness Way", rating: 4.7 },
-        { name: "Urgent Care Center", vicinity: "321 Emergency Dr", rating: 3.9 }
-      ],
-      pharmacy: [
-        { name: "MediPharm", vicinity: "555 Prescription Rd", rating: 4.0 },
-        { name: "HealthMart Pharmacy", vicinity: "777 Medicine St", rating: 4.8 }
-      ]
-    };
-    
-    // Show some demo data
-    if (sampleFacilities[facilityType]) {
-      const sampleFacility = sampleFacilities[facilityType][0];
-      setSelectedFacility(sampleFacility);
-      setFormData({
-        ...formData,
-        location: sampleFacility.name + ', ' + sampleFacility.vicinity,
-      });
+    // Call the search function exposed by the map component
+    if (window.searchNearbyFacilities) {
+      window.searchNearbyFacilities(placeType);
+    } else {
+      setError('Map not initialized yet. Please try again in a moment.');
     }
   };
 
@@ -464,6 +449,12 @@ const AppointmentScheduler = ({ darkMode = false }) => {
           </div>
         )}
       </div>
+      {showLocationModal && (
+        <LocationPermissionModal 
+          onResponse={handleLocationPermission} 
+          darkMode={darkMode} 
+        />
+      )}
     </div>
   );
 };

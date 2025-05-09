@@ -19,6 +19,10 @@ import { ToastProvider } from './context/ToastContext';
 import ToastContainer from './components/ui/ToastContainer';
 import ErrorBoundary from './components/common/ErrorBoundary';
 import AppointmentScheduler from './components/appointments/AppointmentScheduler';
+import OnboardingFlow from './components/onboarding/OnboardingFlow';
+import OnboardingCheck from './components/OnboardingCheck';
+import FAQPage from './components/faq/FAQPage';
+import LandingPage from './components/landing';
 
 const AppContent = () => {
   const location = useLocation();
@@ -27,7 +31,7 @@ const AppContent = () => {
   
   return (
     <>
-      {!isChatPage && <Navigation />}
+      {!isChatPage && location.pathname !== '/landing' && location.pathname !== '/' && <Navigation />}
       <div className={!isChatPage && location.pathname !== '/signin' && location.pathname !== '/signup' && location.pathname !== '/forgot-password' && !location.pathname.startsWith('/reset-password') ? 'pt-14' : ''}>
         <Routes>
           <Route path="/signup" element={<Signup />} />
@@ -56,7 +60,9 @@ const AppContent = () => {
             path="/chat" 
             element={
               <ProtectedRoute>
-                <ChatPage />
+                <OnboardingCheck>
+                  <ChatPage />
+                </OnboardingCheck>
               </ProtectedRoute>
             } 
           />
@@ -94,7 +100,17 @@ const AppContent = () => {
               </ProtectedRoute>
             } 
           />
-          <Route path="/" element={<Signin />} />
+          <Route 
+            path="/onboarding" 
+            element={
+              <ProtectedRoute>
+                <OnboardingFlow />
+              </ProtectedRoute>
+            } 
+          />
+          <Route path="/faq" element={<FAQPage darkMode={darkMode} />} />
+          <Route path="/landing" element={<LandingPage />} />
+          <Route path="/" element={<LandingPage />} />
         </Routes>
       </div>
     </>

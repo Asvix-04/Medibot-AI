@@ -151,7 +151,7 @@ const SecuritySettings = () => {
       {/* Password Change Section */}
       <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 mb-8">
         <div className="border-b border-gray-200">
-          <h2 className="text-lg font-medium text-white px-6 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 flex items-center">
+          <h2 className="text-lg font-medium text-white px-6 py-4 bg-gradient-to-r from-[#f75600] to-[#E2711D] flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
             </svg>
@@ -163,7 +163,7 @@ const SecuritySettings = () => {
           <form onSubmit={handleChangePassword}>
             <div className="space-y-4">
               <div>
-                <label htmlFor="currentPassword" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="currentPassword" className="block text-sm font-medium text-gray-700 mb-1 text-left">
                   Current Password
                 </label>
                 <div className="relative rounded-md">
@@ -179,7 +179,7 @@ const SecuritySettings = () => {
               </div>
               
               <div>
-                <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700 mb-1 text-left">
                   New Password
                 </label>
                 <div className="relative rounded-md">
@@ -215,7 +215,7 @@ const SecuritySettings = () => {
               </div>
               
               <div>
-                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1 text-left">
                   Confirm Password
                 </label>
                 <div className="relative rounded-md">

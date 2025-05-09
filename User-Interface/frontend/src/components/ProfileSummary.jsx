@@ -4,6 +4,7 @@ import defaultAvatar from '../assets/default-avatar.jpeg';
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { auth, db } from '../firebase';
 import { useToast } from '../context/ToastContext';
+import medibot_logo from '../assets/medibot_logo.jpg';
 
 const ProfilePhotoSection = ({ profileImage, setProfileImage }) => {
   const fileInputRef = useRef(null);
@@ -507,100 +508,81 @@ const ProfileSummary = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-2xl mx-auto">  {/* Change from max-w-4xl to max-w-2xl */}
-        {/* Elegant header */}
-        <div className="relative mb-20">
-          <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-500 rounded-2xl shadow-lg transform -skew-y-1" />
-          
-          <div className="relative bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 rounded-2xl shadow-lg overflow-hidden">
-            <div className="absolute top-0 right-0 -mt-16 -mr-16 opacity-20"> {/* Smaller negative margins */}
-              <svg width="300" height="300" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
-                {/* SVG path remains the same */}
-              </svg>
-            </div>
-            
-            <div className="absolute bottom-0 left-0 -mb-8 -ml-8 opacity-10"> {/* Smaller negative margins */}
-              <svg width="150" height="150" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
-                {/* SVG path remains the same */}
-              </svg>
-            </div>
-            
-            <div className="p-10 text-white relative">
-              <div className="flex flex-col md:flex-row justify-between items-center">
-                <div>
-                  <h1 className="text-3xl font-bold tracking-tight mb-1">Your Profile</h1>
-                  <p className="text-indigo-100">Customize your personal information and preferences</p>
-                </div>
-                <div className="mt-4 md:mt-0">
-                  <div className="inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-md rounded-lg border border-white/20 text-white shadow-lg">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <span>Account Settings</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div className="flex justify-center mb-8">
-          <ProfilePhotoSection profileImage={profileImage} setProfileImage={setProfileImage} />
-        </div>
-        
-        <form onSubmit={handleSubmit} className="space-y-8">
-          <FormSection 
-            title="Personal Information" 
-            icon={
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-              </svg>
-            }
-          >
-            <PersonalInfoSection 
-              formData={personalInfo}
-              setFormData={setPersonalInfo}
-            />
-          </FormSection>
-          
-          <FormSection 
-            title="Contact Information" 
-            icon={
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-            }
-          >
-            <ContactInfoSection 
-              formData={contactInfo}
-              setFormData={setContactInfo}
-            />
-          </FormSection>
-          
-          <FormSection 
-            title="Preferences" 
-            icon={
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-            }
-          >
-            <PreferencesSection 
-              formData={preferences}
-              setFormData={setPreferences}
-            />
-          </FormSection>
-
+    <div className="min-h-screen flex items-center justify-center bg-white py-6 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-3xl w-full bg-white rounded-lg shadow-lg overflow-hidden border border-gray-100">
+        {/* Header section with black background */}
+        <div className="bg-black py-5 px-4 relative">
           <div className="flex justify-center">
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="relative group px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-lg font-medium rounded-xl shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transform transition-all duration-300 hover:-translate-y-1 disabled:opacity-70 disabled:cursor-not-allowed"
+            <img className="h-12 w-auto rounded-full p-1 bg-white" src={medibot_logo} alt="Medibot" />
+          </div>
+          <h1 className="mt-2 text-center text-2xl font-bold text-white">Complete Your Profile</h1>
+          <p className="mt-1 text-center text-xs text-gray-400 max-w-sm mx-auto">
+            Help us personalize your experience and provide better healthcare insights
+          </p>
+          
+          {/* Decorative triangle at bottom of header */}
+          <div className="absolute -bottom-3 left-0 right-0 h-6 bg-white" style={{
+            clipPath: 'polygon(0 100%, 100% 100%, 100% 0, 0 100%)',
+            opacity: 0.1
+          }}></div>
+        </div>
+        
+        {/* Profile form content */}
+        <div className="p-6">
+          <div className="flex justify-center mb-8">
+            <ProfilePhotoSection profileImage={profileImage} setProfileImage={setProfileImage} />
+          </div>
+          
+          <form onSubmit={handleSubmit} className="space-y-8">
+            <FormSection 
+              title="Personal Information" 
+              icon={
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+              }
             >
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-pink-600 to-purple-600 rounded-xl blur-md opacity-30 group-hover:opacity-70 transition duration-500"></div>
-              <div className="relative flex items-center justify-center">
+              <PersonalInfoSection 
+                formData={personalInfo}
+                setFormData={setPersonalInfo}
+              />
+            </FormSection>
+            
+            <FormSection 
+              title="Contact Information" 
+              icon={
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              }
+            >
+              <ContactInfoSection 
+                formData={contactInfo}
+                setFormData={setContactInfo}
+              />
+            </FormSection>
+            
+            <FormSection 
+              title="Preferences" 
+              icon={
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              }
+            >
+              <PreferencesSection 
+                formData={preferences}
+                setFormData={setPreferences}
+              />
+            </FormSection>
+
+            <div className="flex justify-center">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="group relative w-full sm:max-w-md flex justify-center py-3 px-4 border border-transparent text-base font-medium rounded-md text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-black"
+              >
                 {isSubmitting ? (
                   <span className="flex items-center">
                     <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
@@ -610,26 +592,17 @@ const ProfileSummary = () => {
                     Saving Profile...
                   </span>
                 ) : (
-                  <>
+                  <span className="flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                     Save Profile
-                  </>
+                  </span>
                 )}
-              </div>
-            </button>
-          </div>
-          
-          <div className="flex justify-center pb-8">
-            <p className="text-center text-xs text-gray-500 flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-              </svg>
-              Your information is secure and encrypted
-            </p>
-          </div>
-        </form>
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

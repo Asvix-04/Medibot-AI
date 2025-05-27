@@ -6,7 +6,7 @@ import Papa from 'papaparse';
 import { jsPDF } from 'jspdf';
 import { auth, db, storage } from '../../firebase';
 import { 
-  collection, getDocs, doc, deleteDoc, writeBatch, query, where 
+  collection, getDocs, doc, deleteDoc, writeBatch, query, where, setDoc // Add setDoc here
 } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
 

@@ -25,38 +25,65 @@ const Navigation = () => {
     return null;
   }
   
+  const getLinkClass = (path) => {
+    const baseClasses = "text-sm font-medium px-3 py-2 rounded-md transition-all duration-200";
+    if (location.pathname === path) {
+      return `${baseClasses} bg-gradient-to-r from-violet-50 to-violet-100 text-violet-700 border-b-2 border-violet-500`;
+    }
+    return `${baseClasses} text-gray-600 hover:text-violet-700 hover:bg-violet-50`;
+  };
+  
   return (
-    <nav className="bg-white border-b border-gray-200 px-4 py-2.5 fixed w-full z-10 top-0 left-0 shadow-sm">
+    <nav className="bg-white bg-opacity-95 backdrop-blur-sm border-b border-violet-100 px-4 py-2 fixed w-full z-10 top-0 left-0 shadow-sm">
       <div className="container mx-auto flex justify-between items-center">
-        <div className="flex items-center">
-          <img src={medibot_logo} alt="Medibot" className="h-8 w-8 rounded-full mr-2" />
-          <span className="text-lg font-bold">Medibot</span>
-        </div>
+        <Link to="/" className="flex items-center group">
+          <div className="h-10 w-10 rounded-full overflow-hidden border-2 border-violet-100 group-hover:border-violet-200 transition-all duration-200 shadow-sm">
+            <img src={medibot_logo} alt="Medibot" className="h-full w-full object-cover" />
+          </div>
+          <div className="ml-2">
+            <span className="text-lg font-bold text-gray-800">Medibot</span>
+            <span className="text-xs font-medium px-2 py-0.5 rounded-full ml-1 bg-gradient-to-r from-violet-500 to-indigo-600 text-white">
+              AI
+            </span>
+          </div>
+        </Link>
         
         {currentUser && (
-          <div className="flex items-center space-x-4">
-            <Link 
-              to="/user-profile" 
-              className={`text-sm font-medium ${location.pathname === '/user-profile' ? 'text-black' : 'text-gray-600 hover:text-black'}`}
-            >
-              View Profile
+          <div className="flex items-center space-x-1">
+            <Link to="/user-profile" className={getLinkClass('/user-profile')}>
+              <span className="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                Profile
+              </span>
             </Link>
-            <Link 
-              to="/health-dashboard" 
-              className={`text-sm font-medium ${location.pathname === '/health-dashboard' ? 'text-black' : 'text-gray-600 hover:text-black'}`}
-            >
-              Dashboard
+            
+            <Link to="/health-dashboard" className={getLinkClass('/health-dashboard')}>
+              <span className="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+                Dashboard
+              </span>
             </Link>
-            <Link 
-              to="/chat" 
-              className={`text-sm font-medium ${location.pathname === '/chat' ? 'text-black' : 'text-gray-600 hover:text-black'}`}
-            >
-              Chat
+            
+            <Link to="/chat" className={getLinkClass('/chat')}>
+              <span className="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                </svg>
+                Chat
+              </span>
             </Link>
+            
             <button 
               onClick={handleSignOut}
-              className="text-sm font-medium text-gray-600 hover:text-black"
+              className="text-sm font-medium px-3 py-2 rounded-md text-gray-600 hover:text-red-600 hover:bg-red-50 transition-all duration-200 ml-2 flex items-center"
             >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+              </svg>
               Sign Out
             </button>
           </div>

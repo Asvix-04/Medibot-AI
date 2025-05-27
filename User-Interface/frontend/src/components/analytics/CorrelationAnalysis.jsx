@@ -21,11 +21,11 @@ ChartJS.register(
 const CorrelationAnalysis = ({ healthMetrics, selectedMetrics, toggleMetricSelection, darkMode }) => {
   const [primaryMetric, setPrimaryMetric] = useState(null);
   
-  // Metric display configurations
+  // Metric display configurations - Updated with violet-bluish theme
   const metricConfigs = {
     bloodPressure: {
       label: 'Blood Pressure',
-      color: 'rgba(147, 51, 234, 0.8)', // Purple
+      color: 'rgba(139, 92, 246, 0.8)', // violet-500
       unit: 'mmHg',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -36,7 +36,7 @@ const CorrelationAnalysis = ({ healthMetrics, selectedMetrics, toggleMetricSelec
     },
     heartRate: {
       label: 'Heart Rate',
-      color: 'rgba(239, 68, 68, 0.8)', // Red
+      color: 'rgba(191, 131, 255, 0.8)', // purple-400
       unit: 'BPM',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -47,7 +47,7 @@ const CorrelationAnalysis = ({ healthMetrics, selectedMetrics, toggleMetricSelec
     },
     bloodGlucose: {
       label: 'Blood Glucose',
-      color: 'rgba(245, 158, 11, 0.8)', // Amber
+      color: 'rgba(109, 40, 217, 0.8)', // violet-800
       unit: 'mg/dL',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -58,7 +58,7 @@ const CorrelationAnalysis = ({ healthMetrics, selectedMetrics, toggleMetricSelec
     },
     weight: {
       label: 'Weight',
-      color: 'rgba(16, 185, 129, 0.8)', // Emerald
+      color: 'rgba(79, 70, 229, 0.8)', // indigo-600
       unit: 'kg',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -69,7 +69,7 @@ const CorrelationAnalysis = ({ healthMetrics, selectedMetrics, toggleMetricSelec
     },
     sleep: {
       label: 'Sleep',
-      color: 'rgba(59, 130, 246, 0.8)', // Blue
+      color: 'rgba(99, 102, 241, 0.8)', // indigo-500
       unit: 'hours',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -284,7 +284,7 @@ const CorrelationAnalysis = ({ healthMetrics, selectedMetrics, toggleMetricSelec
     if ((metric1 === 'sleep' && metric2 === 'bloodPressure') || 
         (metric2 === 'sleep' && metric1 === 'bloodPressure')) {
       if (correlation < -0.3)
-        return 'Better sleep quality appears to be associated with lower blood pressure readings, which aligns with research showing sleep's importance for cardiovascular health.';
+        return 'Better sleep quality appears to be associated with lower blood pressure readings, which aligns with research showing sleep\'s importance for cardiovascular health.';
       else if (correlation > 0.3)
         return 'Unexpectedly, more sleep appears to correlate with higher blood pressure in your data. This could be worth discussing with a healthcare provider.';
       else
@@ -551,20 +551,20 @@ const CorrelationAnalysis = ({ healthMetrics, selectedMetrics, toggleMetricSelec
         </>
       )}
       
-      {/* Education Section */}
-      <div className={`p-6 rounded-xl ${darkMode ? 'bg-blue-900/20 border-blue-900/30' : 'bg-blue-50 border-blue-100'} border mb-6`}>
-        <h3 className={`text-lg font-semibold mb-2 ${darkMode ? 'text-blue-300' : 'text-blue-700'}`}>
+      {/* Education Section - Updated to violet theme */}
+      <div className={`p-6 rounded-xl ${darkMode ? 'bg-violet-900/20 border-violet-900/30' : 'bg-violet-50 border-violet-100'} border mb-6`}>
+        <h3 className={`text-lg font-semibold mb-2 ${darkMode ? 'text-violet-300' : 'text-violet-700'}`}>
           Understanding Correlations
         </h3>
-        <p className={`text-sm ${darkMode ? 'text-blue-200' : 'text-blue-700'} mb-3`}>
+        <p className={`text-sm ${darkMode ? 'text-violet-200' : 'text-violet-700'} mb-3`}>
           Correlation measures how two metrics change together, with values from -1 to 1:
         </p>
-        <ul className={`list-disc pl-5 text-sm space-y-2 ${darkMode ? 'text-blue-200' : 'text-blue-700'}`}>
+        <ul className={`list-disc pl-5 text-sm space-y-2 ${darkMode ? 'text-violet-200' : 'text-violet-700'}`}>
           <li><strong>Positive correlation (0 to 1):</strong> As one metric increases, the other tends to increase too.</li>
           <li><strong>Negative correlation (0 to -1):</strong> As one metric increases, the other tends to decrease.</li>
           <li><strong>No correlation (near 0):</strong> No consistent relationship between the metrics.</li>
         </ul>
-        <div className={`mt-4 text-sm ${darkMode ? 'text-blue-300' : 'text-blue-800'} font-medium`}>
+        <div className={`mt-4 text-sm ${darkMode ? 'text-violet-300' : 'text-violet-800'} font-medium`}>
           <strong>Important:</strong> Correlation does not necessarily indicate causation. Other factors may be involved.
         </div>
       </div>

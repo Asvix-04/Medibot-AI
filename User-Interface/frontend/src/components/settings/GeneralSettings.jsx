@@ -75,7 +75,7 @@ const GeneralSettings = () => {
       
       {message.text && (
         <div className={`mb-6 p-4 rounded-lg ${
-          message.type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+          message.type === 'success' ? 'bg-violet-100 text-violet-800' : 'bg-red-100 text-red-800'
         }`}>
           {message.text}
         </div>
@@ -92,7 +92,7 @@ const GeneralSettings = () => {
             name="language"
             value={settings.language}
             onChange={handleChange}
-            className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-violet-500 focus:border-violet-500 sm:text-sm"
           >
             <option value="en">English</option>
             <option value="es">Spanish</option>
@@ -122,7 +122,7 @@ const GeneralSettings = () => {
                   type="checkbox"
                   checked={settings.notifications.email}
                   onChange={handleChange}
-                  className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-violet-600 focus:ring-violet-500 border-gray-300 rounded"
                 />
                 <label htmlFor="email-notifications" className="ml-3 text-sm text-gray-700">
                   Email notifications
@@ -136,7 +136,7 @@ const GeneralSettings = () => {
                   type="checkbox"
                   checked={settings.notifications.push}
                   onChange={handleChange}
-                  className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-violet-600 focus:ring-violet-500 border-gray-300 rounded"
                 />
                 <label htmlFor="push-notifications" className="ml-3 text-sm text-gray-700">
                   Push notifications
@@ -150,7 +150,7 @@ const GeneralSettings = () => {
                   type="checkbox"
                   checked={settings.notifications.reminders}
                   onChange={handleChange}
-                  className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-violet-600 focus:ring-violet-500 border-gray-300 rounded"
                 />
                 <label htmlFor="reminders" className="ml-3 text-sm text-gray-700">
                   Health reminders
@@ -166,7 +166,7 @@ const GeneralSettings = () => {
                   type="checkbox"
                   checked={settings.notifications.appointmentAlerts}
                   onChange={handleChange}
-                  className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-violet-600 focus:ring-violet-500 border-gray-300 rounded"
                 />
                 <label htmlFor="appointment-alerts" className="ml-3 text-sm text-gray-700">
                   Appointment alerts
@@ -180,7 +180,7 @@ const GeneralSettings = () => {
                   type="checkbox"
                   checked={settings.notifications.medicationReminders}
                   onChange={handleChange}
-                  className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-violet-600 focus:ring-violet-500 border-gray-300 rounded"
                 />
                 <label htmlFor="medication-reminders" className="ml-3 text-sm text-gray-700">
                   Medication reminders
@@ -200,7 +200,7 @@ const GeneralSettings = () => {
             name="timezone"
             value={settings.timezone}
             onChange={handleChange}
-            className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-violet-500 focus:border-violet-500 sm:text-sm"
           >
             <option value="UTC">UTC (Coordinated Universal Time)</option>
             <option value="GMT">GMT (Greenwich Mean Time)</option>
@@ -223,7 +223,7 @@ const GeneralSettings = () => {
               name="dateFormat"
               value={settings.dateFormat}
               onChange={handleChange}
-              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-violet-500 focus:border-violet-500 sm:text-sm"
             >
               <option value="MM/DD/YYYY">MM/DD/YYYY (US)</option>
               <option value="DD/MM/YYYY">DD/MM/YYYY (Europe/Asia)</option>
@@ -239,7 +239,7 @@ const GeneralSettings = () => {
               name="timeFormat"
               value={settings.timeFormat}
               onChange={handleChange}
-              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-violet-500 focus:border-violet-500 sm:text-sm"
             >
               <option value="12hour">12-hour (AM/PM)</option>
               <option value="24hour">24-hour</option>
@@ -259,7 +259,7 @@ const GeneralSettings = () => {
                 type="checkbox"
                 checked={settings.autoSave}
                 onChange={handleChange}
-                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                className="h-4 w-4 text-violet-600 focus:ring-violet-500 border-gray-300 rounded"
               />
               <label htmlFor="auto-save" className="ml-3 text-sm text-gray-700">
                 Automatically save chat conversations
@@ -273,7 +273,7 @@ const GeneralSettings = () => {
                 type="checkbox"
                 checked={settings.privacyMode}
                 onChange={handleChange}
-                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                className="h-4 w-4 text-violet-600 focus:ring-violet-500 border-gray-300 rounded"
               />
               <label htmlFor="privacy-mode" className="ml-3 text-sm text-gray-700">
                 Privacy mode (blur sensitive information when idle)
@@ -287,7 +287,7 @@ const GeneralSettings = () => {
                 type="checkbox"
                 checked={settings.audioEnabled}
                 onChange={handleChange}
-                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                className="h-4 w-4 text-violet-600 focus:ring-violet-500 border-gray-300 rounded"
               />
               <label htmlFor="audio-enabled" className="ml-3 text-sm text-gray-700">
                 Enable sound effects and audio notifications
@@ -295,12 +295,12 @@ const GeneralSettings = () => {
             </div>
           </div>
         </div>
-        
+
         {/* Save Button */}
         <div className="pt-4">
           <button
             type="submit"
-            className="px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg hover:from-purple-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="px-4 py-2 bg-gradient-to-r from-violet-600 to-indigo-700 text-white rounded-lg hover:from-violet-700 hover:to-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500"
           >
             Save General Settings
           </button>

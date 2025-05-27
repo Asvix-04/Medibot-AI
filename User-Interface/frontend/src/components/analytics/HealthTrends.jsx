@@ -121,7 +121,7 @@ const HealthTrends = ({ darkMode }) => {
         </p>
       </div>
       
-      {/* Time Range Selector */}
+      {/* Time Range Selector - Updated colors */}
       <div className={`flex items-center p-4 rounded-xl mb-6 ${
         darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
       } border shadow-sm`}>
@@ -144,7 +144,7 @@ const HealthTrends = ({ darkMode }) => {
               onClick={() => setTimeRange(option.value)}
               className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-colors ${
                 timeRange === option.value 
-                  ? (darkMode ? 'bg-indigo-700 text-white' : 'bg-indigo-100 text-indigo-800')
+                  ? (darkMode ? 'bg-violet-700 text-white' : 'bg-violet-100 text-violet-800')
                   : (darkMode ? 'bg-gray-700 hover:bg-gray-600 text-gray-300' : 'bg-gray-100 hover:bg-gray-200 text-gray-700')
               }`}
             >
@@ -154,7 +154,7 @@ const HealthTrends = ({ darkMode }) => {
         </div>
       </div>
       
-      {/* Tab Navigation */}
+      {/* Tab Navigation - Updated colors */}
       <div className="mb-6 border-b border-gray-200 dark:border-gray-700">
         <ul className="flex flex-wrap -mb-px">
           <li className="mr-2">
@@ -162,7 +162,7 @@ const HealthTrends = ({ darkMode }) => {
               onClick={() => setActiveTab('trends')}
               className={`inline-block py-4 px-4 text-sm font-medium border-b-2 rounded-t-lg ${
                 activeTab === 'trends'
-                  ? (darkMode ? 'text-indigo-400 border-indigo-400' : 'text-indigo-600 border-indigo-600')
+                  ? (darkMode ? 'text-violet-400 border-violet-400' : 'text-violet-600 border-violet-600')
                   : (darkMode ? 'text-gray-400 border-transparent hover:text-gray-300 hover:border-gray-300' : 'text-gray-500 border-transparent hover:text-gray-600 hover:border-gray-300')
               }`}
             >
@@ -174,7 +174,7 @@ const HealthTrends = ({ darkMode }) => {
               onClick={() => setActiveTab('correlations')}
               className={`inline-block py-4 px-4 text-sm font-medium border-b-2 rounded-t-lg ${
                 activeTab === 'correlations'
-                  ? (darkMode ? 'text-indigo-400 border-indigo-400' : 'text-indigo-600 border-indigo-600')
+                  ? (darkMode ? 'text-violet-400 border-violet-400' : 'text-violet-600 border-violet-600')
                   : (darkMode ? 'text-gray-400 border-transparent hover:text-gray-300 hover:border-gray-300' : 'text-gray-500 border-transparent hover:text-gray-600 hover:border-gray-300')
               }`}
             >
@@ -186,7 +186,7 @@ const HealthTrends = ({ darkMode }) => {
               onClick={() => setActiveTab('insights')}
               className={`inline-block py-4 px-4 text-sm font-medium border-b-2 rounded-t-lg ${
                 activeTab === 'insights'
-                  ? (darkMode ? 'text-indigo-400 border-indigo-400' : 'text-indigo-600 border-indigo-600')
+                  ? (darkMode ? 'text-violet-400 border-violet-400' : 'text-violet-600 border-violet-600')
                   : (darkMode ? 'text-gray-400 border-transparent hover:text-gray-300 hover:border-gray-300' : 'text-gray-500 border-transparent hover:text-gray-600 hover:border-gray-300')
               }`}
             >
@@ -196,10 +196,10 @@ const HealthTrends = ({ darkMode }) => {
         </ul>
       </div>
       
-      {/* Loading state */}
+      {/* Loading state - Updated colors */}
       {loading && (
         <div className="flex justify-center items-center py-20">
-          <div className={`w-12 h-12 rounded-full animate-spin border-4 border-solid border-t-indigo-500 border-r-transparent border-b-indigo-500 border-l-transparent`}></div>
+          <div className={`w-12 h-12 rounded-full animate-spin border-4 border-solid border-t-violet-500 border-r-transparent border-b-violet-500 border-l-transparent`}></div>
         </div>
       )}
       

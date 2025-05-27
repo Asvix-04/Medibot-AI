@@ -2,6 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --accent-color: #6366f1;
+}
+
+/* Accessibility class styles */
+.high-contrast {
+  --background-color: white;
+  --text-color: black;
+  --border-color: black;
+}
+
+.reduced-motion * {
+  transition: none !important;
+  animation: none !important;
+}
+
+.large-fonts {
+  font-size: 125% !important;
+}
+
+/* Use CSS variables in your components */
+.accent-bg {
+  background-color: var(--accent-color);
+}
+
+.accent-text {
+  color: var(--accent-color);
+}
+
+.accent-border {
+  border-color: var(--accent-color);
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

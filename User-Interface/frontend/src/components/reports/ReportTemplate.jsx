@@ -40,12 +40,12 @@ const ReportTemplate = ({
     });
   };
   
-  // Metric configurations
+  // Metric configurations - Updated to violet-bluish theme
   const metricConfigs = {
     bloodPressure: {
       label: 'Blood Pressure',
       unit: 'mmHg',
-      color: '#9333ea', // Purple
+      color: '#8b5cf6', // Violet-500
       normalRange: {
         systolic: { min: 90, max: 120 },
         diastolic: { min: 60, max: 80 }
@@ -55,27 +55,27 @@ const ReportTemplate = ({
     heartRate: {
       label: 'Heart Rate',
       unit: 'BPM',
-      color: '#ef4444', // Red
+      color: '#6366f1', // Indigo-500
       normalRange: { min: 60, max: 100 },
       getValue: (item) => `${item.value} BPM`
     },
     bloodGlucose: {
       label: 'Blood Glucose',
       unit: 'mg/dL',
-      color: '#f59e0b', // Amber
+      color: '#7c3aed', // Violet-600
       normalRange: { min: 80, max: 130 },
       getValue: (item) => `${item.value} mg/dL`
     },
     weight: {
       label: 'Weight',
       unit: 'kg',
-      color: '#10b981', // Emerald
+      color: '#4f46e5', // Indigo-600
       getValue: (item) => `${item.value} kg`
     },
     sleep: {
       label: 'Sleep',
       unit: 'hours',
-      color: '#3b82f6', // Blue
+      color: '#a78bfa', // Violet-400
       normalRange: { min: 7, max: 9 },
       getValue: (item) => `${item.hours} hours`
     }
@@ -103,8 +103,8 @@ const ReportTemplate = ({
       datasets.push({
         label: 'Systolic',
         data: sortedData.map(item => item.systolic),
-        borderColor: '#9333ea', // Purple
-        backgroundColor: 'rgba(147, 51, 234, 0.1)',
+        borderColor: '#8b5cf6', // Violet-500
+        backgroundColor: 'rgba(139, 92, 246, 0.1)',
         tension: 0.3,
         pointRadius: 3
       });
@@ -112,7 +112,7 @@ const ReportTemplate = ({
       datasets.push({
         label: 'Diastolic',
         data: sortedData.map(item => item.diastolic),
-        borderColor: '#6366f1', // Indigo
+        borderColor: '#6366f1', // Indigo-500
         backgroundColor: 'rgba(99, 102, 241, 0.1)',
         tension: 0.3,
         pointRadius: 3
@@ -445,16 +445,7 @@ const ReportTemplate = ({
                     {stats.trend !== 'neutral' && stats.count > 2 && (
                       <div className="flex justify-between items-center mt-1">
                         <span className="text-xs text-gray-500">Trend:</span>
-                        <span className={`text-xs px-2 py-0.5 rounded-full ${
-                          stats.trend === 'improving' ? 'bg-green-100 text-green-800' : 
-                          stats.trend === 'worsening' ? 'bg-red-100 text-red-800' :
-                          stats.trend === 'increasing' ? 'bg-blue-100 text-blue-800' :
-                          'bg-blue-100 text-blue-800'
-                        }`}>
-                          {stats.trend === 'improving' ? 'Improving' : 
-                           stats.trend === 'worsening' ? 'Worsening' :
-                           stats.trend.charAt(0).toUpperCase() + stats.trend.slice(1)}
-                        </span>
+                        {renderTrendBadge(stats.trend)}
                       </div>
                     )}
                   </div>
@@ -497,18 +488,7 @@ const ReportTemplate = ({
                   </div>
                   
                   {/* Normal Range Info */}
-                  {config.normalRange && (
-                    <div className="mt-3 text-xs text-gray-500 flex items-center">
-                      <span className="w-3 h-3 inline-block rounded-full bg-green-100 border border-green-300 mr-1"></span>
-                      <span>
-                        Typical range: {
-                          metricType === 'bloodPressure' 
-                            ? `${config.normalRange.systolic.min}-${config.normalRange.systolic.max}/${config.normalRange.diastolic.min}-${config.normalRange.diastolic.max} mmHg` 
-                            : `${config.normalRange.min}-${config.normalRange.max} ${config.unit}`
-                        }
-                      </span>
-                    </div>
-                  )}
+                  {renderNormalRangeInfo(metricType, config)}
                 </div>
               );
             })}
@@ -698,21 +678,21 @@ const ReportTemplate = ({
         </section>
       )}
       
-      {/* AI Insights Section */}
+      {/* AI Insights Section - Updated background color */}
       {includeInsights && insights.length > 0 && (
         <section className="mb-8">
           <h2 className="text-xl font-semibold mb-4 pb-2 border-b border-gray-200">
             Health Insights
           </h2>
           
-          <div className="bg-indigo-50 border border-indigo-100 rounded-lg p-4">
+          <div className="bg-violet-50 border border-violet-100 rounded-lg p-4">
             <ul className="list-disc pl-5 space-y-2">
               {insights.map((insight, index) => (
                 <li key={index} className="text-gray-800">{insight}</li>
               ))}
             </ul>
             
-            <div className="mt-4 pt-3 border-t border-indigo-200 text-xs text-gray-500">
+            <div className="mt-4 pt-3 border-t border-violet-200 text-xs text-gray-500">
               <p>These insights are generated automatically based on your health data and are for informational purposes only. 
               Always consult with a healthcare professional before making changes to your health regimen.</p>
             </div>
@@ -720,7 +700,7 @@ const ReportTemplate = ({
         </section>
       )}
       
-      {/* Footer */}
+      {/* Footer with updated color */}
       <footer className="text-center text-xs text-gray-400 mt-12 pt-6 border-t border-gray-200">
         <p>This report is generated for informational purposes only and is not intended as medical advice.</p>
         <p className="mt-1">Medibot Health Report | Generated on {new Date().toLocaleString()}</p>

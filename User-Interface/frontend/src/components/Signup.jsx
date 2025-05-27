@@ -22,6 +22,8 @@ const Signup = () => {
   
   const [passwordStrength, setPasswordStrength] = useState(0);
   const [passwordMatch, setPasswordMatch] = useState(true);
+  const [showTermsModal, setShowTermsModal] = useState(false);
+  const [showPrivacyModal, setShowPrivacyModal] = useState(false);
   
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -140,14 +142,12 @@ const Signup = () => {
 
   const handleTermsClick = (e) => {
     e.preventDefault();
-    // Open terms modal or navigate to terms page
-    alert("Terms of Service will open here");
+    setShowTermsModal(true);
   };
-  
+
   const handlePrivacyClick = (e) => {
     e.preventDefault();
-    // Open privacy policy modal or navigate to privacy page
-    alert("Privacy Policy will open here");
+    setShowPrivacyModal(true);
   };
 
   return (
@@ -499,6 +499,267 @@ const Signup = () => {
           Back to Home
         </Link>
       </div>
+
+      {showTermsModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-[#1a1a1a] rounded-xl p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-xl font-bold text-[#d6d4d4]">Terms of Service</h3>
+              <button 
+                onClick={() => setShowTermsModal(false)}
+                className="text-gray-400 hover:text-white"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </button>
+            </div>
+            {/* Terms of Service content for the modal */}
+            <div className="text-[#d6d4d4] text-sm space-y-6">
+              <div>
+                <h4 className="font-medium text-lg text-violet-400 mb-2">1. Acceptance of Terms</h4>
+                <p className="mb-2">
+                  By accessing and using Medibot, you agree to be bound by these Terms of Service and all applicable laws and regulations. If you do not agree with any of these terms, you are prohibited from using or accessing this application.
+                </p>
+                <p>
+                  The materials contained in this application are protected by applicable copyright and trademark law.
+                </p>
+              </div>
+              
+              <div>
+                <h4 className="font-medium text-lg text-violet-400 mb-2">2. User Accounts</h4>
+                <p className="mb-2">
+                  When you create an account with us, you must provide information that is accurate, complete, and current at all times. Failure to do so constitutes a breach of the Terms, which may result in immediate termination of your account.
+                </p>
+                <p className="mb-2">
+                  You are responsible for safeguarding the password you use to access the application and for any activities or actions under your password.
+                </p>
+                <p>
+                  You agree not to disclose your password to any third party. You must notify us immediately upon becoming aware of any breach of security or unauthorized use of your account.
+                </p>
+              </div>
+              
+              <div>
+                <h4 className="font-medium text-lg text-violet-400 mb-2">3. Healthcare Information</h4>
+                <p className="mb-2">
+                  Medibot provides information of a general nature for informational and educational purposes only. The information is not medical advice and is not intended to replace consultation with qualified healthcare professionals.
+                </p>
+                <p>
+                  Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition or treatment before undertaking a new healthcare regimen.
+                </p>
+              </div>
+              
+              <div>
+                <h4 className="font-medium text-lg text-violet-400 mb-2">4. User Responsibilities</h4>
+                <p className="mb-2">
+                  You are responsible for all activity that occurs under your account. You agree to use the service for legitimate purposes and in a way that does not infringe the rights of, restrict, or inhibit anyone else's use and enjoyment of the service.
+                </p>
+                <p>
+                  You should not rely on the application for medical emergencies. In case of a medical emergency, you should immediately contact your healthcare provider or emergency services.
+                </p>
+              </div>
+              
+              <div>
+                <h4 className="font-medium text-lg text-violet-400 mb-2">5. Prohibited Activities</h4>
+                <p className="mb-2">
+                  You may not:
+                </p>
+                <ul className="list-disc pl-6 space-y-1">
+                  <li>Use the service for any illegal purpose or in violation of any local, state, national, or international law</li>
+                  <li>Submit false or misleading information</li>
+                  <li>Interfere with or disrupt the service or servers or networks connected to the service</li>
+                  <li>Attempt to gain unauthorized access to any portion of the service or any other accounts, systems, or networks</li>
+                  <li>Harvest or collect email addresses or other contact information of other users from the service</li>
+                  <li>Impersonate another person or misrepresent your affiliation with a person or entity</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 className="font-medium text-lg text-violet-400 mb-2">6. Intellectual Property</h4>
+                <p className="mb-2">
+                  The service and its original content, features, and functionality are and will remain the exclusive property of Medibot and its licensors. The service is protected by copyright, trademark, and other laws.
+                </p>
+                <p>
+                  Our trademarks and trade dress may not be used in connection with any product or service without the prior written consent of Medibot.
+                </p>
+              </div>
+              
+              <div>
+                <h4 className="font-medium text-lg text-violet-400 mb-2">7. Disclaimers</h4>
+                <p className="mb-2">
+                  The information provided by Medibot is for general informational and educational purposes only. All information on the application is provided in good faith; however, we make no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, availability, or completeness of any information.
+                </p>
+                <p>
+                  Under no circumstance shall we have any liability to you for any loss or damage of any kind incurred as a result of the use of the application or reliance on any information provided.
+                </p>
+              </div>
+              
+              <div>
+                <h4 className="font-medium text-lg text-violet-400 mb-2">8. Limitation of Liability</h4>
+                <p>
+                  In no event shall Medibot, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from your access to or use of or inability to access or use the application.
+                </p>
+              </div>
+              
+              <div>
+                <h4 className="font-medium text-lg text-violet-400 mb-2">9. Termination</h4>
+                <p>
+                  We may terminate or suspend your account immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach the Terms. Upon termination, your right to use the application will immediately cease.
+                </p>
+              </div>
+              
+              <div>
+                <h4 className="font-medium text-lg text-violet-400 mb-2">10. Changes to Terms</h4>
+                <p>
+                  We reserve the right, at our sole discretion, to modify or replace these Terms at any time. By continuing to access or use our application after those revisions become effective, you agree to be bound by the revised terms.
+                </p>
+              </div>
+            </div>
+            <button 
+              onClick={() => setShowTermsModal(false)}
+              className="mt-4 w-full py-2 bg-gradient-to-r from-violet-600 to-indigo-700 text-white rounded-md hover:from-violet-700 hover:to-indigo-800"
+            >
+              I Understand
+            </button>
+          </div>
+        </div>
+      )}
+
+      {showPrivacyModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-[#1a1a1a] rounded-xl p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-xl font-bold text-[#d6d4d4]">Privacy Policy</h3>
+              <button 
+                onClick={() => setShowPrivacyModal(false)}
+                className="text-gray-400 hover:text-white"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </button>
+            </div>
+            {/* Privacy Policy content for the modal */}
+            <div className="text-[#d6d4d4] text-sm space-y-6">
+              <div>
+                <h4 className="font-medium text-lg text-violet-400 mb-2">1. Data Collection</h4>
+                <p className="mb-2">
+                  We collect personal information that you voluntarily provide to us when you register on the Medibot application, including but not limited to:
+                </p>
+                <ul className="list-disc pl-6 space-y-1">
+                  <li>Personal identification information (Name, email address, phone number)</li>
+                  <li>Health-related information you choose to share during conversations with the AI</li>
+                  <li>Health metrics and readings you input into the system</li>
+                  <li>Usage data and interaction patterns with the application</li>
+                  <li>Device information and technical data</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 className="font-medium text-lg text-violet-400 mb-2">2. Use of Information</h4>
+                <p className="mb-2">
+                  We use the collected data for various purposes:
+                </p>
+                <ul className="list-disc pl-6 space-y-1">
+                  <li>To provide and maintain our service</li>
+                  <li>To personalize your experience and deliver tailored health insights</li>
+                  <li>To improve our AI algorithms and the quality of responses</li>
+                  <li>To communicate with you regarding updates or important notices</li>
+                  <li>To detect, prevent and address technical issues or potential misuse</li>
+                  <li>To generate aggregated, anonymized insights and statistics</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 className="font-medium text-lg text-violet-400 mb-2">3. Data Storage</h4>
+                <p className="mb-2">
+                  Your health information is stored in secure, encrypted databases. We implement industry-standard security measures and follow HIPAA guidelines for protected health information.
+                </p>
+                <p>
+                  We retain your personal information only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use your information to the extent necessary to comply with our legal obligations, resolve disputes, and enforce our policies.
+                </p>
+              </div>
+              
+              <div>
+                <h4 className="font-medium text-lg text-violet-400 mb-2">4. Data Sharing</h4>
+                <p className="mb-2">
+                  We do not sell, trade, or rent your personal identification information to others. We may share generic aggregated demographic information not linked to any personal identification information regarding visitors and users with our business partners, trusted affiliates, and advertisers.
+                </p>
+                <p className="mb-2">
+                  We may share your information with:
+                </p>
+                <ul className="list-disc pl-6 space-y-1">
+                  <li>Service providers who help us operate our application</li>
+                  <li>Analytics providers who help us understand how you use our application</li>
+                  <li>Law enforcement agencies when required by law</li>
+                  <li>Healthcare providers, only with your explicit consent</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 className="font-medium text-lg text-violet-400 mb-2">5. User Rights</h4>
+                <p className="mb-2">
+                  You have the following data protection rights:
+                </p>
+                <ul className="list-disc pl-6 space-y-1">
+                  <li>The right to access, update, or delete the information we have on you</li>
+                  <li>The right of rectification - to have your information corrected if it is inaccurate or incomplete</li>
+                  <li>The right to object to our processing of your personal data</li>
+                  <li>The right to request that we restrict the processing of your personal information</li>
+                  <li>The right to data portability - to receive a copy of your data in a structured, machine-readable format</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 className="font-medium text-lg text-violet-400 mb-2">6. Data Security</h4>
+                <p className="mb-2">
+                  We value your trust in providing us your personal information, thus we are striving to use commercially acceptable means of protecting it. But remember that no method of transmission over the internet, or method of electronic storage is 100% secure and reliable, and we cannot guarantee its absolute security.
+                </p>
+                <p>
+                  We implement a variety of security measures to maintain the safety of your personal information when you enter, submit, or access your personal information, including encryption, secure servers, and regular security assessments.
+                </p>
+              </div>
+              
+              <div>
+                <h4 className="font-medium text-lg text-violet-400 mb-2">7. Cookies</h4>
+                <p className="mb-2">
+                  We use "cookies" to enhance your experience on our application. Cookies are files with small amount of data that are commonly used as anonymous unique identifiers. These are sent to your browser from the website that you visit and are stored on your device's internal memory.
+                </p>
+                <p>
+                  You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent. However, if you do not accept cookies, you may not be able to use some portions of our service.
+                </p>
+              </div>
+              
+              <div>
+                <h4 className="font-medium text-lg text-violet-400 mb-2">8. Third-Party Services</h4>
+                <p>
+                  Our application may contain links to other sites. If you click on a third-party link, you will be directed to that site. Note that these external sites are not operated by us. Therefore, we strongly advise you to review the Privacy Policy of these websites. We have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.
+                </p>
+              </div>
+              
+              <div>
+                <h4 className="font-medium text-lg text-violet-400 mb-2">9. Children's Privacy</h4>
+                <p>
+                  Our services are not intended for use by children under the age of 13. We do not knowingly collect personally identifiable information from children under 13. If we discover that a child under 13 has provided us with personal information, we immediately delete this from our servers. If you are a parent or guardian and you are aware that your child has provided us with personal information, please contact us so that we can take necessary actions.
+                </p>
+              </div>
+              
+              <div>
+                <h4 className="font-medium text-lg text-violet-400 mb-2">10. Changes to Privacy Policy</h4>
+                <p>
+                  We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page. You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.
+                </p>
+              </div>
+            </div>
+            <button 
+              onClick={() => setShowPrivacyModal(false)}
+              className="mt-4 w-full py-2 bg-gradient-to-r from-violet-600 to-indigo-700 text-white rounded-md hover:from-violet-700 hover:to-indigo-800"
+            >
+              I Understand
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

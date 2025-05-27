@@ -12,11 +12,7 @@ module.exports = {
           dark: '#1e40af',
           light: '#bfdbfe',
         },
-        accent: {
-          DEFAULT: '#10b981',
-          dark: '#059669',
-          light: '#a7f3d0',
-        },
+        accent: 'var(--accent-color)',
         neutral: {
           DEFAULT: '#e5e7eb',
           light: '#f3f4f6',
@@ -25,6 +21,9 @@ module.exports = {
         text: '#111827',
       },
     },
+  },
+  variants: {
+    extend: {},
   },
   plugins: [],
 }

@@ -81,16 +81,16 @@ const FeedbackForm = ({ isOpen, onClose }) => {
         {submitted ? (
           // Success message
           <div className="p-8 text-center">
-            <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-[#f75600]/20 mb-6">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-[#f75600]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-violet-600/20 mb-6">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-violet-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h3 className="text-xl font-bold text-[#f75600] mb-2">Thank You for Your Feedback!</h3>
+            <h3 className="text-xl font-bold text-violet-600 mb-2">Thank You for Your Feedback!</h3>
             <p className="text-[#d6d4d4] mb-6">Your feedback helps us improve Medibot for everyone.</p>
             <button
               onClick={onClose}
-              className="px-6 py-2 bg-[#f75600] hover:bg-[#E2711D] text-white rounded-lg transition-colors"
+              className="px-6 py-2 bg-violet-600 hover:bg-violet-700 text-white rounded-lg transition-colors"
             >
               Close
             </button>
@@ -98,7 +98,7 @@ const FeedbackForm = ({ isOpen, onClose }) => {
         ) : (
           // Feedback form
           <>
-            <div className="bg-gradient-to-r from-[#f75600] to-[#E2711D] px-6 py-4">
+            <div className="bg-gradient-to-r from-violet-600 to-indigo-700 px-6 py-4">
               <div className="flex items-center justify-between">
                 <h2 className="text-xl font-bold text-white text-left">Share Your Feedback</h2>
                 <button 
@@ -132,7 +132,7 @@ const FeedbackForm = ({ isOpen, onClose }) => {
                         xmlns="http://www.w3.org/2000/svg" 
                         className={`h-8 w-8 ${
                           (hoverRating || rating) >= star 
-                            ? 'text-[#f75600]' 
+                            ? 'text-violet-500' 
                             : 'text-gray-400'
                         } transition-colors`}
                         viewBox="0 0 20 20"
@@ -162,7 +162,7 @@ const FeedbackForm = ({ isOpen, onClose }) => {
                     id="category"
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
-                    className="block w-full pl-4 pr-10 py-3 border border-[#2a2a2a] bg-[#121212] rounded-md shadow-sm text-[#d6d4d4] focus:ring-[#f75600] focus:border-[#f75600] appearance-none"
+                    className="block w-full pl-4 pr-10 py-3 border border-[#2a2a2a] bg-[#121212] rounded-md shadow-sm text-[#d6d4d4] focus:ring-violet-500 focus:border-violet-500 appearance-none"
                   >
                     <option value="">Select a category</option>
                     {categories.map((cat) => (
@@ -190,7 +190,7 @@ const FeedbackForm = ({ isOpen, onClose }) => {
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
                   placeholder="Tell us more about your experience..."
-                  className="block w-full p-3 border border-[#2a2a2a] bg-[#121212] rounded-md shadow-sm text-[#d6d4d4] placeholder-gray-500 focus:ring-[#f75600] focus:border-[#f75600]"
+                  className="block w-full p-3 border border-[#2a2a2a] bg-[#121212] rounded-md shadow-sm text-[#d6d4d4] placeholder-gray-500 focus:ring-violet-500 focus:border-violet-500"
                 ></textarea>
               </div>
               
@@ -206,7 +206,7 @@ const FeedbackForm = ({ isOpen, onClose }) => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-6 py-2 bg-gradient-to-r from-[#f75600] to-[#E2711D] text-white rounded-md shadow-lg hover:shadow-xl transition-all disabled:opacity-50"
+                  className="px-6 py-2 bg-gradient-to-r from-violet-600 to-indigo-700 text-white rounded-md shadow-lg hover:shadow-xl transition-all disabled:opacity-50"
                 >
                   {isSubmitting ? (
                     <span className="flex items-center">

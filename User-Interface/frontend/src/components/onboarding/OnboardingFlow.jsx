@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { doc, updateDoc } from 'firebase/firestore';
 import { auth, db } from '../../firebase';
@@ -19,12 +19,15 @@ const OnboardingFlow = () => {
           hasCompletedOnboarding: true,
           updatedAt: new Date()
         });
+        
+        // Navigate to dashboard
+        navigate('/health-dashboard');
+      } else {
+        navigate('/signin');
       }
-      navigate('/chat');
     } catch (error) {
       console.error("Error updating user profile:", error);
-      // Even if there's an error, proceed to the chat
-      navigate('/chat');
+      navigate('/health-dashboard');
     }
   };
 
@@ -32,14 +35,8 @@ const OnboardingFlow = () => {
     setStep(step + 1);
   };
 
-  // If user refreshes during onboarding, redirect them back to appropriate step
-  useEffect(() => {
-    // This is a simple approach - you might want to load from localStorage or Firestore
-    // to handle refreshes more robustly
-  }, []);
-
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-violet-50 to-white">
       {step === 1 && <WelcomeScreen onContinue={handleNextStep} />}
       {step === 2 && <NameCollectionScreen onSubmit={handleNameSubmit} />}
     </div>

@@ -82,7 +82,7 @@ const PersonalizationSettings = () => {
             name="healthPriorities"
             value={settings.healthPriorities}
             onChange={handleMultiSelect}
-            className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-violet-500 focus:border-violet-500 sm:text-sm"
             size={5}
           >
             <option value="diabetes">Diabetes</option>
@@ -114,7 +114,7 @@ const PersonalizationSettings = () => {
                 name="userPreferences.responseLength"
                 value={settings.userPreferences.responseLength}
                 onChange={handleChange}
-                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-violet-500 focus:border-violet-500 sm:text-sm"
               >
                 <option value="brief">Brief - Short and concise answers</option>
                 <option value="medium">Medium - Balanced responses with key details</option>
@@ -131,7 +131,7 @@ const PersonalizationSettings = () => {
                 name="userPreferences.technicalLevel"
                 value={settings.userPreferences.technicalLevel}
                 onChange={handleChange}
-                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-violet-500 focus:border-violet-500 sm:text-sm"
               >
                 <option value="simple">Simple - Easy to understand, minimal medical terminology</option>
                 <option value="balanced">Balanced - Some medical terms with explanations</option>
@@ -158,7 +158,7 @@ const PersonalizationSettings = () => {
                 name="preferredUnits.weight"
                 value={settings.preferredUnits.weight}
                 onChange={handleChange}
-                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-violet-500 focus:border-violet-500 sm:text-sm"
               >
                 <option value="kg">Kilograms (kg)</option>
                 <option value="lb">Pounds (lb)</option>
@@ -174,7 +174,7 @@ const PersonalizationSettings = () => {
                 name="preferredUnits.height"
                 value={settings.preferredUnits.height}
                 onChange={handleChange}
-                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-violet-500 focus:border-violet-500 sm:text-sm"
               >
                 <option value="cm">Centimeters (cm)</option>
                 <option value="ft">Feet/Inches (ft/in)</option>
@@ -190,7 +190,7 @@ const PersonalizationSettings = () => {
                 name="preferredUnits.temperature"
                 value={settings.preferredUnits.temperature}
                 onChange={handleChange}
-                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-violet-500 focus:border-violet-500 sm:text-sm"
               >
                 <option value="celsius">Celsius (°C)</option>
                 <option value="fahrenheit">Fahrenheit (°F)</option>
@@ -217,7 +217,7 @@ const PersonalizationSettings = () => {
                 name="preferredTimes.morningReminder"
                 value={settings.preferredTimes.morningReminder}
                 onChange={handleChange}
-                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-violet-500 focus:border-violet-500 sm:text-sm"
               />
             </div>
             
@@ -231,7 +231,7 @@ const PersonalizationSettings = () => {
                 name="preferredTimes.eveningReminder"
                 value={settings.preferredTimes.eveningReminder}
                 onChange={handleChange}
-                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-violet-500 focus:border-violet-500 sm:text-sm"
               />
             </div>
           </div>
@@ -242,7 +242,7 @@ const PersonalizationSettings = () => {
           <button
             type="button"
             onClick={handleSave}
-            className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="px-4 py-2 bg-gradient-to-r from-violet-600 to-indigo-700 text-white rounded-lg hover:from-violet-700 hover:to-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500"
           >
             Save Changes
           </button>

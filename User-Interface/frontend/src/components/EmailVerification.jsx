@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { applyActionCode, getAuth } from 'firebase/auth';
+import { applyActionCode, getAuth, getIdToken } from 'firebase/auth';
+import axios from 'axios';
 
 const EmailVerification = () => {
   const [searchParams] = useSearchParams();
@@ -28,6 +29,33 @@ const EmailVerification = () => {
     
     verifyEmail();
   }, [searchParams, auth]);
+  
+  useEffect(() => {
+    if (status === 'success' && auth.currentUser) {
+      const sendWelcomeEmail = async () => {
+        try {
+          const token = await getIdToken(auth.currentUser);
+          
+          // Replace this URL with your actual backend URL
+          const backendUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+          
+          await axios.post(`${backendUrl}/api/auth/welcome-email`, 
+            { fullName: auth.currentUser.displayName || '' },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`
+              }
+            }
+          );
+          console.log('Welcome email request sent successfully');
+        } catch (error) {
+          console.error("Error sending welcome email:", error);
+        }
+      };
+      
+      sendWelcomeEmail();
+    }
+  }, [status, auth]);
   
   return (
     <div className="min-h-screen flex items-center justify-center bg-white py-6 px-4 sm:px-6 lg:px-8">

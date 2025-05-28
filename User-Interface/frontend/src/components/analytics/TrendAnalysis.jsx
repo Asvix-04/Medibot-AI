@@ -34,12 +34,12 @@ const TrendAnalysis = ({ healthMetrics, selectedMetrics, toggleMetricSelection, 
   
   const [focusMetric, setFocusMetric] = useState(null);
   
-  // Metric display configurations
+  // Metric display configurations - Updated with violet-bluish theme
   const metricConfigs = {
     bloodPressure: {
       label: 'Blood Pressure',
-      color: 'rgba(147, 51, 234, 0.8)', // Purple
-      secondaryColor: 'rgba(79, 70, 229, 0.8)', // Indigo for diastolic
+      color: 'rgba(139, 92, 246, 0.8)', // violet-500
+      secondaryColor: 'rgba(99, 102, 241, 0.8)', // indigo-500 for diastolic
       unit: 'mmHg',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -50,7 +50,7 @@ const TrendAnalysis = ({ healthMetrics, selectedMetrics, toggleMetricSelection, 
     },
     heartRate: {
       label: 'Heart Rate',
-      color: 'rgba(239, 68, 68, 0.8)', // Red
+      color: 'rgba(191, 131, 255, 0.8)', // purple-400
       unit: 'BPM',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -61,7 +61,7 @@ const TrendAnalysis = ({ healthMetrics, selectedMetrics, toggleMetricSelection, 
     },
     bloodGlucose: {
       label: 'Blood Glucose',
-      color: 'rgba(245, 158, 11, 0.8)', // Amber
+      color: 'rgba(109, 40, 217, 0.8)', // violet-800
       unit: 'mg/dL',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -72,7 +72,7 @@ const TrendAnalysis = ({ healthMetrics, selectedMetrics, toggleMetricSelection, 
     },
     weight: {
       label: 'Weight',
-      color: 'rgba(16, 185, 129, 0.8)', // Emerald
+      color: 'rgba(79, 70, 229, 0.8)', // indigo-600
       unit: 'kg',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -82,7 +82,7 @@ const TrendAnalysis = ({ healthMetrics, selectedMetrics, toggleMetricSelection, 
     },
     sleep: {
       label: 'Sleep',
-      color: 'rgba(59, 130, 246, 0.8)', // Blue
+      color: 'rgba(99, 102, 241, 0.8)', // indigo-500
       unit: 'hours',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -424,7 +424,7 @@ const TrendAnalysis = ({ healthMetrics, selectedMetrics, toggleMetricSelection, 
         </div>
       </div>
       
-      {/* Advanced Options */}
+      {/* Advanced Options - Updated colors */}
       <div className={`mb-6 p-4 rounded-xl ${darkMode ? 'bg-gray-800' : 'bg-white border border-gray-200'}`}>
         <div className="flex flex-wrap gap-3">
           <label className="flex items-center">
@@ -432,7 +432,7 @@ const TrendAnalysis = ({ healthMetrics, selectedMetrics, toggleMetricSelection, 
               type="checkbox"
               checked={advancedOptions.movingAverage}
               onChange={() => setAdvancedOptions({...advancedOptions, movingAverage: !advancedOptions.movingAverage})}
-              className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+              className="w-4 h-4 text-violet-600 border-gray-300 rounded focus:ring-violet-500"
             />
             <span className={`ml-2 text-sm ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Show Moving Average</span>
           </label>
@@ -442,7 +442,7 @@ const TrendAnalysis = ({ healthMetrics, selectedMetrics, toggleMetricSelection, 
               type="checkbox"
               checked={advancedOptions.showGoalLines}
               onChange={() => setAdvancedOptions({...advancedOptions, showGoalLines: !advancedOptions.showGoalLines})}
-              className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+              className="w-4 h-4 text-violet-600 border-gray-300 rounded focus:ring-violet-500"
             />
             <span className={`ml-2 text-sm ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Show Normal Ranges</span>
           </label>
@@ -452,7 +452,7 @@ const TrendAnalysis = ({ healthMetrics, selectedMetrics, toggleMetricSelection, 
               type="checkbox"
               checked={advancedOptions.annotations}
               onChange={() => setAdvancedOptions({...advancedOptions, annotations: !advancedOptions.annotations})}
-              className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+              className="w-4 h-4 text-violet-600 border-gray-300 rounded focus:ring-violet-500"
             />
             <span className={`ml-2 text-sm ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Show Annotations</span>
           </label>
@@ -462,7 +462,7 @@ const TrendAnalysis = ({ healthMetrics, selectedMetrics, toggleMetricSelection, 
               type="checkbox"
               checked={advancedOptions.regressionLine}
               onChange={() => setAdvancedOptions({...advancedOptions, regressionLine: !advancedOptions.regressionLine})}
-              className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+              className="w-4 h-4 text-violet-600 border-gray-300 rounded focus:ring-violet-500"
             />
             <span className={`ml-2 text-sm ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Show Trend Line</span>
           </label>

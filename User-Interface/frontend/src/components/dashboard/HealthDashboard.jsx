@@ -247,15 +247,15 @@ const HealthDashboard = ({ darkMode = false }) => {
       {
         label: 'Systolic',
         data: healthMetrics.bloodPressure.map(item => item.systolic),
-        borderColor: 'rgba(247, 86, 0, 0.8)',
-        backgroundColor: 'rgba(247, 86, 0, 0.2)',
+        borderColor: 'rgba(139, 92, 246, 0.8)', // violet-500
+        backgroundColor: 'rgba(139, 92, 246, 0.2)',
         tension: 0.4,
       },
       {
         label: 'Diastolic',
         data: healthMetrics.bloodPressure.map(item => item.diastolic),
-        borderColor: 'rgba(226, 113, 29, 0.8)',
-        backgroundColor: 'rgba(226, 113, 29, 0.2)',
+        borderColor: 'rgba(99, 102, 241, 0.8)', // indigo-500
+        backgroundColor: 'rgba(99, 102, 241, 0.2)',
         tension: 0.4,
       }
     ]
@@ -268,8 +268,8 @@ const HealthDashboard = ({ darkMode = false }) => {
       {
         label: 'Heart Rate',
         data: healthMetrics.heartRate.map(item => item.value),
-        borderColor: 'rgba(239, 68, 68, 0.8)',
-        backgroundColor: 'rgba(239, 68, 68, 0.2)',
+        borderColor: 'rgba(167, 139, 250, 0.8)', // violet-400
+        backgroundColor: 'rgba(167, 139, 250, 0.2)',
         tension: 0.4,
         fill: true,
       }
@@ -283,8 +283,8 @@ const HealthDashboard = ({ darkMode = false }) => {
       {
         label: 'Blood Glucose',
         data: healthMetrics.bloodGlucose.map(item => item.value),
-        borderColor: 'rgba(245, 158, 11, 0.8)',
-        backgroundColor: 'rgba(245, 158, 11, 0.2)',
+        borderColor: 'rgba(124, 58, 237, 0.8)', // violet-600
+        backgroundColor: 'rgba(124, 58, 237, 0.2)',
         tension: 0.4,
       }
     ]
@@ -297,8 +297,8 @@ const HealthDashboard = ({ darkMode = false }) => {
       {
         label: 'Weight (kg)',
         data: healthMetrics.weight.map(item => item.value),
-        borderColor: 'rgba(16, 185, 129, 0.8)',
-        backgroundColor: 'rgba(16, 185, 129, 0.2)',
+        borderColor: 'rgba(79, 70, 229, 0.8)', // indigo-600
+        backgroundColor: 'rgba(79, 70, 229, 0.2)',
         tension: 0.4,
       }
     ]
@@ -314,7 +314,7 @@ const HealthDashboard = ({ darkMode = false }) => {
       },
       tooltip: {
         displayColors: false,
-        backgroundColor: 'rgba(53, 53, 91, 0.9)',
+        backgroundColor: 'rgba(76, 29, 149, 0.9)', // violet-900 with opacity
         titleFont: {
           size: 14,
           weight: 'bold'
@@ -357,7 +357,7 @@ const HealthDashboard = ({ darkMode = false }) => {
     return (
       <div className="flex justify-center items-center h-screen">
         <div className="animate-pulse flex flex-col items-center">
-          <div className="w-12 h-12 border-4 border-t-purple-600 border-r-transparent border-b-purple-600 border-l-transparent rounded-full animate-spin"></div>
+          <div className="w-12 h-12 border-4 border-t-violet-600 border-r-transparent border-b-violet-600 border-l-transparent rounded-full animate-spin"></div>
           <p className="mt-4 text-gray-700">Loading your health dashboard...</p>
         </div>
       </div>
@@ -382,13 +382,13 @@ const HealthDashboard = ({ darkMode = false }) => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       {/* Black header with logo - matches signin/signup */}
-      <div className="bg-black py-5 px-4 mb-6 rounded-lg relative">
+      <div className="bg-violet-900 py-5 px-4 mb-6 rounded-lg relative">
         <div className="flex justify-between items-center">
           <div className="flex items-center">
             <img className="h-12 w-auto rounded-full p-1 bg-white mr-4" src={medibot_logo} alt="Medibot" />
             <div>
               <h1 className="text-2xl font-bold text-white">Health Dashboard</h1>
-              <p className="text-xs text-gray-400">
+              <p className="text-xs text-violet-200">
                 Monitor your health metrics, medications, and upcoming appointments
               </p>
             </div>
@@ -406,7 +406,8 @@ const HealthDashboard = ({ darkMode = false }) => {
       <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-100 p-6">
         {/* Quick Summary Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <div className="bg-gradient-to-br from-[#f75600] to-[#E2711D] rounded-2xl p-5 text-white shadow-lg">
+          {/* Blood Pressure Card */}
+          <div className="bg-gradient-to-br from-violet-600 to-violet-800 rounded-2xl p-5 text-white shadow-lg">
             <div className="flex items-start mb-2">
               <h3 className="text-lg font-medium">Blood Pressure</h3>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -424,7 +425,8 @@ const HealthDashboard = ({ darkMode = false }) => {
             )}
           </div>
           
-          <div className="bg-gradient-to-br from-red-500 to-pink-600 rounded-2xl p-5 text-white shadow-lg">
+          {/* Heart Rate Card */}
+          <div className="bg-gradient-to-br from-violet-500 to-indigo-600 rounded-2xl p-5 text-white shadow-lg">
             <div className="flex items-start mb-2">
               <h3 className="text-lg font-medium">Heart Rate</h3>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -441,7 +443,8 @@ const HealthDashboard = ({ darkMode = false }) => {
             )}
           </div>
           
-          <div className="bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl p-5 text-white shadow-lg">
+          {/* Blood Glucose Card */}
+          <div className="bg-gradient-to-br from-indigo-500 to-purple-700 rounded-2xl p-5 text-white shadow-lg">
             <div className="flex items-start mb-2">
               <h3 className="text-lg font-medium">Blood Glucose</h3>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -458,7 +461,8 @@ const HealthDashboard = ({ darkMode = false }) => {
             )}
           </div>
           
-          <div className="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl p-5 text-white shadow-lg">
+          {/* Weight Card */}
+          <div className="bg-gradient-to-br from-violet-700 to-indigo-800 rounded-2xl p-5 text-white shadow-lg">
             <div className="flex items-start mb-2">
               <h3 className="text-lg font-medium">Weight</h3>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -479,8 +483,11 @@ const HealthDashboard = ({ darkMode = false }) => {
         {/* Medication Reminders */}
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 mb-8">
           <div className="border-b border-gray-200">
-            <h2 className="text-lg font-medium text-white px-6 py-4 bg-gradient-to-r from-[#f75600] to-[#E2711D] rounded-t-lg flex items-center">
-              {/* Icon and title */}
+            <h2 className="text-lg font-medium text-white px-6 py-4 bg-gradient-to-r from-violet-600 to-indigo-600 rounded-t-lg flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+              Medication Reminders
             </h2>
           </div>
           
@@ -493,7 +500,7 @@ const HealthDashboard = ({ darkMode = false }) => {
                     className={`p-4 rounded-lg border ${
                       isMedicationDueSoon(medication.nextDose) 
                         ? 'bg-red-50 border-red-200' 
-                        : 'bg-gray-50 border-gray-200'
+                        : 'bg-violet-50 border-violet-200'
                     }`}
                   >
                     <div className="flex items-center justify-between mb-2">
@@ -501,7 +508,7 @@ const HealthDashboard = ({ darkMode = false }) => {
                       <span className={`px-3 py-1 rounded-full text-xs font-medium ${
                         isMedicationDueSoon(medication.nextDose)
                           ? 'bg-red-100 text-red-800'
-                          : 'bg-blue-100 text-blue-800'
+                          : 'bg-violet-100 text-violet-800'
                       }`}>
                         {formatTimeDiff(medication.nextDose)}
                       </span>
@@ -512,13 +519,13 @@ const HealthDashboard = ({ darkMode = false }) => {
                 
                 <div className="flex justify-between items-center pt-2">
                   <button 
-                    className="text-sm text-indigo-600 hover:text-indigo-800"
+                    className="text-sm text-violet-600 hover:text-violet-800"
                     onClick={() => navigate('/medication-manager')}
                   >
                     View all medications
                   </button>
                   <button 
-                    className="text-sm px-3 py-1 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                    className="text-sm px-3 py-1 bg-violet-600 text-white rounded-lg hover:bg-violet-700 transition-colors"
                     onClick={() => navigate('/medication-manager', { state: { openAddForm: true } })}
                   >
                     Add medication
@@ -528,7 +535,7 @@ const HealthDashboard = ({ darkMode = false }) => {
             ) : (
               <div className="text-center py-6">
                 <p className="text-gray-600 mb-4">No medications have been added</p>
-                <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
+                <button className="px-4 py-2 bg-violet-600 text-white rounded-lg hover:bg-violet-700 transition-colors">
                   Add your first medication
                 </button>
               </div>
@@ -542,7 +549,7 @@ const HealthDashboard = ({ darkMode = false }) => {
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
             <div className="border-b border-gray-200">
               <h2 className="text-lg font-medium px-6 py-4 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-violet-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
                 Blood Pressure History
@@ -560,7 +567,7 @@ const HealthDashboard = ({ darkMode = false }) => {
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
             <div className="border-b border-gray-200">
               <h2 className="text-lg font-medium px-6 py-4 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-violet-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                 </svg>
                 Heart Rate History
@@ -580,7 +587,7 @@ const HealthDashboard = ({ darkMode = false }) => {
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
             <div className="border-b border-gray-200">
               <h2 className="text-lg font-medium px-6 py-4 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
                 </svg>
                 Blood Glucose History
@@ -600,7 +607,7 @@ const HealthDashboard = ({ darkMode = false }) => {
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
             <div className="border-b border-gray-200">
               <h2 className="text-lg font-medium px-6 py-4 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-indigo-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
                 </svg>
                 Weight History
@@ -619,10 +626,10 @@ const HealthDashboard = ({ darkMode = false }) => {
         
         {/* Two Column Layout - Appointments and Health Goals */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          {/* Upcoming Appointments */}
+          {/* Upcoming Appointments - Updated colors */}
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
             <div className="border-b border-gray-200">
-              <h2 className="text-lg font-medium text-white px-6 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 flex items-center">
+              <h2 className="text-lg font-medium text-white px-6 py-4 bg-gradient-to-r from-violet-600 to-indigo-600 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
@@ -633,12 +640,12 @@ const HealthDashboard = ({ darkMode = false }) => {
               {sortedAppointments.length > 0 ? (
                 <div className="space-y-4">
                   {sortedAppointments.map((appointment) => (
-                    <div key={appointment.id} className="p-4 rounded-lg bg-blue-50 border border-blue-100">
+                    <div key={appointment.id} className="p-4 rounded-lg bg-violet-50 border border-violet-100">
                       <div className="flex items-center justify-between mb-2">
                         <h3 className="font-medium text-gray-900">
-                          {appointment.doctor} <span className="text-blue-600">({appointment.specialty})</span>
+                          {appointment.doctor} <span className="text-violet-600">({appointment.specialty})</span>
                         </h3>
-                        <span className="px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                        <span className="px-3 py-1 rounded-full text-xs font-medium bg-violet-100 text-violet-800">
                           {formatDate(appointment.date)}, {appointment.time}
                         </span>
                       </div>
@@ -649,13 +656,13 @@ const HealthDashboard = ({ darkMode = false }) => {
                   <div className="flex justify-between items-center pt-2">
                     <button 
                       onClick={() => navigate('/appointments', { state: { view: 'all' } })}
-                      className="text-sm text-blue-600 hover:text-blue-800"
+                      className="text-sm text-violet-600 hover:text-violet-800"
                     >
                       View all appointments
                     </button>
                     <button 
                       onClick={() => navigate('/appointments')} 
-                      className="text-sm px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                      className="text-sm px-3 py-1 bg-violet-600 text-white rounded-lg hover:bg-violet-700 transition-colors"
                     >
                       Schedule appointment
                     </button>
@@ -664,7 +671,7 @@ const HealthDashboard = ({ darkMode = false }) => {
               ) : (
                 <div className="text-center py-6">
                   <p className="text-gray-600 mb-4">No upcoming appointments</p>
-                  <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                  <button className="px-4 py-2 bg-violet-600 text-white rounded-lg hover:bg-violet-700 transition-colors">
                     Schedule an appointment
                   </button>
                 </div>
@@ -672,10 +679,10 @@ const HealthDashboard = ({ darkMode = false }) => {
             </div>
           </div>
 
-          {/* Health Goals */}
+          {/* Health Goals - Updated colors */}
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
             <div className="border-b border-gray-200">
-              <h2 className="text-lg font-medium text-white px-6 py-4 bg-gradient-to-r from-emerald-600 to-teal-600 flex items-center">
+              <h2 className="text-lg font-medium text-white px-6 py-4 bg-gradient-to-r from-indigo-600 to-violet-700 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
@@ -695,7 +702,7 @@ const HealthDashboard = ({ darkMode = false }) => {
                       </div>
                       <div className="w-full bg-gray-200 rounded-full h-2">
                         <div 
-                          className="bg-emerald-500 h-2 rounded-full" 
+                          className="bg-violet-500 h-2 rounded-full" 
                           style={{ width: `${goal.progress}%` }}
                         ></div>
                       </div>
@@ -706,10 +713,10 @@ const HealthDashboard = ({ darkMode = false }) => {
                     </div>
                   ))}
                   <div className="flex justify-between items-center pt-2">
-                    <button className="text-sm text-emerald-600 hover:text-emerald-800">
+                    <button className="text-sm text-violet-600 hover:text-violet-800">
                       View all goals
                     </button>
-                    <button className="text-sm px-3 py-1 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors">
+                    <button className="text-sm px-3 py-1 bg-violet-600 text-white rounded-lg hover:bg-violet-700 transition-colors">
                       Add new goal
                     </button>
                   </div>
@@ -717,7 +724,7 @@ const HealthDashboard = ({ darkMode = false }) => {
               ) : (
                 <div className="text-center py-6">
                   <p className="text-gray-600 mb-4">No health goals have been set</p>
-                  <button className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors">
+                  <button className="px-4 py-2 bg-violet-600 text-white rounded-lg hover:bg-violet-700 transition-colors">
                     Set your first goal
                   </button>
                 </div>
@@ -726,17 +733,17 @@ const HealthDashboard = ({ darkMode = false }) => {
           </div>
         </div>
 
-        {/* Footer with action buttons */}
+        {/* Footer with action buttons - Updated button colors */}
         <div className="flex justify-center space-x-4">
           <button 
             onClick={() => setShowAddMetricForm(true)} 
-            className="group relative flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-black">
+            className="group relative flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-violet-700 hover:bg-violet-800 focus:outline-none focus:ring-1 focus:ring-violet-600">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             Add Health Data
           </button>
-          <button className="flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
+          <button className="flex items-center px-4 py-2 border border-violet-300 rounded-md shadow-sm text-sm font-medium text-violet-700 bg-white hover:bg-violet-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
             </svg>
@@ -744,7 +751,7 @@ const HealthDashboard = ({ darkMode = false }) => {
           </button>
         </div>
 
-        {/* Form modal */}
+        {/* Form modal - Keep most of this the same */}
         {showAddMetricForm && (
           <div className="fixed inset-0 z-10 overflow-y-auto">
             <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">

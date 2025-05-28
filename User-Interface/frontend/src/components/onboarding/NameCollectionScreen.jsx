@@ -36,9 +36,9 @@ const NameCollectionScreen = ({ onSubmit }) => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6">
+    <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-gradient-to-b from-violet-50 to-white">
       <div className={`max-w-lg w-full bg-white rounded-2xl shadow-lg overflow-hidden transform transition-all duration-500 ${isAnimating ? 'translate-x-full opacity-0' : 'translate-x-0 opacity-100'}`}>
-        <div className="bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-500 p-8">
+        <div className="bg-gradient-to-r from-violet-600 to-violet-800 p-8">
           <h1 className="text-3xl font-bold text-white text-center">Before we get started...</h1>
         </div>
         
@@ -56,7 +56,7 @@ const NameCollectionScreen = ({ onSubmit }) => {
                   value={name}
                   onChange={handleChange}
                   autoFocus
-                  className="block w-full px-4 py-3 text-lg text-gray-900 bg-gray-50 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                  className="block w-full px-4 py-3 text-lg text-gray-900 bg-gray-50 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all"
                   placeholder="Your name"
                 />
               </div>
@@ -71,11 +71,11 @@ const NameCollectionScreen = ({ onSubmit }) => {
                 disabled={!isValid}
                 className={`w-full py-3 px-4 flex justify-center items-center rounded-xl text-white text-lg font-medium shadow-md transition-all duration-300 ${
                   isValid 
-                    ? 'bg-gradient-to-r from-purple-600 to-indigo-600 hover:shadow-lg transform hover:-translate-y-1' 
+                    ? 'bg-gradient-to-r from-violet-600 to-violet-800 hover:shadow-lg transform hover:-translate-y-1' 
                     : 'bg-gray-300 cursor-not-allowed'
                 }`}
               >
-                Continue to Chat
+                Continue to Dashboard
               </button>
             </div>
           </form>

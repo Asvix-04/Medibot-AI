@@ -160,7 +160,6 @@ const MedicationForm = ({
       const user = auth.currentUser;
       if (!user) throw new Error("No user is signed in");
       
-      // Prepare data for Firestore
       const medicationData = {
         ...formData,
         startDate: formData.startDate,
@@ -288,7 +287,7 @@ const MedicationForm = ({
                   <button
                     type="submit"
                     className={`px-4 py-2 rounded-lg font-medium ${
-                      darkMode ? 'bg-indigo-700 hover:bg-indigo-800' : 'bg-indigo-600 hover:bg-indigo-700'
+                      darkMode ? 'bg-violet-700 hover:bg-violet-800' : 'bg-violet-600 hover:bg-violet-700'
                     } text-white transition-colors`}
                   >
                     Add Medication
@@ -347,7 +346,7 @@ const MedicationForm = ({
                   <button
                     type="submit"
                     className={`px-4 py-2 rounded-lg font-medium ${
-                      darkMode ? 'bg-indigo-700 hover:bg-indigo-800' : 'bg-indigo-600 hover:bg-indigo-700'
+                      darkMode ? 'bg-violet-700 hover:bg-violet-800' : 'bg-violet-600 hover:bg-violet-700'
                     } text-white transition-colors`}
                   >
                     Save Changes
@@ -444,7 +443,7 @@ const MedicationForm = ({
                   darkMode 
                     ? 'bg-gray-700 border-gray-600 text-white' 
                     : 'bg-white border-gray-300 text-gray-900'
-                } focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
+                } focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500`}
               />
               {errors.name && <p className="mt-1 text-sm text-red-500">{errors.name}</p>}
             </div>
@@ -466,7 +465,7 @@ const MedicationForm = ({
                   darkMode 
                     ? 'bg-gray-700 border-gray-600 text-white' 
                     : 'bg-white border-gray-300 text-gray-900'
-                } focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
+                } focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500`}
               />
               {errors.dosage && <p className="mt-1 text-sm text-red-500">{errors.dosage}</p>}
             </div>
@@ -486,7 +485,7 @@ const MedicationForm = ({
                   darkMode 
                     ? 'bg-gray-700 border-gray-600 text-white' 
                     : 'bg-white border-gray-300 text-gray-900'
-                } focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
+                } focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500`}
               />
             </div>
           </div>
@@ -510,7 +509,7 @@ const MedicationForm = ({
                   darkMode 
                     ? 'bg-gray-700 border-gray-600 text-white' 
                     : 'bg-white border-gray-300 text-gray-900'
-                } focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
+                } focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500`}
               >
                 <option value="once-daily">Once Daily</option>
                 <option value="twice-daily">Twice Daily</option>
@@ -537,7 +536,7 @@ const MedicationForm = ({
                       darkMode 
                         ? 'bg-gray-700 border-gray-600 text-white' 
                         : 'bg-white border-gray-300 text-gray-900'
-                    } focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
+                    } focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500`}
                   />
                   
                   {index > 0 && (
@@ -589,7 +588,7 @@ const MedicationForm = ({
                   darkMode 
                     ? 'bg-gray-700 border-gray-600 text-white' 
                     : 'bg-white border-gray-300 text-gray-900'
-                } focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
+                } focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500`}
               />
               {errors.startDate && <p className="mt-1 text-sm text-red-500">{errors.startDate}</p>}
             </div>
@@ -610,7 +609,7 @@ const MedicationForm = ({
                   darkMode 
                     ? 'bg-gray-700 border-gray-600 text-white' 
                     : 'bg-white border-gray-300 text-gray-900'
-                } focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
+                } focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500`}
               />
               {errors.endDate && <p className="mt-1 text-sm text-red-500">{errors.endDate}</p>}
             </div>
@@ -636,7 +635,7 @@ const MedicationForm = ({
                   darkMode 
                     ? 'bg-gray-700 border-gray-600 text-white' 
                     : 'bg-white border-gray-300 text-gray-900'
-                } focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
+                } focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500`}
               ></textarea>
             </div>
             
@@ -654,7 +653,7 @@ const MedicationForm = ({
                   darkMode 
                     ? 'bg-gray-700 border-gray-600 text-white' 
                     : 'bg-white border-gray-300 text-gray-900'
-                } focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
+                } focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500`}
               />
             </div>
             
@@ -673,7 +672,7 @@ const MedicationForm = ({
                   darkMode 
                     ? 'bg-gray-700 border-gray-600 text-white' 
                     : 'bg-white border-gray-300 text-gray-900'
-                } focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
+                } focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500`}
               />
             </div>
             
@@ -691,7 +690,7 @@ const MedicationForm = ({
                   darkMode 
                     ? 'bg-gray-700 border-gray-600 text-white' 
                     : 'bg-white border-gray-300 text-gray-900'
-                } focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
+                } focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500`}
               />
             </div>
             
@@ -709,7 +708,7 @@ const MedicationForm = ({
                   darkMode 
                     ? 'bg-gray-700 border-gray-600 text-white' 
                     : 'bg-white border-gray-300 text-gray-900'
-                } focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
+                } focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500`}
               ></textarea>
             </div>
           </div>

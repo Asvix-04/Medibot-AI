@@ -51,19 +51,19 @@ const SettingsSidebar = ({ activeRoute, onNavigate }) => {
   ];
 
   return (
-    <nav className="bg-white rounded-lg shadow-sm">
+    <nav className="bg-white rounded-lg shadow-sm border border-gray-100">
       <ul>
         {navItems.map((item) => (
           <li key={item.name}>
             <button
               onClick={() => onNavigate(item.path)}
-              className={`w-full flex items-center px-4 py-3 text-sm font-medium ${
+              className={`w-full flex items-center px-4 py-3 text-sm font-medium transition-all duration-200 ${
                 activeRoute === item.path
-                  ? 'bg-gradient-to-r from-purple-50 to-indigo-50 text-indigo-600 border-l-4 border-indigo-600'
-                  : 'text-gray-700 hover:bg-gray-50'
+                  ? 'bg-gradient-to-r from-violet-50 to-indigo-50 text-violet-700 border-l-4 border-violet-600'
+                  : 'text-gray-700 hover:bg-violet-50/30 hover:text-violet-600'
               }`}
             >
-              <span className={`mr-3 ${activeRoute === item.path ? 'text-indigo-600' : 'text-gray-500'}`}>
+              <span className={`mr-3 transition-colors ${activeRoute === item.path ? 'text-violet-600' : 'text-gray-500'}`}>
                 {item.icon}
               </span>
               {item.name}

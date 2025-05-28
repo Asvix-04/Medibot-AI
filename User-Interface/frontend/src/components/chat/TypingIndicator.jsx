@@ -9,9 +9,9 @@ const TypingIndicator = () => {
       </div>
       <div className="rounded-lg px-4 py-2 shadow-sm bg-[#1a1a1a] border border-[#2a2a2a]">
         <div className="flex space-x-1">
-          <div className="w-2 h-2 rounded-full bg-[#f75600] animate-bounce" style={{ animationDelay: '0ms' }}></div>
-          <div className="w-2 h-2 rounded-full bg-[#f75600] animate-bounce" style={{ animationDelay: '300ms' }}></div>
-          <div className="w-2 h-2 rounded-full bg-[#f75600] animate-bounce" style={{ animationDelay: '600ms' }}></div>
+          <div className="w-2 h-2 rounded-full bg-[#8b5cf6] animate-bounce" style={{ animationDelay: '0ms' }}></div>
+          <div className="w-2 h-2 rounded-full bg-[#8b5cf6] animate-bounce" style={{ animationDelay: '300ms' }}></div>
+          <div className="w-2 h-2 rounded-full bg-[#8b5cf6] animate-bounce" style={{ animationDelay: '600ms' }}></div>
         </div>
       </div>
     </div>

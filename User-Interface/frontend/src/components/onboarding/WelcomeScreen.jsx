@@ -3,10 +3,10 @@ import medibot_logo from '../../assets/medibot_logo.jpg';
 
 const WelcomeScreen = ({ onContinue }) => {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6">
+    <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-gradient-to-b from-violet-50 to-white">
       <div className="max-w-lg w-full bg-white rounded-2xl shadow-lg overflow-hidden">
-        {/* Header with gradient */}
-        <div className="bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-500 p-8 flex flex-col items-center">
+        {/* Header with gradient - updated to violet gradient */}
+        <div className="bg-gradient-to-r from-violet-600 to-indigo-700 p-8 flex flex-col items-center">
           <div className="w-28 h-28 rounded-full bg-white p-1 shadow-xl mb-6 overflow-hidden">
             <img 
               src={medibot_logo} 
@@ -18,13 +18,13 @@ const WelcomeScreen = ({ onContinue }) => {
           <p className="text-white/80 text-center">Your AI assistant for medical information</p>
         </div>
         
-        {/* Content */}
+        {/* Content - updated icon colors to violet */}
         <div className="p-8">
           <div className="space-y-6">
             <div className="flex items-start">
               <div className="flex-shrink-0 mt-1">
-                <div className="bg-purple-100 p-2 rounded-full">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="bg-violet-100 p-2 rounded-full">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-violet-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
                   </svg>
                 </div>
@@ -37,8 +37,8 @@ const WelcomeScreen = ({ onContinue }) => {
             
             <div className="flex items-start">
               <div className="flex-shrink-0 mt-1">
-                <div className="bg-purple-100 p-2 rounded-full">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="bg-violet-100 p-2 rounded-full">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-violet-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                   </svg>
                 </div>
@@ -51,8 +51,8 @@ const WelcomeScreen = ({ onContinue }) => {
             
             <div className="flex items-start">
               <div className="flex-shrink-0 mt-1">
-                <div className="bg-purple-100 p-2 rounded-full">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="bg-violet-100 p-2 rounded-full">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-violet-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
@@ -65,8 +65,8 @@ const WelcomeScreen = ({ onContinue }) => {
             
             <div className="flex items-start">
               <div className="flex-shrink-0 mt-1">
-                <div className="bg-purple-100 p-2 rounded-full">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="bg-violet-100 p-2 rounded-full">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-violet-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                   </svg>
                 </div>
@@ -78,9 +78,10 @@ const WelcomeScreen = ({ onContinue }) => {
             </div>
           </div>
           
+          {/* Button - updated to violet gradient */}
           <button
             onClick={onContinue}
-            className="mt-8 w-full py-3 px-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-lg font-medium rounded-xl shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transform transition-all duration-300 hover:-translate-y-1"
+            className="mt-8 w-full py-3 px-4 bg-gradient-to-r from-violet-600 to-indigo-700 text-white text-lg font-medium rounded-xl shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500 transform transition-all duration-300 hover:-translate-y-1"
           >
             Get Started
           </button>

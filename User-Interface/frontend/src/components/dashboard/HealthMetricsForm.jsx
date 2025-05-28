@@ -232,7 +232,7 @@ const HealthMetricsForm = ({ onSuccess, darkMode }) => {
             onChange={(e) => setMetricType(e.target.value)}
             className={`block w-full px-3 py-2 border ${
               darkMode ? 'bg-gray-700 border-gray-600 text-white' : 'bg-white border-gray-300 text-gray-900'
-            } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent`}
+            } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500`}
           >
             <option value="bloodPressure">Blood Pressure</option>
             <option value="heartRate">Heart Rate</option>
@@ -259,7 +259,7 @@ const HealthMetricsForm = ({ onSuccess, darkMode }) => {
                 errors.date ? 'border-red-300' : darkMode ? 'border-gray-600' : 'border-gray-300'
               } ${
                 darkMode ? 'bg-gray-700 text-white' : 'bg-white text-gray-900'
-              } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent`}
+              } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500`}
             />
             {errors.date && <p className="mt-1 text-sm text-red-600">{errors.date}</p>}
           </div>
@@ -278,7 +278,7 @@ const HealthMetricsForm = ({ onSuccess, darkMode }) => {
                 errors.time ? 'border-red-300' : darkMode ? 'border-gray-600' : 'border-gray-300'
               } ${
                 darkMode ? 'bg-gray-700 text-white' : 'bg-white text-gray-900'
-              } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent`}
+              } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500`}
             />
             {errors.time && <p className="mt-1 text-sm text-red-600">{errors.time}</p>}
           </div>
@@ -302,7 +302,7 @@ const HealthMetricsForm = ({ onSuccess, darkMode }) => {
                   errors.systolic ? 'border-red-300' : darkMode ? 'border-gray-600' : 'border-gray-300'
                 } ${
                   darkMode ? 'bg-gray-700 text-white' : 'bg-white text-gray-900'
-                } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent`}
+                } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500`}
               />
               {errors.systolic && <p className="mt-1 text-sm text-red-600">{errors.systolic}</p>}
             </div>
@@ -321,7 +321,7 @@ const HealthMetricsForm = ({ onSuccess, darkMode }) => {
                   errors.diastolic ? 'border-red-300' : darkMode ? 'border-gray-600' : 'border-gray-300'
                 } ${
                   darkMode ? 'bg-gray-700 text-white' : 'bg-white text-gray-900'
-                } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent`}
+                } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500`}
               />
               {errors.diastolic && <p className="mt-1 text-sm text-red-600">{errors.diastolic}</p>}
             </div>
@@ -344,7 +344,7 @@ const HealthMetricsForm = ({ onSuccess, darkMode }) => {
                 errors.heartRate ? 'border-red-300' : darkMode ? 'border-gray-600' : 'border-gray-300'
               } ${
                 darkMode ? 'bg-gray-700 text-white' : 'bg-white text-gray-900'
-              } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent`}
+              } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500`}
             />
             {errors.heartRate && <p className="mt-1 text-sm text-red-600">{errors.heartRate}</p>}
           </div>
@@ -366,7 +366,7 @@ const HealthMetricsForm = ({ onSuccess, darkMode }) => {
                 errors.glucoseLevel ? 'border-red-300' : darkMode ? 'border-gray-600' : 'border-gray-300'
               } ${
                 darkMode ? 'bg-gray-700 text-white' : 'bg-white text-gray-900'
-              } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent`}
+              } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500`}
             />
             {errors.glucoseLevel && <p className="mt-1 text-sm text-red-600">{errors.glucoseLevel}</p>}
             <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
@@ -392,7 +392,7 @@ const HealthMetricsForm = ({ onSuccess, darkMode }) => {
                 errors.weight ? 'border-red-300' : darkMode ? 'border-gray-600' : 'border-gray-300'
               } ${
                 darkMode ? 'bg-gray-700 text-white' : 'bg-white text-gray-900'
-              } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent`}
+              } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500`}
             />
             {errors.weight && <p className="mt-1 text-sm text-red-600">{errors.weight}</p>}
           </div>
@@ -415,7 +415,7 @@ const HealthMetricsForm = ({ onSuccess, darkMode }) => {
                 errors.sleepHours ? 'border-red-300' : darkMode ? 'border-gray-600' : 'border-gray-300'
               } ${
                 darkMode ? 'bg-gray-700 text-white' : 'bg-white text-gray-900'
-              } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent`}
+              } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500`}
             />
             {errors.sleepHours && <p className="mt-1 text-sm text-red-600">{errors.sleepHours}</p>}
           </div>
@@ -428,9 +428,9 @@ const HealthMetricsForm = ({ onSuccess, darkMode }) => {
             disabled={isSubmitting}
             className={`relative px-6 py-2 ${
               darkMode 
-                ? 'bg-gradient-to-r from-purple-700 to-indigo-800 hover:from-purple-800 hover:to-indigo-900' 
-                : 'bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700'
-            } text-white text-base font-medium rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transform transition-all duration-300 ${
+                ? 'bg-gradient-to-r from-violet-700 to-indigo-800 hover:from-violet-800 hover:to-indigo-900' 
+                : 'bg-gradient-to-r from-violet-600 to-indigo-700 hover:from-violet-700 hover:to-indigo-800'
+            } text-white text-base font-medium rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500 transform transition-all duration-300 ${
               isSubmitting ? 'opacity-70 cursor-not-allowed' : 'hover:-translate-y-0.5'
             }`}
           >

@@ -34,14 +34,14 @@ const NearbyFacilitiesMap = ({
     const newMap = new window.google.maps.Map(mapRef.current, mapOptions);
     setMap(newMap);
     
-    // Add marker for user's location
+    // Add marker for user's location - updated color to violet
     new window.google.maps.Marker({
       position: userLocation,
       map: newMap,
       icon: {
         path: window.google.maps.SymbolPath.CIRCLE,
         scale: 10,
-        fillColor: "#4285F4",
+        fillColor: "#8b5cf6", // violet-500 instead of Google blue
         fillOpacity: 0.8,
         strokeWeight: 2,
         strokeColor: "#FFFFFF",
@@ -120,9 +120,10 @@ const NearbyFacilitiesMap = ({
     <div className="h-full relative">
       <div ref={mapRef} className="h-full w-full rounded-lg"></div>
       
+      {/* Updated loading spinner to violet */}
       {loading && (
         <div className="absolute top-4 right-4 bg-white dark:bg-gray-800 p-2 rounded-lg shadow-md">
-          <div className="animate-spin w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full"></div>
+          <div className="animate-spin w-5 h-5 border-2 border-violet-500 border-t-transparent rounded-full"></div>
         </div>
       )}
       
@@ -151,9 +152,10 @@ const NearbyFacilitiesMap = ({
             </div>
           )}
           <div className="flex justify-end mt-2">
+            {/* Updated button to violet */}
             <button
               onClick={() => onFacilitySelect(selectedFacility)}
-              className="px-3 py-1 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700"
+              className="px-3 py-1 text-sm bg-violet-600 text-white rounded-md hover:bg-violet-700"
             >
               Select This Location
             </button>

@@ -96,7 +96,7 @@ const ResetPassword = () => {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white">
         <div className="text-center">
-          <div className="animate-spin h-12 w-12 border-4 border-black border-t-transparent rounded-full mx-auto mb-4"></div>
+          <div className="animate-spin h-12 w-12 border-4 border-violet-600 border-t-transparent rounded-full mx-auto mb-4"></div>
           <p className="text-gray-600">Verifying your reset link...</p>
         </div>
       </div>
@@ -106,12 +106,12 @@ const ResetPassword = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-white py-6 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full bg-white rounded-lg shadow-lg overflow-hidden border border-gray-100">
-        <div className="bg-black py-5 px-4 relative">
+        <div className="bg-gradient-to-r from-violet-600 to-indigo-700 py-5 px-4 relative">
           <div className="flex justify-center">
             <img className="h-12 w-auto rounded-full p-1 bg-white" src={medibot_logo} alt="Medibot" />
           </div>
           <h1 className="mt-2 text-center text-2xl font-bold text-white">Medibot</h1>
-          <p className="mt-1 text-center text-xs text-gray-400 max-w-sm mx-auto">
+          <p className="mt-1 text-center text-xs text-violet-100 max-w-sm mx-auto">
             AI-powered health insights. Trusted. Private. Secure.
           </p>
           
@@ -133,7 +133,7 @@ const ResetPassword = () => {
               <p className="text-gray-600 mb-4">{error}</p>
               <button 
                 onClick={() => navigate('/forgot-password')}
-                className="px-4 py-2 bg-black text-white text-sm rounded-md hover:bg-gray-800"
+                className="px-4 py-2 bg-gradient-to-r from-violet-600 to-indigo-700 text-white text-sm rounded-md hover:from-violet-700 hover:to-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500"
               >
                 Request New Reset Link
               </button>
@@ -161,10 +161,10 @@ const ResetPassword = () => {
                       value={password}
                       onChange={handlePasswordChange}
                       placeholder="••••••••"
-                      className="block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-transparent"
+                      className="block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500"
                     />
                     <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                      <i className="bx bxs-lock-alt text-gray-400 text-sm"></i>
+                      <i className="bx bxs-lock-alt text-violet-400 text-sm"></i>
                     </div>
                   </div>
                   
@@ -175,8 +175,8 @@ const ResetPassword = () => {
                           passwordStrength === 0 ? 'w-0' :
                           passwordStrength === 1 ? 'w-1/4 bg-red-500' :
                           passwordStrength === 2 ? 'w-2/4 bg-yellow-500' :
-                          passwordStrength === 3 ? 'w-3/4 bg-gray-700' :
-                          'w-full bg-green-500'
+                          passwordStrength === 3 ? 'w-3/4 bg-violet-500' :
+                          'w-full bg-violet-700'
                         }`}
                       ></div>
                     </div>
@@ -204,11 +204,11 @@ const ResetPassword = () => {
                       placeholder="••••••••"
                       className={`block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 border ${
                         confirmPassword && !passwordMatch ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-300'
-                      } rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-transparent`}
+                      } rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500`}
                     />
                     <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                       <i className={`bx ${confirmPassword && !passwordMatch ? 'bxs-error text-red-500' : 
-                        confirmPassword && passwordMatch ? 'bxs-check-circle text-green-500' : 'bxs-check-circle text-gray-400'} text-sm`}></i>
+                        confirmPassword && passwordMatch ? 'bxs-check-circle text-violet-500' : 'bxs-check-circle text-gray-400'} text-sm`}></i>
                     </div>
                   </div>
                   {confirmPassword && !passwordMatch && (
@@ -220,7 +220,7 @@ const ResetPassword = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting || !passwordMatch || password.length < 8}
-                    className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-black disabled:bg-gray-400"
+                    className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-violet-600 to-indigo-700 hover:from-violet-700 hover:to-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500 disabled:opacity-50"
                   >
                     {isSubmitting ? (
                       <span className="inline-flex items-center">
@@ -241,8 +241,8 @@ const ResetPassword = () => {
           
           {isCompleted && (
             <div className="text-center">
-              <div className="bg-green-100 p-3 rounded-full inline-block mb-4">
-                <svg className="h-12 w-12 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="bg-violet-100 p-3 rounded-full inline-block mb-4">
+                <svg className="h-12 w-12 text-violet-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
@@ -252,7 +252,7 @@ const ResetPassword = () => {
               </p>
               <button 
                 onClick={() => navigate('/signin')}
-                className="w-full py-2 px-4 border border-transparent rounded-md text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-black"
+                className="w-full py-2 px-4 border border-transparent rounded-md text-white bg-gradient-to-r from-violet-600 to-indigo-700 hover:from-violet-700 hover:to-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500"
               >
                 Sign in with new password
               </button>

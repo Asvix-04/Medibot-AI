@@ -1,3 +1,4 @@
+
 MediBot – AI Documentation
 
 Project Overview:
@@ -100,6 +101,24 @@ frontend/
 │ ├── index.html # HTML entry point
 │ ├── favicon.ico # Site favicon
 │ └── manifest.json # PWA configuration
+=======
+```
+Medibot-AI/
+├── User-Interface/
+│   ├── backend/          # Backend server and API
+│   ├── frontend/         # React frontend application
+│   └── Readme.md         # Project documentation
+```
+
+## Backend Structure
+```
+backend/
+├── controllers/
+│   ├── authController.js          # Handles authentication operations
+│   ├── conversationController.js   # Manages AI conversations
+│   ├── healthController.js         # Processes health data operations
+│   └── userController.js           # Handles user profile operations
+
 │
 ├── src/
 │ ├── assets/ # Static assets
@@ -213,10 +232,29 @@ backend/
 ├── middleware/ # Express middleware
 │ └── auth.js # Token verification middleware
 │
+
 ├── models/ # MongoDB schemas
 │ ├── conversationModel.js # Chat conversation schema
 │ ├── healthProfileModel.js # Health data schema
 │ └── userModel.js # User account schema
+=======
+├── .env                            # Environment variables (not in git)
+├── .gitignore                      # Specifies files ignored by git
+├── index.js                        # Main server entry point
+├── firebaseServiceAccount.json     # Firebase credentials (not in git)
+└── package.json                    # Node dependencies and scripts
+```
+## Frontend Structure
+```
+frontend/
+├── public/
+│   ├── favicon.ico                 # Site favicon
+│   ├── index.html                  # HTML entry point
+│   ├── logo192.png                 # React logo (small)
+│   ├── logo512.png                 # React logo (large)
+│   ├── manifest.json               # PWA configuration
+│   └── robots.txt                  # Search engine crawl rules
+
 │
 ├── routes/ # API routes
 │ ├── authRoutes.js # Authentication endpoints
@@ -224,6 +262,100 @@ backend/
 │ ├── healthDataRoutes.js # Health data endpoints
 │ └── userRoutes.js # User profile endpoints
 │
+
 ├── index.js # Server entry point
 ├── package.json # Dependencies and scripts
 └── firebaseServiceAccount.json # Firebase credentials (not in git)
+=======
+├── .env                                  # Environment variables
+├── .gitignore                            # Git ignore configuration
+├── package.json                          # NPM dependencies and scripts
+├── README.md                             # Frontend documentation
+└── tailwind.config.js                    # Tailwind CSS configuration
+```
+
+## Key Components and Their Purposes
+
+### Authentication System
+
+> Complete authentication flow with signup, signin, email verification
+
+> Password recovery and reset capabilities
+
+> Firebase integration for secure authentication
+
+### User Profile System
+
+> Comprehensive health profile management
+
+> Personal information and medical history tracking
+
+> Profile photo upload and management
+
+### Chat Interface
+
+> AI-powered chat assistant for health inquiries
+
+> Conversation history management
+
+> Responsive design with dark/light mode support
+
+### Health Dashboard
+
+> Visualization of key health metrics
+
+> Medication tracking and reminders
+
+> Appointment scheduling and management
+
+### Settings and Customization
+
+> Application preferences and personalization
+
+> Security and privacy controls
+
+> Data management (export, backup, deletion)
+
+
+#### Sign Up (`Signup.jsx`)
+- Allows new users to create an account  
+- Collects essential user information (name, email, mobile number and password)  
+- Includes terms of service and privacy policy consent  
+- Sends verification email to confirm user identity  
+
+#### Sign In (`Signin.jsx`)
+- Handles user authentication  
+- Validates email verification status  
+- Redirects to appropriate pages based on auth status  
+
+
+Google Maps integration for finding nearby facilities
+
+Appointment management (view, cancel, reschedule)
+
+### Medication Management
+
+Track current and past medications
+
+Set reminders for medication doses
+
+
+Generate printable medication lists
+
+### User Profile (`UserProfile.jsx`)
+- Displays user's complete health profile  
+- Shows medical history and current health informations  
+- Provides access to edit profile details  
+- Links to AI chat functionality  
+
+
+### Health Reports
+
+Generate comprehensive health reports
+
+Multiple report templates
+
+Export capabilities in various formats
+
+This structure provides a complete overview of the Medibot application, showing how the various components interconnect to create a comprehensive medical AI assistant platform.
+

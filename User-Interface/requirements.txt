@@ -71,7 +71,7 @@ MongoDB (for backend)
 
 Step 1: Clone the Repository
 
-git clone https://github.com/yourusername/Medibot-AI.git
+git clone https://github.com/Asvix-04/Medibot-AI.git
 cd Medibot-AI
 
 Step 2: Set Up Backend

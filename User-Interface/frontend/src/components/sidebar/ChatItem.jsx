@@ -6,7 +6,7 @@ const ChatItem = ({ title, preview, timestamp, isActive, onClick, darkMode }) =>
       onClick={onClick}
       className={`px-3 py-2 rounded-lg cursor-pointer transition-colors duration-200 ${
         isActive
-          ? 'bg-gradient-to-r from-[#f75600]/10 to-[#E2711D]/10 border-l-4 border-[#f75600] dark:from-[#f75600]/20 dark:to-[#E2711D]/20 dark:border-[#f75600]'
+          ? 'bg-gradient-to-r from-[#6366f1]/10 to-[#8b5cf6]/10 border-l-4 border-[#6366f1] dark:from-[#6366f1]/20 dark:to-[#8b5cf6]/20 dark:border-[#6366f1]'
           : 'hover:bg-gray-100 dark:hover:bg-gray-700'
       } dark:text-white`}
     >

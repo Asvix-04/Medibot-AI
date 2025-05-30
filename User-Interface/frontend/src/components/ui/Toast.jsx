@@ -48,16 +48,16 @@ const Toast = ({ id, message, type, duration, onClose }) => {
     let colorClasses;
     switch (type) {
       case 'success':
-        colorClasses = "bg-green-50 text-green-800 border-l-4 border-green-500";
+        colorClasses = "bg-violet-50 text-violet-800 border-l-4 border-violet-500";
         break;
       case 'error':
         colorClasses = "bg-red-50 text-red-800 border-l-4 border-red-500";
         break;
       case 'warning':
-        colorClasses = "bg-yellow-50 text-yellow-800 border-l-4 border-yellow-500";
+        colorClasses = "bg-amber-50 text-amber-800 border-l-4 border-amber-500";
         break;
       default: // info
-        colorClasses = "bg-blue-50 text-blue-800 border-l-4 border-blue-500";
+        colorClasses = "bg-indigo-50 text-indigo-800 border-l-4 border-indigo-500";
     }
     
     return `${baseClasses} ${positionClasses} ${visibilityClasses} ${colorClasses}`;
@@ -78,7 +78,7 @@ const Toast = ({ id, message, type, duration, onClose }) => {
       <button
         type="button"
         onClick={handleClose}
-        className="ml-auto -mx-1.5 -my-1.5 rounded-lg p-1.5 inline-flex h-8 w-8 hover:bg-gray-200 focus:outline-none"
+        className="ml-auto -mx-1.5 -my-1.5 rounded-lg p-1.5 inline-flex h-8 w-8 hover:bg-violet-100 focus:outline-none focus:ring-2 focus:ring-violet-400"
         aria-label="Close"
       >
         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">

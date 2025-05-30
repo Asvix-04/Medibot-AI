@@ -7,8 +7,8 @@ const LocationPermissionModal = ({ onResponse, darkMode = false }) => {
         darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'
       }`}>
         <div className="text-center mb-6">
-          <div className="mx-auto flex items-center justify-center h-14 w-14 rounded-full bg-blue-100">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="mx-auto flex items-center justify-center h-14 w-14 rounded-full bg-violet-100">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-violet-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
@@ -21,9 +21,9 @@ const LocationPermissionModal = ({ onResponse, darkMode = false }) => {
         </p>
         
         <div className={`mb-6 p-4 rounded-md ${
-          darkMode ? 'bg-gray-700' : 'bg-blue-50'
+          darkMode ? 'bg-violet-900/30' : 'bg-violet-50'
         }`}>
-          <p className={`text-sm ${darkMode ? 'text-gray-300' : 'text-blue-800'}`}>
+          <p className={`text-sm ${darkMode ? 'text-violet-200' : 'text-violet-800'}`}>
             This helps you find the nearest healthcare providers. Your location data is only used to display nearby options and is never stored permanently.
           </p>
         </div>
@@ -41,7 +41,7 @@ const LocationPermissionModal = ({ onResponse, darkMode = false }) => {
           </button>
           <button 
             onClick={() => onResponse(true)}
-            className="px-4 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white"
+            className="px-4 py-2 rounded-md bg-violet-600 hover:bg-violet-700 text-white"
           >
             Allow Access
           </button>

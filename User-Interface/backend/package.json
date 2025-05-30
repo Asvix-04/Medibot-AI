@@ -18,9 +18,11 @@
     "express": "^5.1.0",
     "file-saver": "^2.0.5",
     "firebase-admin": "^11.0.0",
+    "handlebars": "^4.7.8",
     "html-to-image": "^1.11.13",
     "jspdf": "^3.0.1",
     "mongoose": "^8.13.2",
+    "nodemailer": "^7.0.3",
     "papaparse": "^5.5.2"
   },
   "devDependencies": {

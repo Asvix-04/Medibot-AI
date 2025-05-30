@@ -16,8 +16,8 @@ const ChatLayout = () => {
   const [currentConversationId, setCurrentConversationId] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [isTyping, setIsTyping] = useState(false); // Add this line
-  const [showFeedback, setShowFeedback] = useState(false); // Add this line
+  const [isTyping, setIsTyping] = useState(false);
+  const [showFeedback, setShowFeedback] = useState(false);
 
   // API base URL
   const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
@@ -112,7 +112,7 @@ const ChatLayout = () => {
     } finally {
       setLoading(false);
     }
-  }, [currentConversationId, API_URL, fetchMessages]); // Add API_URL to dependency array
+  }, [currentConversationId, API_URL, fetchMessages]);
 
   // Fetch conversations when component mounts
   useEffect(() => {
@@ -169,7 +169,7 @@ const ChatLayout = () => {
     };
     
     setMessages([...messages, userMessage]);
-    setIsTyping(true); // Add this line to show typing indicator
+    setIsTyping(true);
 
     try {
       const user = auth.currentUser;
@@ -227,7 +227,7 @@ const ChatLayout = () => {
           timestamp: new Date()
         };
         
-        setIsTyping(false); // Add this line to hide typing indicator
+        setIsTyping(false);
         setMessages(prev => [...prev, botMessage]);
         
         // Save the bot message to the backend
@@ -259,7 +259,7 @@ const ChatLayout = () => {
       }, 1000);
       
     } catch (err) {
-      setIsTyping(false); // Add this line to hide typing on error
+      setIsTyping(false);
       console.error('Error sending message:', err);
       setError('Failed to send message');
     }
@@ -286,12 +286,12 @@ const ChatLayout = () => {
 
       {/* Main content */}
       <div className="flex flex-col flex-1 h-full transition-all duration-200 dark:bg-[#121212]">
-        {/* Header */}
-        <header className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-[#f75600] to-[#E2711D] text-white shadow-md">
+        {/* Header - updated to violet gradient */}
+        <header className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-violet-600 to-violet-800 text-white shadow-md">
           <div className="flex items-center space-x-3">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="p-2 text-white hover:bg-white/20 rounded-full transition-colors"
+              className="p-2 text-white hover:bg-violet-700/30 rounded-full transition-colors"
               aria-label="Toggle sidebar"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -307,14 +307,17 @@ const ChatLayout = () => {
 
           <div className="flex items-center space-x-4">
             {loading && (
-              <div className="text-sm text-white/80">Loading...</div>
+              <div className="text-sm text-violet-100 flex items-center">
+                <div className="w-4 h-4 rounded-full border-2 border-t-transparent border-violet-100 animate-spin mr-2"></div>
+                Loading...
+              </div>
             )}
             {error && (
-              <div className="text-sm text-red-300">{error}</div>
+              <div className="text-sm px-3 py-1 rounded-full bg-red-500/20 text-red-100">{error}</div>
             )}
             <Link 
               to="/settings"
-              className="p-2 text-white hover:bg-white/20 rounded-full transition-colors"
+              className="p-2 text-white hover:bg-violet-700/30 rounded-full transition-colors"
               aria-label="Settings"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -324,7 +327,7 @@ const ChatLayout = () => {
             </Link>
             <button 
               onClick={() => setShowFeedback(true)}
-              className="p-2 text-white hover:bg-white/20 rounded-full transition-colors"
+              className="p-2 text-white hover:bg-violet-700/30 rounded-full transition-colors"
               aria-label="Give Feedback"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -336,7 +339,7 @@ const ChatLayout = () => {
         </header>
 
         {/* Chat area */}
-        <main className="flex-1 overflow-y-auto p-4 dark:bg-[#121212]">
+        <main className="flex-1 overflow-y-auto p-4 bg-gray-50 dark:bg-[#121212]">
           <ChatArea 
             messages={messages} 
             darkMode={darkMode} 
@@ -345,8 +348,8 @@ const ChatLayout = () => {
           />
         </main>
 
-        {/* Chat input */}
-        <div className="p-4 border-t border-gray-200 dark:border-[#2a2a2a] dark:bg-[#1a1a1a]">
+        {/* Chat input - updated border color */}
+        <div className="p-4 border-t border-violet-100 dark:border-[#2a2a2a] bg-white dark:bg-[#1a1a1a]">
           <ChatInput onSendMessage={handleSendMessage} darkMode={darkMode} />
         </div>
         <FeedbackForm isOpen={showFeedback} onClose={() => setShowFeedback(false)} />

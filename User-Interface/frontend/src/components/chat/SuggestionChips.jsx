@@ -6,15 +6,17 @@ const SuggestionChips = ({ suggestions, onSuggestionClick, darkMode }) => {
   return (
     <div className="flex flex-wrap gap-2 mt-2 mb-4">
       {suggestions.map((suggestion, index) => (
-        <button
+        <div
           key={index}
           onClick={() => onSuggestionClick(suggestion)}
-          className="px-3 py-1.5 text-sm rounded-full font-medium transition-all 
-            bg-[#1a1a1a] text-[#d6d4d4] hover:bg-[#232323] border border-[#2a2a2a] hover:border-[#f75600]
-            flex items-center cursor-pointer"
+          className={`px-3 py-1.5 text-sm rounded-full cursor-pointer transition-colors
+            ${darkMode 
+              ? 'bg-gray-800 text-gray-300 border border-gray-700 hover:border-[#6366f1] hover:bg-gray-700' 
+              : 'bg-gray-100 text-gray-700 border border-gray-200 hover:border-[#6366f1] hover:bg-gray-50'
+            }`}
         >
           {suggestion}
-        </button>
+        </div>
       ))}
     </div>
   );

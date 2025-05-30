@@ -142,7 +142,7 @@ const SecuritySettings = () => {
       
       {message.text && (
         <div className={`mb-6 p-4 rounded-lg ${
-          message.type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+          message.type === 'success' ? 'bg-violet-100 text-violet-800' : 'bg-red-100 text-red-800'
         }`}>
           {message.text}
         </div>
@@ -151,7 +151,7 @@ const SecuritySettings = () => {
       {/* Password Change Section */}
       <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 mb-8">
         <div className="border-b border-gray-200">
-          <h2 className="text-lg font-medium text-white px-6 py-4 bg-gradient-to-r from-[#f75600] to-[#E2711D] flex items-center">
+          <h2 className="text-lg font-medium text-white px-6 py-4 bg-gradient-to-r from-violet-600 to-indigo-700 flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
             </svg>
@@ -173,7 +173,7 @@ const SecuritySettings = () => {
                     value={currentPassword}
                     onChange={(e) => setCurrentPassword(e.target.value)}
                     required
-                    className="block w-full px-4 py-3 text-sm text-gray-900 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                    className="block w-full px-4 py-3 text-sm text-gray-900 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all"
                   />
                 </div>
               </div>
@@ -189,7 +189,7 @@ const SecuritySettings = () => {
                     value={newPassword}
                     onChange={handlePasswordChange}
                     required
-                    className="block w-full px-4 py-3 text-sm text-gray-900 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                    className="block w-full px-4 py-3 text-sm text-gray-900 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all"
                   />
                 </div>
                 
@@ -227,7 +227,7 @@ const SecuritySettings = () => {
                     required
                     className={`block w-full px-4 py-3 text-sm text-gray-900 bg-gray-50 border ${
                       confirmPassword && !passwordMatch ? 'border-red-500 ring-1 ring-red-500' : 'border-gray-200'
-                    } rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all`}
+                    } rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all`}
                   />
                 </div>
                 {confirmPassword && !passwordMatch && (
@@ -239,7 +239,7 @@ const SecuritySettings = () => {
                 <button
                   type="submit"
                   disabled={isLoading || !passwordMatch || newPassword.length < 8}
-                  className="px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg hover:from-purple-700 hover:to-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-300"
+                  className="px-4 py-2 bg-gradient-to-r from-violet-600 to-indigo-700 text-white rounded-lg hover:from-violet-700 hover:to-indigo-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-300"
                 >
                   {isLoading ? 'Changing Password...' : 'Change Password'}
                 </button>
@@ -252,7 +252,7 @@ const SecuritySettings = () => {
       {/* Email Verification */}
       <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 mb-8">
         <div className="border-b border-gray-200">
-          <h2 className="text-lg font-medium text-white px-6 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 flex items-center">
+          <h2 className="text-lg font-medium text-white px-6 py-4 bg-gradient-to-r from-violet-600 to-indigo-700 flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
             </svg>
@@ -273,7 +273,7 @@ const SecuritySettings = () => {
             {!auth.currentUser?.emailVerified && (
               <button
                 onClick={handleSendVerification}
-                className="px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg hover:from-purple-700 hover:to-indigo-700 transition-colors duration-300"
+                className="px-4 py-2 bg-gradient-to-r from-violet-600 to-indigo-700 text-white rounded-lg hover:from-violet-700 hover:to-indigo-800 transition-colors duration-300"
               >
                 Send Verification Email
               </button>
@@ -285,7 +285,7 @@ const SecuritySettings = () => {
       {/* Active Sessions */}
       <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 mb-8">
         <div className="border-b border-gray-200">
-          <h2 className="text-lg font-medium text-white px-6 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 flex items-center">
+          <h2 className="text-lg font-medium text-white px-6 py-4 bg-gradient-to-r from-violet-600 to-indigo-700 flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
@@ -346,7 +346,7 @@ const SecuritySettings = () => {
       {/* Privacy Settings */}
       <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 mb-8">
         <div className="border-b border-gray-200">
-          <h2 className="text-lg font-medium text-white px-6 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 flex items-center">
+          <h2 className="text-lg font-medium text-white px-6 py-4 bg-gradient-to-r from-violet-600 to-indigo-700 flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
             </svg>
@@ -368,7 +368,7 @@ const SecuritySettings = () => {
                   name="storeConversations" 
                   checked={privacySettings.storeConversations} 
                   onChange={handlePrivacyChange}
-                  className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-violet-600 focus:ring-violet-500 border-gray-300 rounded"
                 />
               </div>
             </div>
@@ -385,7 +385,7 @@ const SecuritySettings = () => {
                   name="allowDataAnalysis" 
                   checked={privacySettings.allowDataAnalysis} 
                   onChange={handlePrivacyChange}
-                  className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-violet-600 focus:ring-violet-500 border-gray-300 rounded"
                 />
               </div>
             </div>
@@ -402,7 +402,7 @@ const SecuritySettings = () => {
                   name="receiveEmails" 
                   checked={privacySettings.receiveEmails} 
                   onChange={handlePrivacyChange}
-                  className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-violet-600 focus:ring-violet-500 border-gray-300 rounded"
                 />
               </div>
             </div>

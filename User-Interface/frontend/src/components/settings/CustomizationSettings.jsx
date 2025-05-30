@@ -1,37 +1,30 @@
 import React, { useState } from 'react';
+import { useSettings } from '../../context/SettingsContext';
+import { useToast } from '../../context/ToastContext';
 
 const CustomizationSettings = () => {
-  const [settings, setSettings] = useState({
-    theme: 'auto',
-    accentColor: '#6366f1', // Changed from orange to indigo/violet
-    fontSize: 'medium',
-    chatLayout: 'standard',
-    dashboardLayout: 'grid',
-    accessibility: {
-      highContrast: false,
-      reducedMotion: false,
-      largeFonts: false
-    }
-  });
-
+  const { settings, updateSettings } = useSettings();
+  const { addToast } = useToast();
+  
+  // Use the settings from context instead of local state
+  const [localSettings, setLocalSettings] = useState(settings.customization);
   const [showColorPicker, setShowColorPicker] = useState(false);
-  const [message, setMessage] = useState({ type: '', text: '' });
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     
     if (name.includes('.')) {
       const [parent, child] = name.split('.');
-      setSettings({
-        ...settings,
+      setLocalSettings({
+        ...localSettings,
         [parent]: {
-          ...settings[parent],
+          ...localSettings[parent],
           [child]: type === 'checkbox' ? checked : value
         }
       });
     } else {
-      setSettings({
-        ...settings,
+      setLocalSettings({
+        ...localSettings,
         [name]: type === 'checkbox' ? checked : value
       });
     }
@@ -39,26 +32,28 @@ const CustomizationSettings = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here you would save the settings to your backend
-    setMessage({ type: 'success', text: 'Customization settings saved successfully!' });
     
-    // Clear the message after 3 seconds
-    setTimeout(() => {
-      setMessage({ type: '', text: '' });
-    }, 3000);
+    // Update the global settings
+    updateSettings('customization', localSettings);
+    
+    // Show success toast
+    addToast('Customization settings saved successfully!', 'success');
+  };
+
+  // Preview the theme without saving
+  const previewTheme = (themeOption) => {
+    setLocalSettings({...localSettings, theme: themeOption});
+  };
+  
+  // Preview the accent color without saving
+  const previewAccentColor = (color) => {
+    setLocalSettings({...localSettings, accentColor: color});
+    document.documentElement.style.setProperty('--accent-color', color);
   };
 
   return (
     <div>
       <h2 className="text-xl font-bold text-gray-900 mb-6 text-left">Customization Settings</h2>
-      
-      {message.text && (
-        <div className={`mb-6 p-4 rounded-lg ${
-          message.type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-        }`}>
-          {message.text}
-        </div>
-      )}
       
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Theme Selection */}
@@ -73,11 +68,11 @@ const CustomizationSettings = () => {
               <div 
                 key={themeOption}
                 className={`border rounded-lg p-4 cursor-pointer transition-all ${
-                  settings.theme === themeOption 
-                    ? 'border-[#6366f1] bg-[#6366f1]/10' 
-                    : 'border-gray-200 hover:border-[#6366f1]'
+                  localSettings.theme === themeOption 
+                    ? 'border-violet-500 bg-violet-50' 
+                    : 'border-gray-200 hover:border-violet-300'
                 }`}
-                onClick={() => setSettings({...settings, theme: themeOption})}
+                onClick={() => previewTheme(themeOption)}
               >
                 <div className="flex items-center">
                   <input
@@ -85,9 +80,9 @@ const CustomizationSettings = () => {
                     id={`theme-${themeOption}`}
                     name="theme"
                     value={themeOption}
-                    checked={settings.theme === themeOption}
+                    checked={localSettings.theme === themeOption}
                     onChange={handleChange}
-                    className="h-4 w-4 text-[#6366f1] focus:ring-[#6366f1] border-gray-300"
+                    className="h-4 w-4 text-violet-600 focus:ring-violet-500 border-gray-300"
                   />
                   <label htmlFor={`theme-${themeOption}`} className="ml-3 block text-sm font-medium text-gray-700 capitalize">
                     {themeOption}
@@ -113,21 +108,21 @@ const CustomizationSettings = () => {
           </p>
           
           <div className="flex flex-wrap gap-3">
-            {['#6366f1', '#818cf8', '#4f46e5', '#14b8a6', '#22c55e', '#eab308', '#ef4444', '#64748b'].map((color) => (
+            {['#8b5cf6', '#a78bfa', '#7c3aed', '#6366f1', '#4f46e5', '#4338ca', '#3730a3', '#312e81'].map((color) => (
               <div 
                 key={color}
                 className={`h-8 w-8 rounded-full cursor-pointer border-2 ${
-                  settings.accentColor === color ? 'border-gray-800' : 'border-transparent'
+                  localSettings.accentColor === color ? 'border-gray-800' : 'border-transparent'
                 }`}
                 style={{ backgroundColor: color }}
-                onClick={() => setSettings({...settings, accentColor: color})}
+                onClick={() => previewAccentColor(color)}
               ></div>
             ))}
             
             <div className="relative">
               <div 
                 className={`h-8 w-8 rounded-full cursor-pointer border-2 flex items-center justify-center bg-white ${
-                  !['#6366f1', '#818cf8', '#4f46e5', '#14b8a6', '#22c55e', '#eab308', '#ef4444', '#64748b'].includes(settings.accentColor) ? 'border-gray-800' : 'border-gray-300'
+                  !['#8b5cf6', '#a78bfa', '#7c3aed', '#6366f1', '#4f46e5', '#4338ca', '#3730a3', '#312e81'].includes(localSettings.accentColor) ? 'border-gray-800' : 'border-gray-300'
                 }`}
                 onClick={() => setShowColorPicker(!showColorPicker)}
               >
@@ -140,8 +135,8 @@ const CustomizationSettings = () => {
                 <div className="absolute z-10 mt-2 p-3 bg-white rounded-lg shadow-lg border border-gray-200">
                   <input 
                     type="color" 
-                    value={settings.accentColor}
-                    onChange={(e) => setSettings({...settings, accentColor: e.target.value})}
+                    value={localSettings.accentColor}
+                    onChange={(e) => previewAccentColor(e.target.value)}
                     className="h-8 w-full cursor-pointer"
                   />
                 </div>
@@ -158,9 +153,9 @@ const CustomizationSettings = () => {
           </p>
           <select
             name="fontSize"
-            value={settings.fontSize}
+            value={localSettings.fontSize}
             onChange={handleChange}
-            className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#6366f1] focus:border-[#6366f1] sm:text-sm"
+            className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-violet-500 focus:border-violet-500 sm:text-sm"
           >
             <option value="small">Small</option>
             <option value="medium">Medium (Default)</option>
@@ -180,11 +175,11 @@ const CustomizationSettings = () => {
               <div 
                 key={layoutOption}
                 className={`border rounded-lg p-4 cursor-pointer transition-all ${
-                  settings.chatLayout === layoutOption 
-                    ? 'border-[#6366f1] bg-[#6366f1]/10' 
-                    : 'border-gray-200 hover:border-[#6366f1]'
+                  localSettings.chatLayout === layoutOption 
+                    ? 'border-violet-500 bg-violet-50' 
+                    : 'border-gray-200 hover:border-violet-300'
                 }`}
-                onClick={() => setSettings({...settings, chatLayout: layoutOption})}
+                onClick={() => setLocalSettings({...localSettings, chatLayout: layoutOption})}
               >
                 <div className="flex items-center">
                   <input
@@ -192,9 +187,9 @@ const CustomizationSettings = () => {
                     id={`layout-${layoutOption}`}
                     name="chatLayout"
                     value={layoutOption}
-                    checked={settings.chatLayout === layoutOption}
+                    checked={localSettings.chatLayout === layoutOption}
                     onChange={handleChange}
-                    className="h-4 w-4 text-[#6366f1] focus:ring-[#6366f1] border-gray-300"
+                    className="h-4 w-4 text-violet-600 focus:ring-violet-500 border-gray-300"
                   />
                   <label htmlFor={`layout-${layoutOption}`} className="ml-3 block text-sm font-medium text-gray-700 capitalize">
                     {layoutOption}
@@ -219,9 +214,9 @@ const CustomizationSettings = () => {
           </p>
           <select
             name="dashboardLayout"
-            value={settings.dashboardLayout}
+            value={localSettings.dashboardLayout}
             onChange={handleChange}
-            className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#6366f1] focus:border-[#6366f1] sm:text-sm"
+            className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-violet-500 focus:border-violet-500 sm:text-sm"
           >
             <option value="grid">Grid (Default)</option>
             <option value="list">List</option>
@@ -243,9 +238,9 @@ const CustomizationSettings = () => {
                 id="high-contrast"
                 name="accessibility.highContrast"
                 type="checkbox"
-                checked={settings.accessibility.highContrast}
+                checked={localSettings.accessibility.highContrast}
                 onChange={handleChange}
-                className="h-4 w-4 text-[#6366f1] focus:ring-[#6366f1] border-gray-300 rounded"
+                className="h-4 w-4 text-violet-600 focus:ring-violet-500 border-gray-300 rounded"
               />
               <label htmlFor="high-contrast" className="ml-3 text-sm text-gray-700">
                 High contrast mode
@@ -257,9 +252,9 @@ const CustomizationSettings = () => {
                 id="reduced-motion"
                 name="accessibility.reducedMotion"
                 type="checkbox"
-                checked={settings.accessibility.reducedMotion}
+                checked={localSettings.accessibility.reducedMotion}
                 onChange={handleChange}
-                className="h-4 w-4 text-[#6366f1] focus:ring-[#6366f1] border-gray-300 rounded"
+                className="h-4 w-4 text-violet-600 focus:ring-violet-500 border-gray-300 rounded"
               />
               <label htmlFor="reduced-motion" className="ml-3 text-sm text-gray-700">
                 Reduce animations and motion
@@ -271,9 +266,9 @@ const CustomizationSettings = () => {
                 id="large-fonts"
                 name="accessibility.largeFonts"
                 type="checkbox"
-                checked={settings.accessibility.largeFonts}
+                checked={localSettings.accessibility.largeFonts}
                 onChange={handleChange}
-                className="h-4 w-4 text-[#6366f1] focus:ring-[#6366f1] border-gray-300 rounded"
+                className="h-4 w-4 text-violet-600 focus:ring-violet-500 border-gray-300 rounded"
               />
               <label htmlFor="large-fonts" className="ml-3 text-sm text-gray-700">
                 Use larger fonts throughout
@@ -286,7 +281,7 @@ const CustomizationSettings = () => {
         <div className="pt-4">
           <button
             type="submit"
-            className="px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg hover:from-purple-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#6366f1]"
+            className="px-4 py-2 bg-gradient-to-r from-violet-600 to-indigo-700 text-white rounded-lg hover:from-violet-700 hover:to-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500"
           >
             Save Customization Settings
           </button>

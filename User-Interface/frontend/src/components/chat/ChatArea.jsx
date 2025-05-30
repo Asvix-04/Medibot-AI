@@ -85,17 +85,17 @@ const ChatArea = ({ messages, darkMode, isTyping = false, onSendMessage }) => {
           <div className="mt-6 grid grid-cols-2 gap-3">
             {/* Updated suggestion boxes */}
             <div 
-              className="p-3 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] shadow-sm hover:shadow-md transition-shadow cursor-pointer hover:border-[#f75600]"
+              className="p-3 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] shadow-sm hover:shadow-md transition-shadow cursor-pointer hover:border-[#6366f1]"
               onClick={() => handleSuggestionClick("I have a headache and feeling tired. What could it be?")}
             >
-              <p className="text-sm font-medium text-[#f75600]">🩺 Symptom Checker</p>
+              <p className="text-sm font-medium text-[#6366f1]">🩺 Symptom Checker</p>
               <p className="text-xs text-[#a8a8a8]">Describe your symptoms</p>
             </div>
             <div 
-              className="p-3 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] shadow-sm hover:shadow-md transition-shadow cursor-pointer hover:border-[#f75600]"
+              className="p-3 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] shadow-sm hover:shadow-md transition-shadow cursor-pointer hover:border-[#6366f1]"
               onClick={() => handleSuggestionClick("Tell me about common blood pressure medications")}
             >
-              <p className="text-sm font-medium text-[#f75600]">💊 Medication Info</p>
+              <p className="text-sm font-medium text-[#6366f1]">💊 Medication Info</p>
               <p className="text-xs text-[#a8a8a8]">Learn about your prescriptions</p>
             </div>
           </div>

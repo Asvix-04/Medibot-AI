@@ -23,6 +23,7 @@ import OnboardingFlow from './components/onboarding/OnboardingFlow';
 import OnboardingCheck from './components/OnboardingCheck';
 import FAQPage from './components/faq/FAQPage';
 import LandingPage from './components/landing';
+import { SettingsProvider } from './context/SettingsContext';
 
 const AppContent = () => {
   const location = useLocation();
@@ -119,14 +120,16 @@ const AppContent = () => {
 
 const App = () => {
   return (
-    <ToastProvider>
-      <div className="App">
-        <Router>
-          <ToastContainer />
-          <AppContent />
-        </Router>
-      </div>
-    </ToastProvider>
+    <SettingsProvider>
+      <ToastProvider>
+        <div className="App">
+          <Router>
+            <ToastContainer />
+            <AppContent />
+          </Router>
+        </div>
+      </ToastProvider>
+    </SettingsProvider>
   );
 };
 

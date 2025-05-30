@@ -43,8 +43,9 @@ const OnboardingCheck = ({ children }) => {
   
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="animate-spin h-12 w-12 border-4 border-purple-500 border-t-transparent rounded-full"></div>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-white to-violet-50">
+        <div className="animate-spin h-12 w-12 border-4 border-violet-600 border-t-transparent rounded-full mb-4"></div>
+        <p className="text-violet-700 font-medium text-sm animate-pulse">Preparing your experience...</p>
       </div>
     );
   }

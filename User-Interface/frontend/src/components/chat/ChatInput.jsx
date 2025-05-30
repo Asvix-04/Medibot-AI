@@ -42,12 +42,12 @@ const ChatInput = ({ onSendMessage, darkMode }) => {
         disabled={!message.trim()}
         className={`p-3 rounded-lg ${
           message.trim()
-            ? 'bg-gradient-to-r from-[#f75600] to-[#E2711D] text-[#d6d4d4] hover:shadow-md transition-all cursor-pointer'
-            : 'bg-[#1a1a1a] text-gray-500 border border-[#2a2a2a] cursor-not-allowed'
+            ? 'bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] text-[#d6d4d4] hover:shadow-md transition-all cursor-pointer'
+            : 'bg-gray-100 text-gray-400 cursor-not-allowed dark:bg-gray-800'
         }`}
       >
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-          <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+          <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
         </svg>
       </button>
     </form>

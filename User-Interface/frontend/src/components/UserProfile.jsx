@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getDoc, doc } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth, db } from '../firebase';
+import { auth } from '../firebase';
 import defaultAvatar from '../assets/default-avatar.jpeg';
 
 const UserProfile = () => {
@@ -59,43 +58,69 @@ const UserProfile = () => {
               }
             }
             
-            // Get profile data from Firestore
-            const userDoc = await getDoc(doc(db, "users", user.uid));
+            // Get user token
+            const token = await user.getIdToken();
             
-            console.log("Auth user:", auth.currentUser);
-            console.log("Document path:", `users/${auth.currentUser?.uid}`);
-            console.log("Document exists:", userDoc.exists());
-            console.log("Document data:", userDoc.data());
-
-            if (userDoc.exists()) {
-              const userData = userDoc.data();
-              
-              // Store data in localStorage for offline access
-              try {
-                localStorage.setItem(`user_profile_${user.uid}`, JSON.stringify(userData));
-              } catch (storageError) {
-                console.warn("Could not cache profile data:", storageError);
+            // Log the API URL for debugging
+            console.log("Fetching profile from:", '/api/users/profile');
+            
+            // Fetch from MongoDB via API with improved debugging
+            const response = await fetch('/api/users/profile', {
+              headers: {
+                'Authorization': `Bearer ${token}`,
+                'Accept': 'application/json'
               }
+            });
+            
+            console.log("API Response status:", response.status);
+            
+            if (!response.ok) {
+              // Try to read the response text before parsing JSON
+              const errorText = await response.text();
+              console.error("Error response text:", errorText);
               
-              setUserData(userData);
-            } else {
-              setError("User profile not found. Please complete your profile.");
+              throw new Error(`Server error: ${response.status} ${response.statusText}`);
             }
+            
+            // First check if we can parse the response as JSON
+            let responseText = await response.text();
+            let userData;
+            
+            try {
+              userData = JSON.parse(responseText);
+            } catch (jsonError) {
+              console.error("Failed to parse JSON:", responseText.substring(0, 500) + "...");
+              throw new Error("Invalid JSON response from server");
+            }
+            
+            console.log("Received profile data:", userData);
+            
+            // Check if the response has the expected structure
+            if (!userData || !userData.data) {
+              throw new Error("Unexpected API response format");
+            }
+            
+            // Store data in localStorage for offline access
+            try {
+              localStorage.setItem(`user_profile_${user.uid}`, JSON.stringify(userData.data));
+            } catch (storageError) {
+              console.warn("Could not cache profile data:", storageError);
+            }
+            
+            setUserData(userData.data);
+            setLoading(false);
+            
           } catch (error) {
             console.error("Error fetching user data:", error);
             
-            // Check for specific offline error
-            if (error.message && error.message.includes("offline")) {
-              setError("You appear to be offline. Please check your internet connection and try again.");
-            } else {
-              setError(`Error loading profile: ${error.message}`);
-            }
-          } finally {
+            // More detailed error message
+            setError(`Error loading profile: ${error.message}`);
             setLoading(false);
           }
         });
         
         return () => unsubscribe();
+        
       } catch (error) {
         console.error("Error in auth state:", error);
         setLoading(false);
@@ -114,8 +139,14 @@ const UserProfile = () => {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center p-8 max-w-md w-full bg-white rounded-lg shadow-lg border border-gray-100">
-          <div className="animate-spin h-12 w-12 border-4 border-black border-t-transparent rounded-full mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading your profile...</p>
+          <div className="animate-spin h-12 w-12 border-4 border-violet-600 border-t-transparent rounded-full mx-auto mb-4"></div>
+          <p className="text-violet-700 font-medium">Loading your profile...</p>
+          <div className="mt-4">
+            <div className="h-1.5 bg-gray-200 rounded-full w-64 max-w-full mx-auto overflow-hidden">
+              <div className="bg-violet-600 h-full animate-pulse" style={{width: '60%'}}></div>
+            </div>
+            <p className="text-xs text-gray-500 mt-2">Fetching your information from the server</p>
+          </div>
         </div>
       </div>
     );

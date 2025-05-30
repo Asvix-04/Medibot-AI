@@ -29,14 +29,14 @@ const ProfilePhotoSection = ({ profileImage, setProfileImage }) => {
       <div 
         onClick={handleImageClick} 
         className="relative w-40 h-40 rounded-full overflow-hidden border-4 border-white shadow-xl cursor-pointer group hover:shadow-2xl transition-all duration-500 transform hover:scale-105"
-        style={{ boxShadow: '0 0 25px rgba(88, 80, 236, 0.15)' }}
+        style={{ boxShadow: '0 0 25px rgba(124, 58, 237, 0.2)' }}
       >
         <img 
           src={profileImage || defaultAvatar} 
           alt="Profile" 
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-indigo-900/80 to-purple-600/30 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
+        <div className="absolute inset-0 bg-gradient-to-t from-violet-900/80 to-indigo-600/30 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
           <div className="text-white text-sm font-medium px-4 py-2 rounded-full bg-white/20 backdrop-blur-md shadow-lg transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 border border-white/30">
             Change Photo
           </div>
@@ -51,7 +51,7 @@ const ProfilePhotoSection = ({ profileImage, setProfileImage }) => {
       />
       <button
         onClick={handleImageClick}
-        className="mt-4 text-sm font-medium text-indigo-600 hover:text-indigo-800 flex items-center transition-colors"
+        className="mt-4 text-sm font-medium text-violet-600 hover:text-violet-800 flex items-center transition-colors"
       >
         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -66,7 +66,7 @@ const FormSection = ({ title, children, icon }) => {
   return (
     <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 mb-8 backdrop-blur-sm transition-all duration-300 hover:shadow-xl transform hover:-translate-y-1">
       <div className="flex items-center mb-6">
-        <div className="bg-gradient-to-br from-indigo-500 to-purple-600 p-3 rounded-xl mr-4 shadow-md">
+        <div className="bg-gradient-to-br from-violet-500 to-indigo-600 p-3 rounded-xl mr-4 shadow-md">
           {React.cloneElement(icon, { className: "h-6 w-6 text-white" })}
         </div>
         <h3 className="text-xl font-semibold text-gray-800">{title}</h3>
@@ -95,7 +95,7 @@ const InputField = ({ label, id, type = "text", value, onChange, placeholder, ic
             onChange={onChange}
             disabled={disabled}
             placeholder={placeholder}
-            className={`block w-full pl-11 pr-4 py-3 text-gray-900 bg-gray-50 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 border border-gray-200 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed ${disabled ? 'bg-gray-100' : 'hover:bg-gray-100'}`}
+            className={`block w-full pl-11 pr-4 py-3 text-gray-900 bg-gray-50 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 border border-gray-200 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed ${disabled ? 'bg-gray-100' : 'hover:bg-gray-100'}`}
           />
         )}
       </div>
@@ -164,7 +164,7 @@ const PersonalInfoSection = ({ formData, setFormData }) => {
             id="gender"
             value={formData.gender}
             onChange={handleChange}
-            className="block w-full pl-11 pr-10 py-3 text-gray-900 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 appearance-none transition-all duration-200 hover:bg-gray-100"
+            className="block w-full pl-11 pr-10 py-3 text-gray-900 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 appearance-none transition-all duration-200 hover:bg-gray-100"
           >
             <option value="">Select Gender</option>
             <option value="male">Male</option>
@@ -272,7 +272,7 @@ const PreferencesSection = ({ formData, setFormData }) => {
             id="language"
             value={formData.language}
             onChange={handleChange}
-            className="block w-full pl-11 pr-10 py-3 text-gray-900 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 appearance-none transition-all duration-200 hover:bg-gray-100"
+            className="block w-full pl-11 pr-10 py-3 text-gray-900 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 appearance-none transition-all duration-200 hover:bg-gray-100"
           >
             <option value="en">English</option>
             <option value="es">Spanish</option>
@@ -305,7 +305,7 @@ const PreferencesSection = ({ formData, setFormData }) => {
             id="timezone"
             value={formData.timezone}
             onChange={handleChange}
-            className="block w-full pl-11 pr-10 py-3 text-gray-900 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 appearance-none transition-all duration-200 hover:bg-gray-100"
+            className="block w-full pl-11 pr-10 py-3 text-gray-900 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 appearance-none transition-all duration-200 hover:bg-gray-100"
           >
             <option value="UTC">UTC (Coordinated Universal Time)</option>
             <option value="EST">Eastern Standard Time</option>
@@ -333,7 +333,7 @@ const PreferencesSection = ({ formData, setFormData }) => {
                 type="checkbox"
                 checked={formData.receiveEmails}
                 onChange={handleChange}
-                className="h-5 w-5 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded transition-all duration-200"
+                className="h-5 w-5 text-violet-600 focus:ring-violet-500 border-gray-300 rounded transition-all duration-200"
               />
             </div>
             <div className="ml-3 text-sm">
@@ -352,7 +352,7 @@ const PreferencesSection = ({ formData, setFormData }) => {
                 type="checkbox"
                 checked={formData.darkMode}
                 onChange={handleChange}
-                className="h-5 w-5 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded transition-all duration-200"
+                className="h-5 w-5 text-violet-600 focus:ring-violet-500 border-gray-300 rounded transition-all duration-200"
               />
             </div>
             <div className="ml-3 text-sm">
@@ -371,7 +371,7 @@ const PreferencesSection = ({ formData, setFormData }) => {
                 type="checkbox"
                 checked={formData.shareData}
                 onChange={handleChange}
-                className="h-5 w-5 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded transition-all duration-200"
+                className="h-5 w-5 text-violet-600 focus:ring-violet-500 border-gray-300 rounded transition-all duration-200"
               />
             </div>
             <div className="ml-3 text-sm">
@@ -490,8 +490,31 @@ const ProfileSummary = () => {
         updatedAt: new Date()
       };
       
-      // Save to Firestore
-      await setDoc(doc(db, "users", user.uid), profileData, { merge: true });
+      // Get user token for authentication
+      const token = await user.getIdToken();
+      
+      // Send to MongoDB via backend API
+      const response = await fetch('/api/users/profile', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(profileData)
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to update profile');
+      }
+      
+      // Keep minimal data in Firestore for authentication purposes
+      // This ensures auth state remains functional
+      await setDoc(doc(db, "users", user.uid), {
+        uid: user.uid,
+        email: user.email,
+        profileCompleted: true
+      }, { merge: true });
       
       // Show success notification
       addToast("Profile updated successfully!", "success");
@@ -510,13 +533,13 @@ const ProfileSummary = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-white py-6 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl w-full bg-white rounded-lg shadow-lg overflow-hidden border border-gray-100">
-        {/* Header section with black background */}
-        <div className="bg-black py-5 px-4 relative">
+        {/* Header section with gradient background */}
+        <div className="bg-gradient-to-r from-violet-600 to-indigo-700 py-5 px-4 relative">
           <div className="flex justify-center">
             <img className="h-12 w-auto rounded-full p-1 bg-white" src={medibot_logo} alt="Medibot" />
           </div>
           <h1 className="mt-2 text-center text-2xl font-bold text-white">Complete Your Profile</h1>
-          <p className="mt-1 text-center text-xs text-gray-400 max-w-sm mx-auto">
+          <p className="mt-1 text-center text-xs text-violet-100 max-w-sm mx-auto">
             Help us personalize your experience and provide better healthcare insights
           </p>
           
@@ -581,7 +604,7 @@ const ProfileSummary = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="group relative w-full sm:max-w-md flex justify-center py-3 px-4 border border-transparent text-base font-medium rounded-md text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-black"
+                className="group relative w-full sm:max-w-md flex justify-center py-3 px-4 border border-transparent text-base font-medium rounded-md text-white bg-gradient-to-r from-violet-600 to-indigo-700 hover:from-violet-700 hover:to-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500"
               >
                 {isSubmitting ? (
                   <span className="flex items-center">

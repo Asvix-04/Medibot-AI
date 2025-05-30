@@ -29,12 +29,12 @@ const ForgotPassword = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-white py-6 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full bg-white rounded-lg shadow-lg overflow-hidden border border-gray-100">
-        <div className="bg-black py-5 px-4 relative">
+        <div className="bg-gradient-to-r from-violet-600 to-indigo-700 py-5 px-4 relative">
           <div className="flex justify-center">
             <img className="h-12 w-auto rounded-full p-1 bg-white" src={medibot_logo} alt="Medibot" />
           </div>
           <h1 className="mt-2 text-center text-2xl font-bold text-white">Medibot</h1>
-          <p className="mt-1 text-center text-xs text-gray-400 max-w-sm mx-auto">
+          <p className="mt-1 text-center text-xs text-violet-100 max-w-sm mx-auto">
             AI-powered health insights. Trusted. Private. Secure.
           </p>
           
@@ -72,10 +72,10 @@ const ForgotPassword = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="you@example.com"
-                      className="block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-transparent"
+                      className="block w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500"
                     />
                     <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                      <i className="bx bxs-envelope text-gray-400 text-sm"></i>
+                      <i className="bx bxs-envelope text-violet-400 text-sm"></i>
                     </div>
                   </div>
                 </div>
@@ -84,7 +84,7 @@ const ForgotPassword = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-black disabled:bg-gray-400"
+                    className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-violet-600 to-indigo-700 hover:from-violet-700 hover:to-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500 disabled:opacity-50"
                   >
                     {isSubmitting ? (
                       <span className="inline-flex items-center">
@@ -103,8 +103,8 @@ const ForgotPassword = () => {
             </>
           ) : (
             <div className="text-center">
-              <div className="bg-green-100 p-3 rounded-full inline-block mb-4">
-                <svg className="h-12 w-12 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="bg-violet-100 p-3 rounded-full inline-block mb-4">
+                <svg className="h-12 w-12 text-violet-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
@@ -118,7 +118,7 @@ const ForgotPassword = () => {
               </p>
               <button
                 onClick={() => setIsSubmitted(false)}
-                className="text-sm font-medium text-black hover:text-gray-800"
+                className="text-sm font-medium text-violet-600 hover:text-violet-800"
               >
                 Didn't receive the email? Try again
               </button>
@@ -128,7 +128,7 @@ const ForgotPassword = () => {
           <div className="mt-6 text-center">
             <p className="text-xs text-gray-600">
               Remember your password?{' '}
-              <Link to="/signin" className="font-medium text-black hover:text-gray-800">
+              <Link to="/signin" className="font-medium text-violet-600 hover:text-violet-800">
                 Sign In
               </Link>
             </p>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { auth, db } from '../../firebase';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, collection, getDocs } from 'firebase/firestore';
 import ReportTemplate from './ReportTemplate';
 import ReportExport from './ReportExport';
 import { useToast } from '../../context/ToastContext';
@@ -164,7 +164,7 @@ const HealthReports = ({ darkMode }) => {
   if (loading) {
     return (
       <div className="flex justify-center items-center py-20">
-        <div className={`w-12 h-12 rounded-full animate-spin border-4 border-solid border-t-indigo-500 border-r-transparent border-b-indigo-500 border-l-transparent`}></div>
+        <div className={`w-12 h-12 rounded-full animate-spin border-4 border-solid border-t-violet-500 border-r-transparent border-b-violet-500 border-l-transparent`}></div>
       </div>
     );
   }
@@ -218,8 +218,8 @@ const HealthReports = ({ darkMode }) => {
                 onChange={(e) => setReportTitle(e.target.value)}
                 className={`w-full px-3 py-2 border rounded-md ${
                   darkMode 
-                    ? 'bg-gray-700 border-gray-600 text-white' 
-                    : 'bg-white border-gray-300 text-gray-900'
+                    ? 'bg-gray-700 border-gray-600 text-white focus:ring-violet-500 focus:border-violet-500' 
+                    : 'bg-white border-gray-300 text-gray-900 focus:ring-violet-500 focus:border-violet-500'
                 }`}
               />
             </div>
@@ -235,7 +235,7 @@ const HealthReports = ({ darkMode }) => {
                     key={template.id}
                     className={`p-3 rounded-md border cursor-pointer transition-colors ${
                       selectedTemplate === template.id
-                        ? (darkMode ? 'bg-indigo-900/30 border-indigo-700' : 'bg-indigo-50 border-indigo-300')
+                        ? (darkMode ? 'bg-violet-900/30 border-violet-700' : 'bg-violet-50 border-violet-300')
                         : (darkMode ? 'bg-gray-700 border-gray-600 hover:border-gray-500' : 'bg-white border-gray-200 hover:border-gray-300')
                     }`}
                     onClick={() => setSelectedTemplate(template.id)}
@@ -245,7 +245,7 @@ const HealthReports = ({ darkMode }) => {
                         type="radio"
                         checked={selectedTemplate === template.id}
                         onChange={() => {}}
-                        className="h-4 w-4 text-indigo-600"
+                        className="h-4 w-4 text-violet-600"
                       />
                       <label className="ml-3 block text-sm font-medium">
                         {template.name}
@@ -276,8 +276,8 @@ const HealthReports = ({ darkMode }) => {
                     onChange={handleDateChange}
                     className={`w-full px-3 py-2 border rounded-md ${
                       darkMode 
-                        ? 'bg-gray-700 border-gray-600 text-white' 
-                        : 'bg-white border-gray-300 text-gray-900'
+                        ? 'bg-gray-700 border-gray-600 text-white focus:ring-violet-500 focus:border-violet-500' 
+                        : 'bg-white border-gray-300 text-gray-900 focus:ring-violet-500 focus:border-violet-500'
                     }`}
                   />
                 </div>
@@ -291,8 +291,8 @@ const HealthReports = ({ darkMode }) => {
                     onChange={handleDateChange}
                     className={`w-full px-3 py-2 border rounded-md ${
                       darkMode 
-                        ? 'bg-gray-700 border-gray-600 text-white' 
-                        : 'bg-white border-gray-300 text-gray-900'
+                        ? 'bg-gray-700 border-gray-600 text-white focus:ring-violet-500 focus:border-violet-500' 
+                        : 'bg-white border-gray-300 text-gray-900 focus:ring-violet-500 focus:border-violet-500'
                     }`}
                   />
                 </div>
@@ -300,7 +300,7 @@ const HealthReports = ({ darkMode }) => {
               <div className="mt-3 flex flex-wrap gap-2">
                 <button 
                   className={`px-3 py-1 text-xs rounded-md ${
-                    darkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-100 hover:bg-gray-200'
+                    darkMode ? 'bg-violet-900/30 hover:bg-violet-800/40 text-violet-100' : 'bg-violet-100 hover:bg-violet-200 text-violet-700'
                   }`}
                   onClick={() => setDateRange({
                     startDate: subtractDays(new Date(), 7),
@@ -311,7 +311,7 @@ const HealthReports = ({ darkMode }) => {
                 </button>
                 <button 
                   className={`px-3 py-1 text-xs rounded-md ${
-                    darkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-100 hover:bg-gray-200'
+                    darkMode ? 'bg-violet-900/30 hover:bg-violet-800/40 text-violet-100' : 'bg-violet-100 hover:bg-violet-200 text-violet-700'
                   }`}
                   onClick={() => setDateRange({
                     startDate: subtractDays(new Date(), 30),
@@ -322,7 +322,7 @@ const HealthReports = ({ darkMode }) => {
                 </button>
                 <button 
                   className={`px-3 py-1 text-xs rounded-md ${
-                    darkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-100 hover:bg-gray-200'
+                    darkMode ? 'bg-violet-900/30 hover:bg-violet-800/40 text-violet-100' : 'bg-violet-100 hover:bg-violet-200 text-violet-700'
                   }`}
                   onClick={() => setDateRange({
                     startDate: subtractDays(new Date(), 90),
@@ -346,7 +346,7 @@ const HealthReports = ({ darkMode }) => {
                     type="checkbox" 
                     checked={selectedMetrics.includes('bloodPressure')}
                     onChange={() => toggleMetric('bloodPressure')}
-                    className="h-4 w-4 text-indigo-600 rounded"
+                    className="h-4 w-4 text-violet-600 rounded"
                   />
                   <label htmlFor="metric-bp" className="ml-3 text-sm">
                     Blood Pressure
@@ -358,7 +358,7 @@ const HealthReports = ({ darkMode }) => {
                     type="checkbox" 
                     checked={selectedMetrics.includes('heartRate')}
                     onChange={() => toggleMetric('heartRate')}
-                    className="h-4 w-4 text-indigo-600 rounded"
+                    className="h-4 w-4 text-violet-600 rounded"
                   />
                   <label htmlFor="metric-hr" className="ml-3 text-sm">
                     Heart Rate
@@ -370,7 +370,7 @@ const HealthReports = ({ darkMode }) => {
                     type="checkbox" 
                     checked={selectedMetrics.includes('bloodGlucose')}
                     onChange={() => toggleMetric('bloodGlucose')}
-                    className="h-4 w-4 text-indigo-600 rounded"
+                    className="h-4 w-4 text-violet-600 rounded"
                   />
                   <label htmlFor="metric-glucose" className="ml-3 text-sm">
                     Blood Glucose
@@ -382,7 +382,7 @@ const HealthReports = ({ darkMode }) => {
                     type="checkbox" 
                     checked={selectedMetrics.includes('weight')}
                     onChange={() => toggleMetric('weight')}
-                    className="h-4 w-4 text-indigo-600 rounded"
+                    className="h-4 w-4 text-violet-600 rounded"
                   />
                   <label htmlFor="metric-weight" className="ml-3 text-sm">
                     Weight
@@ -394,7 +394,7 @@ const HealthReports = ({ darkMode }) => {
                     type="checkbox" 
                     checked={selectedMetrics.includes('sleep')}
                     onChange={() => toggleMetric('sleep')}
-                    className="h-4 w-4 text-indigo-600 rounded"
+                    className="h-4 w-4 text-violet-600 rounded"
                   />
                   <label htmlFor="metric-sleep" className="ml-3 text-sm">
                     Sleep
@@ -415,7 +415,7 @@ const HealthReports = ({ darkMode }) => {
                     type="checkbox" 
                     checked={includeMedications}
                     onChange={() => setIncludeMedications(!includeMedications)}
-                    className="h-4 w-4 text-indigo-600 rounded"
+                    className="h-4 w-4 text-violet-600 rounded"
                   />
                   <label htmlFor="include-medications" className="ml-3 text-sm">
                     Include Medications
@@ -427,7 +427,7 @@ const HealthReports = ({ darkMode }) => {
                     type="checkbox" 
                     checked={includeInsights}
                     onChange={() => setIncludeInsights(!includeInsights)}
-                    className="h-4 w-4 text-indigo-600 rounded"
+                    className="h-4 w-4 text-violet-600 rounded"
                   />
                   <label htmlFor="include-insights" className="ml-3 text-sm">
                     Include AI Insights

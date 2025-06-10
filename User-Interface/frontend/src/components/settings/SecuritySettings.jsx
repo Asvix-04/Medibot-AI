@@ -8,7 +8,6 @@ import {
 } from 'firebase/auth';
 
 const SecuritySettings = () => {
-  // Password change states
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -17,7 +16,7 @@ const SecuritySettings = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
   
-  // Session management
+  
   const [activeSessions, setActiveSessions] = useState([
     { device: 'Windows PC - Chrome', location: 'Mumbai, India', lastActive: new Date() },
     { device: 'iPhone 13 - Safari', location: 'Delhi, India', lastActive: new Date(Date.now() - 86400000) }

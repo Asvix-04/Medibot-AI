@@ -1,128 +1,105 @@
-import re
+import gradio as gr
 import pandas as pd
+from openai import OpenAI
+import fitz
+import faiss
 import numpy as np
-from sklearn import preprocessing
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import GradientBoostingClassifier
-from sklearn.model_selection import train_test_split
-import csv
-import warnings
-warnings.filterwarnings("ignore", category=DeprecationWarning)
 
-# Load the training and testing data
-training = pd.read_csv('Training.csv')
-testing = pd.read_csv('Testing.csv')
+openai = OpenAI(base_url="http://localhost:11434/v1", api_key="ollama")
 
-# Preparing the data
-cols = training.columns[:-1]
-x = training[cols]
-y = training['prognosis']
+rag_df = pd.read_csv('/content/updated_disease_data_13_fuzzy_filled (1).csv')
 
-# Encoding string labels to numeric values
-le = preprocessing.LabelEncoder()
-le.fit(y)
-y = le.transform(y)
+def extract_text_from_pdf(file_path):
+    doc = fitz.open(file_path)
+    text = ""
+    for page in doc:
+        text += page.get_text()
+    return text
 
-# Split the data into train and test sets
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.33, random_state=42)
+cure_text = extract_text_from_pdf('/content/TheCureForAllDiseases.pdf')
+textbook_text = extract_text_from_pdf('/content/Harrison.pdf')
 
-# Gradient Boosting Classifier Model
-gbc = GradientBoostingClassifier()
-gbc.fit(x_train, y_train)
-print(f"Gradient Boosting Classifier score: {gbc.score(x_test, y_test)}")
+rag_documents = []
 
-# Dictionaries for severity, description, and precautions
-description_list = {}
-severityDictionary = {}
-precautionDictionary = {}
+for _, row in rag_df.iterrows():
+    doc_text = " | ".join(str(cell) for cell in row if pd.notna(cell))
+    rag_documents.append(doc_text)
 
-def load_csv_data(file_path, dictionary, columns):
-    try:
-        with open(file_path) as csv_file:
-            csv_reader = csv.reader(csv_file)
-            for row in csv_reader:
-                if len(row) >= columns:
-                    dictionary[row[0]] = row[1:columns]
-    except Exception as e:
-        print(f"Error loading {file_path}: {e}")
+rag_documents += [p for p in cure_text.split('\n\n') if p.strip()]
+rag_documents += [p for p in textbook_text.split('\n\n') if p.strip()]
 
-# Load data from CSV files
-load_csv_data('symptom_Description.csv', description_list, 2)
-load_csv_data('Symptom_severity.csv', severityDictionary, 2)
-load_csv_data('symptom_precaution.csv', precautionDictionary, 5)
+print(f"Total documents for retrieval: {len(rag_documents)}")
 
-# Function to get severity level
-def get_severity(disease):
-    severity = severityDictionary.get(disease, ['Unknown'])[0]
-    if severity == 'Mild':
-        return f"Severity: Mild"
-    elif severity == 'Moderate':
-        return f"Severity: Moderate"
-    elif severity == 'Severe':
-        return f"Severity: Severe"
-    else:
-        return ""
 
-# Function to collect user info and greet
-def getInfo():
-    print("-----------------------------------AI Medical ChatBot-----------------------------------")
-    name = input("\nYour Name? -> ")
-    print(f"Hello, {name}")
+def get_embedding(text):
+    response = openai.embeddings.create(input=text, model="nomic-embed-text")
+    return np.array(response.data[0].embedding, dtype=np.float32)
 
-# Function to find related symptoms
-def get_related_symptoms(symptom):
-    possible_symptoms = [s for s in x.columns if symptom.lower() in s.lower().replace("_", "")]
-    return possible_symptoms if possible_symptoms else None
+print("Generating embeddings for documents...")
 
-# Ask user about related symptoms
-def ask_related_symptoms(symptom):
-    related_symptoms = get_related_symptoms(symptom)
-    confirmed_symptoms = [symptom]
-    if related_symptoms and len(related_symptoms) > 1:
-        print("Are you experiencing any of these symptoms?")
-        for s in related_symptoms:
-            response = input(f"{s.replace('_', ' ')}? (yes/no): ").strip().lower()
-            if response == 'yes':
-                confirmed_symptoms.append(s)
-    return confirmed_symptoms
+document_embeddings = []
+batch_size = 16
+for i in range(0, len(rag_documents), batch_size):
+    batch_texts = rag_documents[i:i+batch_size]
+    for txt in batch_texts:
+        emb = get_embedding(txt)
+        document_embeddings.append(emb)
 
-# Predict disease function
-def disease_prediction(symptoms_exp):
-    input_vector = np.zeros(len(x.columns))
-    for symptom in symptoms_exp:
-        if symptom in x.columns:
-            input_vector[x.columns.get_loc(symptom)] = 1
-    prediction = gbc.predict([input_vector])
-    return le.inverse_transform(prediction)[0]
+document_embeddings = np.vstack(document_embeddings)
 
-# Main function
-def main():
-    getInfo()
-    symptoms_exp = set()
-    while True:
-        symptom = input("Enter a symptom you are experiencing (or type 'done' to finish): ").strip().lower().replace(" ", "_")
-        if symptom == 'done':
-            break
-        related_symptoms = ask_related_symptoms(symptom)
-        symptoms_exp.update(related_symptoms)
-    if not symptoms_exp:
-        print("No symptoms entered. Exiting.")
-        return
-    disease = disease_prediction(symptoms_exp)
-    print(f"You may have {disease}")
-    print(f"{description_list.get(disease, ['No description available.'])[0]}")
-    severity = get_severity(disease)
-    if severity:
-        print(severity)
-    else:
-        print("Please consult a doctor for further advice.")
-    precautions = precautionDictionary.get(disease, [])
-    if precautions:
-        print("Take the following precautions:")
-        for i, precaution in enumerate(precautions, 1):
-            print(f"{i}) {precaution}")
-    else:
-        print("No precautions available. Please consult a doctor.")
+embedding_dim = document_embeddings.shape[1]
+index = faiss.IndexFlatL2(embedding_dim)
+index.add(document_embeddings)
 
-if __name__ == "__main__":
-    main()
+print(f"FAISS index built with {index.ntotal} vectors.")
+
+system_message = """
+You are a knowledgeable and compassionate medical AI assistant. When the user mentions any disease or medical condition, you must carefully and thoroughly analyze all three provided documents to extract accurate, detailed, and relevant information.
+For each condition, provide:
+1. A clear and comprehensive description of the disease, including its nature and how it affects the body.
+2. Signs and symptoms the patient might experience.
+3. Necessary precautions the patient should take to manage or avoid worsening the condition.
+4. Recommended methods and treatments to recover from or manage the disease, based strictly on the data from the three documents.
+5. Dietary recommendations and foods to be consumed or avoided, tailored to support recovery and overall health according to the disease.
+Use only the information contained within the three provided documents to answer questions. If exact information is not available, infer the closest relevant information from the web.
+If the user’s query is unrelated to the medical documents, gently redirect the conversation to their health concerns.
+Provide detailed answer.
+"""
+def retrieve_relevant_info(user_input, docs, faiss_index, k=3):
+    user_emb = get_embedding(user_input)
+    D, I = faiss_index.search(np.array([user_emb]), k)
+    results = []
+    for idx in I[0]:
+        if 0 <= idx < len(docs):
+            results.append(docs[idx])
+    return results if results else ["No relevant information found in the document."]
+
+def chat(message, history):
+    relevant_info = retrieve_relevant_info(message, rag_documents, index)
+    rag_context = "\n\n".join(relevant_info)
+
+    full_prompt = f"""{system_message}
+
+Relevant medical document excerpts:
+{rag_context}
+
+User question:
+{message}
+
+Please provide a clear, concise description, severity details, symptoms, and precautions based only on the above medical document.
+"""
+
+    messages = [
+        {"role": "system", "content": system_message},
+        {"role": "user", "content": full_prompt}
+    ]
+
+    response = ""
+    stream = openai.chat.completions.create(model="llama3.2", messages=messages, stream=True)
+    for chunk in stream:
+        delta = chunk.choices[0].delta.content
+        if delta:
+            response += delta
+            yield response
+
+gr.ChatInterface(fn=chat, type="messages").launch(inbrowser=True, debug=True)

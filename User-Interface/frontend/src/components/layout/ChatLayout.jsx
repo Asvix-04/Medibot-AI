@@ -214,54 +214,71 @@ const ChatLayout = () => {
         }
       });
       
-      // Simulate AI response
-      // In a real app, you would call your AI service here
-      setTimeout(async () => {
-        const botResponse = `This is a response to: "${content}"`;
-        
-        // Add bot message to local state
-        const botMessage = {
-          id: Date.now() + 1,
-          role: 'bot',
-          content: botResponse,
-          timestamp: new Date()
-        };
-        
-        setIsTyping(false);
-        setMessages(prev => [...prev, botMessage]);
-        
-        // Save the bot message to the backend
-        await axios.post(`${API_URL}/conversations/${conversationId}/messages`, {
-          role: 'bot',
-          content: botResponse
-        }, {
-          headers: {
-            Authorization: `Bearer ${token}`
+      // Call the ML-powered medical chat API
+      const response = await axios.post(`${API_URL}/chat/medical`, {
+        message: content
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
         }
-        });
-        
-        // Update conversations list with new preview
-        const updatedConversations = conversations.map(conv => {
-          if (conv.id === conversationId) {
-            return {
-              ...conv,
-              preview: botResponse.substring(0, 40) + (botResponse.length > 40 ? '...' : ''),
-              timestamp: new Date()
-            };
-          }
-          return conv;
-        });
-        
-        setConversations(updatedConversations);
-        
-        // Refresh the conversations list to update the UI
-        fetchConversations();
-      }, 1000);
+      });
+      
+      // Get the response from the ML model
+      const botResponse = response.data.data.content;
+      
+      // Add bot message to local state
+      const botMessage = {
+        id: Date.now() + 1,
+        role: 'bot',
+        content: botResponse,
+        timestamp: new Date()
+      };
+      
+      setIsTyping(false);
+      setMessages(prev => [...prev, botMessage]);
+      
+      // Save the bot message to the backend
+      await axios.post(`${API_URL}/conversations/${conversationId}/messages`, {
+        role: 'bot',
+        content: botResponse
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      
+      // Update conversations list with new preview
+      const updatedConversations = conversations.map(conv => {
+        if (conv.id === conversationId) {
+          return {
+            ...conv,
+            preview: botResponse.substring(0, 40) + (botResponse.length > 40 ? '...' : ''),
+            timestamp: new Date()
+          };
+        }
+        return conv;
+      });
+      
+      setConversations(updatedConversations);
+      
+      // Refresh the conversations list to update the UI
+      fetchConversations();
       
     } catch (err) {
       setIsTyping(false);
       console.error('Error sending message:', err);
       setError('Failed to send message');
+      
+      // Add an error message to the UI
+      const errorMessage = {
+        id: Date.now() + 2,
+        role: 'bot',
+        content: "I'm sorry, I encountered an error processing your request. Please try again.",
+        isError: true,
+        timestamp: new Date()
+      };
+      
+      setMessages(prev => [...prev, errorMessage]);
     }
   };
 

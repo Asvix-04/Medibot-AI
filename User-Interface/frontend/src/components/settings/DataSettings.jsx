@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useSettings } from '../../context/SettingsContext';
 import { useToast } from '../../context/ToastContext';
 import { saveAs } from 'file-saver';
@@ -6,9 +6,9 @@ import Papa from 'papaparse';
 import { jsPDF } from 'jspdf';
 import { auth, db, storage } from '../../firebase';
 import { 
-  collection, getDocs, doc, deleteDoc, writeBatch, query, where, setDoc // Add setDoc here
+  collection, getDocs, doc, /* deleteDoc, */ writeBatch, query, where, setDoc
 } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
+import { ref, uploadBytes, getDownloadURL /* , deleteObject */ } from 'firebase/storage';
 
 const DataSettings = () => {
   // Use settings from context instead of local state
@@ -31,7 +31,6 @@ const DataSettings = () => {
   
   const [syncStatus, setSyncStatus] = useState('synced'); 
   const [exportFormat, setExportFormat] = useState('json');
-  const [message, setMessage] = useState({ type: '', text: '' });
   const [dataUsage, setDataUsage] = useState({
     chatHistory: { size: 0, count: 0 },
     healthMetrics: { size: 0, count: 0 },
@@ -54,7 +53,7 @@ const DataSettings = () => {
   }, [settings.data]);
 
   // Fetch real data usage statistics from Firestore
-  const fetchDataUsageStats = async () => {
+  const fetchDataUsageStats = useCallback(async () => {
     if (!auth.currentUser) return;
     
     setIsLoading(true);
@@ -92,7 +91,7 @@ const DataSettings = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [dataUsage, addToast]);
   
   // Estimate size of documents in bytes
   const estimateSizeFromDocs = (docs) => {
@@ -548,14 +547,6 @@ const DataSettings = () => {
   return (
     <div>
       <h2 className="text-xl font-bold text-gray-900 mb-6">Data Management</h2>
-      
-      {message.text && (
-        <div className={`mb-6 p-4 rounded-lg ${
-          message.type === 'success' ? 'bg-violet-100 text-violet-800' : 'bg-red-100 text-red-800'
-        }`}>
-          {message.text}
-        </div>
-      )}
       
       <div className="space-y-8">
         {/* Data Usage */}

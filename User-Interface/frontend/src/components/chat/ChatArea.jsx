@@ -23,8 +23,14 @@ const ChatArea = ({ messages, darkMode, isTyping = false, onSendMessage }) => {
   
   // Generate follow-up suggestions based on context
   const getSuggestions = () => {
-    // If there are no bot messages, return empty array
-    if (!messages.length) return [];
+    // If there are no bot messages, return medical-specific default questions
+    if (!messages.length) {
+      return [
+        "What are the symptoms of diabetes?",
+        "How can I manage my blood pressure?",
+        "Tell me about common cold remedies"
+      ];
+    }
     
     // Get the last bot message
     const lastBotMessage = [...messages].reverse().find(m => m.role === 'bot');
@@ -37,28 +43,35 @@ const ChatArea = ({ messages, darkMode, isTyping = false, onSendMessage }) => {
       return [
         "What are the side effects?", 
         "How often should I take it?", 
-        "Can I take it with food?"
+        "Are there any alternative treatments?"
       ];
     } 
     else if (content.includes('symptom') || content.includes('pain') || content.includes('feeling')) {
       return [
         "Could this be serious?", 
-        "What tests might I need?", 
+        "What diagnostic tests might I need?", 
         "When should I see a doctor?"
       ];
     }
     else if (content.includes('diet') || content.includes('nutrition') || content.includes('food')) {
       return [
         "Foods I should avoid?", 
-        "Recommended daily intake?", 
-        "Healthy alternatives?"
+        "What nutrients do I need more of?", 
+        "Can you suggest a meal plan?"
+      ];
+    }
+    else if (content.includes('exercise') || content.includes('activity') || content.includes('workout')) {
+      return [
+        "What exercises are safe for me?", 
+        "How often should I exercise?", 
+        "What should I avoid doing?"
       ];
     }
     // Default suggestions
     return [
-      "Tell me more", 
-      "What else should I know?", 
-      "Any related conditions?"
+      "Tell me more about treatments", 
+      "What preventive measures should I take?", 
+      "Are there any related conditions I should know about?"
     ];
   };
 

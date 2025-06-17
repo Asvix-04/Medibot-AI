@@ -1,10 +1,7 @@
-<<<<<<< HEAD
-# MediBot – AI-Powered Health Management Platform
+# MediBot – AI-Powered Healthcare Chatbot
 =======
 
 MediBot – AI Documentation
->>>>>>> 3e81d70e48c4a1003ba6b80ea252925c8966f1cd
-
 **Version: 1.0.0** (Assuming this is the current state after AI integration)
 
 ## Project Overview

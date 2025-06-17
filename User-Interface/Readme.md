@@ -1,5 +1,4 @@
 # MediBot – AI-Powered Healthcare Chatbot
-=======
 
 MediBot – AI Documentation
 **Version: 1.0.0** (Assuming this is the current state after AI integration)

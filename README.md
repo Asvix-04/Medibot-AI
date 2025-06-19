@@ -1,3 +1,13 @@
+![Built with Love](https://img.shields.io/badge/Built%20with-%E2%9D%A4-red?style=for-the-badge)
+![Made with React](https://img.shields.io/badge/Frontend-React-61DAFB?style=for-the-badge&logo=react)
+![Brain Powered](https://img.shields.io/badge/AI%20Model-Ollama%20+%20RAG-ff69b4?style=for-the-badge&logo=openai)
+![Voice Enabled](https://img.shields.io/badge/Speech%20to%20Text-Whisper-8A2BE2?style=for-the-badge&logo=OpenAI)
+![Database](https://img.shields.io/badge/Database-MongoDB-47A248?style=for-the-badge&logo=mongodb)
+![Appointments Ready](https://img.shields.io/badge/Appointments-Enabled-blue?style=for-the-badge&logo=googlecalendar)
+![Dynamic Bot](https://img.shields.io/badge/Chatbot-Interactive-orange?style=for-the-badge&logo=chatbot)
+![Code Style](https://img.shields.io/badge/Code-Clean%20AF-00bfff?style=for-the-badge)
+![Deployment Level](https://img.shields.io/badge/Status-Beta-yellow?style=for-the-badge)
+
 ## Introducing Medibot a product of ASVIX.
 
 [![Watch the demo](https://img.youtube.com/vi/XQC5HuJTyVY/0.jpg)](https://youtu.be/XQC5HuJTyVY)

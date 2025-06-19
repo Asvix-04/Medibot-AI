@@ -4,7 +4,7 @@
 
 ---
 
-````markdown
+````
 # MediBot AI
 
 **MediBot AI** is an advanced AI-powered medical chatbot designed to assist users in validating their medical queries, tracking health metrics, and connecting with nearby healthcare services. With an interactive conversational interface, MediBot provides a holistic digital healthcare experience through a combination of AI models and real-time integrations.

@@ -1,7 +1,11 @@
-# MediBot AI
-
-![GitHub last commit](https://img.shields.io/github/last-commit/Asvix-04/Medibot-AI?style=for-the-badge&color=brightgreen)
-![AI-Powered](https://img.shields.io/badge/AI%20Powered-MediBot-blueviolet?style=for-the-badge&logo=OpenAI)
-![React](https://img.shields.io/badge/Built%20with-React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
-
-**MediBot AI** is an advanced AI-powered medical chatbot...
+![Built with Love](https://img.shields.io/badge/Built%20with-%E2%9D%A4-red?style=for-the-badge)
+![Made with React](https://img.shields.io/badge/Frontend-React-61DAFB?style=for-the-badge&logo=react)
+![Brain Powered](https://img.shields.io/badge/AI%20Model-Ollama%20+%20RAG-ff69b4?style=for-the-badge&logo=openai)
+![Voice Enabled](https://img.shields.io/badge/Speech%20to%20Text-Whisper-8A2BE2?style=for-the-badge&logo=OpenAI)
+![Geo Magic](https://img.shields.io/badge/Maps-Google%20Maps-34A853?style=for-the-badge&logo=googlemaps&logoColor=white)
+![Database](https://img.shields.io/badge/Database-MongoDB-47A248?style=for-the-badge&logo=mongodb)
+![Appointments Ready](https://img.shields.io/badge/Appointments-Enabled-blue?style=for-the-badge&logo=googlecalendar)
+![Dynamic Bot](https://img.shields.io/badge/Chatbot-Interactive-orange?style=for-the-badge&logo=chatbot)
+![Code Style](https://img.shields.io/badge/Code-Clean%20AF-00bfff?style=for-the-badge)
+![Deployment Level](https://img.shields.io/badge/Status-Beta-yellow?style=for-the-badge)
+![GitHub last commit](https://img.shields.io/github/last-commit/Asvix-04/Medibot-AI?style=for-the-badge)

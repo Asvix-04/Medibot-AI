@@ -7,21 +7,21 @@
 ````
 # MediBot AI
 
-**MediBot AI** is an advanced AI-powered medical chatbot designed to assist users in validating their medical queries, tracking health metrics, and connecting with nearby healthcare services. With an interactive conversational interface, MediBot provides a holistic digital healthcare experience through a combination of AI models and real-time integrations.
+Is an advanced AI-powered medical chatbot designed to assist users in validating their medical queries, tracking health metrics, and connecting with nearby healthcare services. With an interactive conversational interface, MediBot provides a holistic digital healthcare experience through a combination of AI models and real-time integrations.
 
 ## Features
 
-- **AI Medical Chatbot**: Built using a combination of the **Ollama** and **RAG** models to provide real-time, accurate responses to medical queries.
-- **Voice Interaction**: Integrated **OpenAI Whisper** for speech-to-text functionality.
-- **React-Based Frontend**: Built with modern React for a responsive user interface.
-- **Geo Integration**: Uses **Google Maps API** to help users locate nearby hospitals, clinics, and pharmacies.
-- **Appointment Scheduling**: Schedule and manage appointments directly through the platform.
-- **Health Dashboard**: Monitor critical health metrics such as:
-  - Blood Pressure (BP)
-  - Heart Rate
-  - Pulse Rate
-  - Cholesterol levels
-- **Health Report Generator**: Automatically generate personalized health reports.
+- AI Medical Chatbot: Built using a combination of the Ollama and RAG models to provide real-time, accurate responses to medical queries.
+- Voice Interaction: Integrated OpenAI Whisper for speech-to-text functionality.
+- React-Based Frontend: Built with modern React for a responsive user interface.
+- Geo Integration: Uses Google Maps API to help users locate nearby hospitals, clinics, and pharmacies.
+- Appointment Scheduling: Schedule and manage appointments directly through the platform.
+- Health Dashboard: Monitor critical health metrics such as:
+  > Blood Pressure (BP)
+  > Heart Rate
+  > Pulse Rate
+  > Cholesterol levels
+- Health Report Generator: Automatically generate personalized health reports.
 
 ## Upcoming Features
 
@@ -97,7 +97,7 @@ The application will now be available at [http://localhost:3000](http://localhos
 
 ---
 
-## 🔧 Firebase Configuration
+## Firebase Configuration
 
 1. Go to [Firebase Console](https://firebase.google.com)
 2. Create a new project.
@@ -109,7 +109,7 @@ The application will now be available at [http://localhost:3000](http://localhos
 
 ---
 
-## 📂 Application Structure
+## Application Structure
 
 ```
 Medibot-AI/
@@ -124,7 +124,7 @@ Medibot-AI/
 
 ---
 
-## 🧭 Features Overview
+## Features Overview
 
 | Feature          | Access Point              |
 | ---------------- | ------------------------- |
@@ -138,12 +138,12 @@ Medibot-AI/
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions! Please fork the repo, create a new branch for your feature or bug fix, and submit a pull request.
 
 ---
 
-## 💡 Contact
+## Contact
 
 For suggestions, issues, or business inquiries, feel free to open an issue or contact us at **(asvix2025@gmail.com)**.

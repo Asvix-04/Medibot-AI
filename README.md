@@ -1,108 +1,33 @@
-# AI Medical Chatbot
+Here's a dynamic badge using [shields.io](https://shields.io/) that you can add to your GitHub README. It reflects the GitHub repo's latest commit status dynamically:
 
-This project is an AI-based chatbot designed to help users predict potential diseases based on the symptoms they input. The chatbot uses machine learning algorithms, including Decision Tree Classifier and Support Vector Classifier, to predict diseases and provides advice on whether a doctor consultation is necessary. Additionally, it gives precautionary advice based on the symptoms provided.
-
-## Project Structure
-
-The chatbot relies on several CSV files for its data, including symptom descriptions, severities, and precautions. The code is structured to:
-
-1. Load and preprocess training and testing data.
-2. Use machine learning models to predict diseases.
-3. Provide text-to-speech feedback using the `pyttsx3` library.
-4. Display disease descriptions and precautions based on the predicted outcome.
-
-### Files in the Project
-
-- **`Symptom_severity.csv`**: Contains information about the severity level of each symptom.
-- **`Testing.csv`**: Contains test data to evaluate the accuracy of the model.
-- **`Training.csv`**: Contains training data for model learning.
-- **`dataset (1).csv`**: Contains example disease data like:
-  ```
-  Fungal infection, itching, skin rash, nodal skin eruptions, dischromic patches
-  ```
-- **`symptom_Description.csv`**: Contains descriptions of each symptom.
-- **`symptom_precaution.csv`**: Provides precautionary measures for each predicted disease.
-
-### Libraries Used
-
-- `pandas`: For data manipulation and analysis.
-- `scikit-learn`: For machine learning models and cross-validation.
-- `pyttsx3`: For text-to-speech functionality.
-- `re`: For pattern matching in symptom input.
-
-### Code Example
-
-```python
-import re
-import pandas as pd
-import pyttsx3
-from sklearn import preprocessing
-from sklearn.tree import DecisionTreeClassifier, _tree
-import numpy as np
-from sklearn.model_selection import train_test_split
-from sklearn.model_selection import cross_val_score
-from sklearn.svm import SVC
-import csv
-import warnings
-warnings.filterwarnings("ignore", category=DeprecationWarning)
-
-# Load the training and testing data
-training = pd.read_csv('Training.csv')
-testing = pd.read_csv('Testing.csv')
-
-# Preparing the data
-cols = training.columns
-cols = cols[:-1]
-x = training[cols]
-y = training['prognosis']
-y1 = y
-
-# Encoding string labels to numeric values
-le = preprocessing.LabelEncoder()
-le.fit(y)
-y = le.transform(y)
-
-# Split the data into train and test sets
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.33, random_state=42)
-
-# DecisionTreeClassifier Model
-clf1 = DecisionTreeClassifier()
-clf = clf1.fit(x_train, y_train)
-
-# Cross-validation to check accuracy
-scores = cross_val_score(clf, x_test, y_test, cv=3)
-print(f"Decision Tree Classifier score: {scores.mean()}")
-
-# Support Vector Classifier Model
-model = SVC()
-model.fit(x_train, y_train)
-print("SVM score: ", model.score(x_test, y_test))
+```markdown
+![GitHub last commit](https://img.shields.io/github/last-commit/Asvix-04/Medibot-AI?style=for-the-badge&color=brightgreen)
 ```
 
-### How to Run
+You can also add more cool badges like:
 
-1. Clone the repository.
-2. Ensure all required libraries are installed:
-    ```bash
-    pip install -r requirements.txt
-    ```
-3. Run the `AI Medical Chatbot` script:
-    ```bash
-    python code.py
-    ```
+**🧠 AI-powered**
 
-### How It Works
+```markdown
+![AI-Powered](https://img.shields.io/badge/AI%20Powered-MediBot-blueviolet?style=for-the-badge&logo=OpenAI)
+```
 
-1. The chatbot asks for your symptoms.
-2. It predicts potential diseases using the Decision Tree or SVM models.
-3. The chatbot cross-validates the predictions to ensure accuracy.
-4. It also suggests precautions based on the identified disease and speaks the output using text-to-speech.
+**📦 Built with React**
 
+```markdown
+![React](https://img.shields.io/badge/Built%20with-React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+```
 
-### Precautionary Advice
+**🗺️ Google Maps API**
 
-Based on the predicted disease, the chatbot also gives precautionary advice from the `symptom_precaution.csv`.
+```markdown
+![Google Maps](https://img.shields.io/badge/Maps-Google%20Maps-4285F4?style=for-the-badge&logo=googlemaps&logoColor=white)
+```
 
-### Author
+**🔊 Speech by Whisper**
 
-- **Vignesh Skanda**: Developer of the AI Medical Chatbot.
+```markdown
+![Whisper](https://img.shields.io/badge/Speech%20To%20Text-Whisper-orange?style=for-the-badge&logo=openai)
+```
+
+Let me know if you want a [custom badge for your premium feature](f), a [visitor counter badge](f), or [deployment/live status badge](f).

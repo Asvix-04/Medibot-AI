@@ -17,10 +17,10 @@ Is an advanced AI-powered medical chatbot designed to assist users in validating
 - Geo Integration: Uses Google Maps API to help users locate nearby hospitals, clinics, and pharmacies.
 - Appointment Scheduling: Schedule and manage appointments directly through the platform.
 - Health Dashboard: Monitor critical health metrics such as:
-  > Blood Pressure (BP)
-  > Heart Rate
-  > Pulse Rate
-  > Cholesterol levels
+  * Blood Pressure (BP)
+  * Heart Rate
+  * Pulse Rate
+  * Cholesterol levels
 - Health Report Generator: Automatically generate personalized health reports.
 
 ## Upcoming Features

@@ -24,12 +24,14 @@ import OnboardingCheck from './components/OnboardingCheck';
 import FAQPage from './components/faq/FAQPage';
 import LandingPage from './components/landing';
 import { SettingsProvider } from './context/SettingsContext';
+import HospitalsList from './components/hospital/HospitalsList';
+import HospitalDetails from './components/hospital/HospitalDetails';
 
 const AppContent = () => {
   const location = useLocation();
   const isChatPage = location.pathname === '/chat';
-  const [darkMode] = useState(false); 
-  
+  const [darkMode] = useState(false);
+
   return (
     <>
       {!isChatPage && location.pathname !== '/landing' && location.pathname !== '/' && <Navigation />}
@@ -41,75 +43,77 @@ const AppContent = () => {
           <Route path="/verification-required" element={<VerificationRequiredPage />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
-          <Route 
-            path="/profile" 
+          <Route
+            path="/profile"
             element={
               <ProtectedRoute>
                 <ProfileSummary />
               </ProtectedRoute>
-            } 
+            }
           />
-          <Route 
-            path="/user-profile" 
+          <Route
+            path="/user-profile"
             element={
               <ProtectedRoute>
                 <UserProfile />
               </ProtectedRoute>
-            } 
+            }
           />
-          <Route 
-            path="/chat" 
+          <Route
+            path="/chat"
             element={
               <ProtectedRoute>
                 <OnboardingCheck>
                   <ChatPage />
                 </OnboardingCheck>
               </ProtectedRoute>
-            } 
+            }
           />
-          <Route 
-            path="/health-dashboard" 
+          <Route
+            path="/health-dashboard"
             element={
               <ProtectedRoute>
                 <HealthDashboard />
               </ProtectedRoute>
-            } 
+            }
           />
-          <Route 
-            path="/settings/*" 
+          <Route
+            path="/settings/*"
             element={
               <ProtectedRoute>
                 <SettingsLayout />
               </ProtectedRoute>
-            } 
+            }
           />
-          <Route 
-            path="/medication-manager" 
+          <Route
+            path="/medication-manager"
             element={
               <ErrorBoundary>
                 <MedicationManager darkMode={darkMode} />
               </ErrorBoundary>
-            } 
+            }
           />
-          <Route 
-            path="/appointments" 
+          <Route
+            path="/appointments"
             element={
               <ProtectedRoute>
                 <ErrorBoundary>
                   <AppointmentScheduler darkMode={darkMode} />
                 </ErrorBoundary>
               </ProtectedRoute>
-            } 
+            }
           />
-          <Route 
-            path="/onboarding" 
+          <Route
+            path="/onboarding"
             element={
               <ProtectedRoute>
                 <OnboardingFlow />
               </ProtectedRoute>
-            } 
+            }
           />
           <Route path="/faq" element={<FAQPage darkMode={darkMode} />} />
+          <Route path="/hospital/profile" element={<HospitalsList />} />
+          <Route path="/hospital/profile/:id" element={<HospitalDetails />} />
           <Route path="/landing" element={<LandingPage />} />
           <Route path="/" element={<LandingPage />} />
         </Routes>

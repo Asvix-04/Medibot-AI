@@ -26,6 +26,8 @@ import LandingPage from './components/landing';
 import { SettingsProvider } from './context/SettingsContext';
 import HospitalsList from './components/hospital/HospitalsList';
 import HospitalDetails from './components/hospital/HospitalDetails';
+import DoctorsList from './components/doctor/DoctorsList';
+import DoctorDetails from './components/doctor/DoctorDetails';
 
 const AppContent = () => {
   const location = useLocation();
@@ -114,6 +116,8 @@ const AppContent = () => {
           <Route path="/faq" element={<FAQPage darkMode={darkMode} />} />
           <Route path="/hospital/profile" element={<HospitalsList />} />
           <Route path="/hospital/profile/:id" element={<HospitalDetails />} />
+          <Route path="/doctor/profile" element={<DoctorsList />} />
+          <Route path="/doctor/profile/:id" element={<DoctorDetails />} />
           <Route path="/landing" element={<LandingPage />} />
           <Route path="/" element={<LandingPage />} />
         </Routes>

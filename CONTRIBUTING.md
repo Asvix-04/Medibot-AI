@@ -1,21 +1,21 @@
-# Contributing to AI-Medical-Chatbot
+# Contributing to Medibot-AI
 
 First off, thanks for taking the time to contribute! 🎉
 
-The following is a set of guidelines for contributing to AI-Medical-Chatbot. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
+The following is a set of guidelines for contributing to Medibot-AI. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
   
 ## How Can I Contribute?
 
 ### Reporting Bugs
 
-This section guides you through submitting a bug report for AI-Medical-Chatbot. Following these guidelines helps maintainers and the community understand your report, reproduce the behavior, and find related reports.
+This section guides you through submitting a bug report for Medibot-AI. Following these guidelines helps maintainers and the community understand your report, reproduce the behavior, and find related reports.
 
 - **Ensure the bug was not already reported** by searching on GitHub under Issues.
 - If you're unable to find an open issue addressing the problem, open a new one. Be sure to include a **title and clear description**, as much relevant information as possible, and a **code sample** or an **executable test case** demonstrating the expected behavior that is not occurring.
 
 ### Suggesting Enhancements
 
-This section guides you through submitting an enhancement suggestion for AI-Medical-Chatbot, including completely new features and minor improvements to existing functionality.
+This section guides you through submitting an enhancement suggestion for Medibot-AI, including completely new features and minor improvements to existing functionality.
 
 - **Ensure the enhancement was not already suggested** by searching on GitHub under Issues.
 - If you find an enhancement that matches your suggestion, feel free to add your comments to the existing issue.
@@ -25,14 +25,14 @@ This section guides you through submitting an enhancement suggestion for AI-Medi
 
 The process described here has several goals:
 
-- Maintain AI-Medical-Chatbot's quality
+- Maintain Medibot-AI's quality
 - Fix problems that are important to users
-- Engage the community in working toward the best possible AI-Medical-Chatbot
+- Engage the community in working toward the best possible Medibot-AI
 
 Please follow these steps to have your contribution considered by the maintainers:
 
 1. **Fork** the repository.
-2. **Clone** your fork: `git clone https://github.com/vignesh1507/AI-Medical-Chatbot.git`
+2. **Clone** your fork: `git clone https://github.com/Asvix-04/Medibot-AI.git`
 3. **Create a branch** for your changes: `git checkout -b my-new-feature`
 4. **Make your changes**.
 5. **Commit your changes**: `git commit -am 'Add some feature'`
@@ -41,6 +41,6 @@ Please follow these steps to have your contribution considered by the maintainer
 
 ### Code of Conduct
 
-This project and everyone participating in it is governed by the AI-Medical-Chatbot Code of Conduct. By participating, you are expected to uphold this code. Please report unacceptable behavior to agvskanda@gmail.com.
+This project and everyone participating in it is governed by the Medibot-AI Code of Conduct. By participating, you are expected to uphold this code. Please report unacceptable behavior to asvix2025@gmail.com.
 
-Thank you for contributing to AI-Medical-Chatbot!
+Thank you for contributing to Medibot-AI!

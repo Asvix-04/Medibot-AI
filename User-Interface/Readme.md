@@ -37,7 +37,6 @@ Medibot addresses these issues by creating an integrated platform that empowers 
 5.  **Medical Records Management**
     *   Access personal health history and securely share it with providers.
 
-<<<<<<< HEAD
 6.  **Personalized Health Insights**
     *   AI-powered recommendations based on personal data.
 

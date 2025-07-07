@@ -24,7 +24,7 @@ MediBot is an AI-powered medical chatbot designed to make healthcare more access
 - [ ] ICD-10 & SNOMED ontology integration
 - [ ] Admin dashboard for analytics, feedback & prompt tuning
 - [ ] Clinical accuracy validation with expert feedback loop
-- [ ] Support for wearable device integration (e.g. Fitbit, Apple Health)
+- [ ] Support for wearable device integration (ex: Fitbit, Apple Health)
 
 ---
 
@@ -32,7 +32,7 @@ MediBot is an AI-powered medical chatbot designed to make healthcare more access
 
 - AI-assisted triage assistant for first-line medical help
 - Adaptive user profile building via session memory
-- Integration of image-based symptom recognition (e.g. rashes, swelling)
+- Integration of image-based symptom recognition (ex: rashes, swelling)
 
 ---
 
@@ -41,7 +41,7 @@ MediBot is an AI-powered medical chatbot designed to make healthcare more access
 - Hospital/clinic plug-ins via MediBot API SDK
 - Federated learning for privacy-preserving medical training
 - Integration with insurance claim APIs
-- Real-time sign language interpreter (via SignViz pipeline)
+- Real-time sign language interpreter (via Signviz pipeline)
 
 ---
 

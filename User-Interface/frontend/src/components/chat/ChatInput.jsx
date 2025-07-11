@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import VoiceChat from './VoiceChat';
 
 const ChatInput = ({ onSendMessage, darkMode }) => {
   const [message, setMessage] = useState('');
@@ -37,14 +38,14 @@ const ChatInput = ({ onSendMessage, darkMode }) => {
           </svg>
         </button>
       </div>
+      <VoiceChat setInputText={setMessage}/>
       <button
         type="submit"
         disabled={!message.trim()}
-        className={`p-3 rounded-lg ${
-          message.trim()
+        className={`p-4 mb-1 rounded-lg ${message.trim()
             ? 'bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] text-[#d6d4d4] hover:shadow-md transition-all cursor-pointer'
             : 'bg-gray-100 text-gray-400 cursor-not-allowed dark:bg-gray-800'
-        }`}
+          }`}
       >
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
           <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />

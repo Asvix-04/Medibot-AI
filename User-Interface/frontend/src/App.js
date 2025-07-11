@@ -24,95 +24,100 @@ import OnboardingCheck from './components/OnboardingCheck';
 import FAQPage from './components/faq/FAQPage';
 import LandingPage from './components/landing';
 import { SettingsProvider } from './context/SettingsContext';
+import PageTransitionWrapper from './components/transition-effect/PageTransitionWrapper';
+
+
 
 const AppContent = () => {
   const location = useLocation();
   const isChatPage = location.pathname === '/chat';
-  const [darkMode] = useState(false); 
-  
+  const [darkMode] = useState(false);
+
   return (
     <>
       {!isChatPage && location.pathname !== '/landing' && location.pathname !== '/' && <Navigation />}
       <div className={!isChatPage && location.pathname !== '/signin' && location.pathname !== '/signup' && location.pathname !== '/forgot-password' && !location.pathname.startsWith('/reset-password') ? 'pt-14' : ''}>
-        <Routes>
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/signin" element={<Signin />} />
-          <Route path="/verify-email" element={<EmailVerification />} />
-          <Route path="/verification-required" element={<VerificationRequiredPage />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route 
-            path="/profile" 
-            element={
-              <ProtectedRoute>
-                <ProfileSummary />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/user-profile" 
-            element={
-              <ProtectedRoute>
-                <UserProfile />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/chat" 
-            element={
-              <ProtectedRoute>
-                <OnboardingCheck>
-                  <ChatPage />
-                </OnboardingCheck>
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/health-dashboard" 
-            element={
-              <ProtectedRoute>
-                <HealthDashboard />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/settings/*" 
-            element={
-              <ProtectedRoute>
-                <SettingsLayout />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/medication-manager" 
-            element={
-              <ErrorBoundary>
-                <MedicationManager darkMode={darkMode} />
-              </ErrorBoundary>
-            } 
-          />
-          <Route 
-            path="/appointments" 
-            element={
-              <ProtectedRoute>
+        <PageTransitionWrapper location={location} darkMode={darkMode}>
+          <Routes location={location} key={location.pathname}>
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/signin" element={<Signin />} />
+            <Route path="/verify-email" element={<EmailVerification />} />
+            <Route path="/verification-required" element={<VerificationRequiredPage />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <ProfileSummary />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/user-profile"
+              element={
+                <ProtectedRoute>
+                  <UserProfile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/chat"
+              element={
+                <ProtectedRoute>
+                  <OnboardingCheck>
+                    <ChatPage />
+                  </OnboardingCheck>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/health-dashboard"
+              element={
+                <ProtectedRoute>
+                  <HealthDashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/settings/*"
+              element={
+                <ProtectedRoute>
+                  <SettingsLayout />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/medication-manager"
+              element={
                 <ErrorBoundary>
-                  <AppointmentScheduler darkMode={darkMode} />
+                  <MedicationManager darkMode={darkMode} />
                 </ErrorBoundary>
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/onboarding" 
-            element={
-              <ProtectedRoute>
-                <OnboardingFlow />
-              </ProtectedRoute>
-            } 
-          />
-          <Route path="/faq" element={<FAQPage darkMode={darkMode} />} />
-          <Route path="/landing" element={<LandingPage />} />
-          <Route path="/" element={<LandingPage />} />
-        </Routes>
+              }
+            />
+            <Route
+              path="/appointments"
+              element={
+                <ProtectedRoute>
+                  <ErrorBoundary>
+                    <AppointmentScheduler darkMode={darkMode} />
+                  </ErrorBoundary>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/onboarding"
+              element={
+                <ProtectedRoute>
+                  <OnboardingFlow />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/faq" element={<FAQPage darkMode={darkMode} />} />
+            <Route path="/landing" element={<LandingPage />} />
+            <Route path="/" element={<LandingPage />} />
+          </Routes>
+        </PageTransitionWrapper>
       </div>
     </>
   );

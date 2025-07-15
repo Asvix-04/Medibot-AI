@@ -43,13 +43,13 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="py-24" style={{ background: 'linear-gradient(to bottom, #121212 0%, #1a1a1a 100%)' }}>
+    <section id="about" className="w-full py-20 bg-gradient from-slate-900/50 via-purple-950/20 to-slate-950/50" style={{ opacity:1 }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-extrabold sm:text-4xl" style={{ color: '#d6d4d4' }}>
+          <h2 className="text-4xl md:text-5xl font-bold text-white">
             Transforming Healthcare with AI
           </h2>
-          <p className="mt-4 max-w-3xl text-xl mx-auto" style={{ color: '#d6d4d4', opacity: 0.8 }}>
+          <p className="mt-4 text-lg text-slate-300 max-w-2xl mx-auto">
             We're on a mission to make healthcare more accessible, personalized, and effective through the power of artificial intelligence.
           </p>
         </div>
@@ -57,12 +57,12 @@ const About = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {aboutFeatures.map((feature, index) => (
             <div key={index} className="flex flex-col md:flex-row items-center text-center md:text-left">
-              <div className="flex-shrink-0 flex items-center justify-center h-24 w-24 rounded-full mb-6 md:mb-0 md:mr-6" 
-                   style={{ background: 'rgba(99, 102, 241, 0.15)', color: '#6366f1' }}>
+              <div className="flex-shrink-0 flex items-center justify-center h-24 w-24 rounded-full mb-6 md:mb-0 md:mr-6 text-purple-400" 
+                   style={{ background: 'rgba(99, 102, 241, 0.15)'}}>
                 {feature.icon}
               </div>
               <div>
-                <h3 className="text-2xl font-bold mb-3" style={{ color: '#6366f1' }}>
+                <h3 className="text-2xl font-bold mb-3">
                   {feature.title}
                 </h3>
                 <p className="text-lg" style={{ color: '#d6d4d4' }}>
@@ -80,13 +80,7 @@ const About = () => {
           <div className="mt-8">
             <a 
               href="#features" 
-              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md transition-colors duration-300"
-              style={{ 
-                backgroundColor: '#6366f1',
-                color: '#d6d4d4',
-              }}
-              onMouseOver={e => {e.currentTarget.style.backgroundColor = '#4f46e5'}}
-              onMouseOut={e => {e.currentTarget.style.backgroundColor = '#6366f1'}}
+              className="inline-flex items-center justify-center gap-2 whitespace-nowrap ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 py-2 px-6 bg-[#1a103d] text-white border border-[#a970ff] rounded-full font-medium shadow-none hover:bg-[#1a103d] hover:border-[#a970ff] hover:text-white w-60 h-14 text-lg"
             >
               Explore Our Features
               <svg xmlns="http://www.w3.org/2000/svg" className="ml-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">

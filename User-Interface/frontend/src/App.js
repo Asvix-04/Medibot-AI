@@ -25,8 +25,8 @@ import FAQPage from './components/faq/FAQPage';
 import LandingPage from './components/landing';
 import { SettingsProvider } from './context/SettingsContext';
 import PageTransitionWrapper from './components/transition-effect/PageTransitionWrapper';
-
-
+import Header from './components/landing/Header';
+import Footer from './components/landing/Footer';
 
 const AppContent = () => {
   const location = useLocation();
@@ -36,7 +36,8 @@ const AppContent = () => {
   return (
     <>
       {!isChatPage && location.pathname !== '/landing' && location.pathname !== '/' && <Navigation />}
-      <div className={!isChatPage && location.pathname !== '/signin' && location.pathname !== '/signup' && location.pathname !== '/forgot-password' && !location.pathname.startsWith('/reset-password') ? 'pt-14' : ''}>
+      {['/', '/landing'].includes(location.pathname) && <Header />}
+      <div className={!isChatPage && location.pathname !== '/signin' && location.pathname !== '/signup' && location.pathname !== '/forgot-password' && !location.pathname.startsWith('/reset-password') ? '__className_e8ce0c bg-background text-foreground min-h-screen' : ''}>
         <PageTransitionWrapper location={location} darkMode={darkMode}>
           <Routes location={location} key={location.pathname}>
             <Route path="/signup" element={<Signup />} />
@@ -119,6 +120,7 @@ const AppContent = () => {
           </Routes>
         </PageTransitionWrapper>
       </div>
+      {['/', '/landing'].includes(location.pathname) && <Footer />}
     </>
   );
 };

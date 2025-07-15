@@ -4,7 +4,7 @@ import callToActionImage from '../../assets/calltoaction.jpg';
 
 const CallToAction = () => {
   return (
-    <section style={{ background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)' }} className="py-20 relative overflow-hidden">
+    <section id="call-to-action" style={{opacity:1 }} className="py-20 mb-2 relative overflow-hidden w-full bg-gradient-to-br from-slate-900/50 via-purple-950/20 to-slate-950/50">
       {/* Background pattern overlay */}
       <div className="absolute inset-0 z-0 opacity-10">
         <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
@@ -20,35 +20,22 @@ const CallToAction = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="lg:flex lg:items-center lg:justify-between">
           <div className="lg:w-1/2">
-            <h2 className="text-3xl font-extrabold sm:text-4xl text-left" style={{ color: '#d6d4d4' }}>
+            <h2 className="text-3xl font-extrabold sm:text-4xl text-left text-white">
               Take Control of Your Health Journey
             </h2>
             <p className="mt-4 text-xl text-left" style={{ color: '#d6d4d4', opacity: 0.9 }}>
               Join thousands of users already experiencing smarter healthcare management with Medibot's AI-powered platform.
             </p>
-            <div className="mt-8 flex flex-col sm:flex-row sm:items-center">
+            <div className="mt-8 gap-4 flex flex-col sm:flex-row sm:items-center">
               <Link 
                 to="/signup" 
-                className="mb-4 sm:mb-0 sm:mr-4 px-8 py-3 border border-transparent text-base font-medium rounded-md transition-colors duration-200 ease-in-out md:py-4 md:text-lg md:px-10 flex items-center justify-center"
-                style={{ 
-                  backgroundColor: '#121212', 
-                  color: '#d6d4d4',
-                }}
-                onMouseOver={e => {e.currentTarget.style.backgroundColor = '#1a1a1a'}}
-                onMouseOut={e => {e.currentTarget.style.backgroundColor = '#121212'}}
+                className=" px-8 py-2 justify-center gap-2 whitespace-nowrap ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 h-10 inline-flex items-centers border text-base font-medium rounded-full shadow-sm text-white bg-[#1a103d] border-[#a970ff] hover:bg-[#1a103d] hover:border-[#a970ff] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#a970ff]"
               >
                 Start Your Health Journey
               </Link>
               <Link 
                 to="/chat" 
-                className="px-8 py-3 border text-base font-medium rounded-md transition-colors duration-200 ease-in-out md:py-4 md:text-lg md:px-10 flex items-center justify-center"
-                style={{ 
-                  borderColor: '#d6d4d4', 
-                  color: '#d6d4d4',
-                  background: 'transparent'
-                }}
-                onMouseOver={e => {e.currentTarget.style.backgroundColor = 'rgba(214, 212, 212, 0.1)'}}
-                onMouseOut={e => {e.currentTarget.style.backgroundColor = 'transparent'}}
+                className="justify-center gap-2 whitespace-nowrap ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 h-10 inline-flex items-center px-8 py-4 border border-[#a970ff] text-base font-medium rounded-full text-white bg-transparent hover:bg-[#1a103d] hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#a970ff]"
               >
                 Try AI Chat Demo
               </Link>
@@ -65,7 +52,7 @@ const CallToAction = () => {
                   'Personalized health dashboard'
                 ].map((item, index) => (
                   <li key={index} className="flex items-center">
-                    <svg className="h-5 w-5 mr-2" style={{ color: '#6366f1' }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <svg className="h-5 w-5 mr-2" style={{ color: '#7c3aed' }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                     </svg>
                     <span style={{ color: '#d6d4d4' }}>{item}</span>

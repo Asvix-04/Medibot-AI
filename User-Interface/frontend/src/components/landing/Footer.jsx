@@ -84,7 +84,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer style={{ background: '#121212' }} className="text-gray-400 pt-20 pb-10">
+    <footer className="text-gray-400 pt-20 pb-10 w-full bg-slate-900/80 py-12 border-t border-white/10 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
           {/* Logo and description */}
@@ -95,7 +95,7 @@ const Footer = () => {
                 src={medibot_logo}
                 alt="Medibot"
               />
-              <h2 className="text-2xl font-bold" style={{ color: '#6366f1' }}>Medibot</h2>
+              <h2 className="text-2xl font-bold text-white">Medibot</h2>
             </div>
             <p className="mt-4 text-sm max-w-xs" style={{ color: '#d6d4d4' }}>
               AI-powered health management platform that helps you track medications, monitor health metrics, 
@@ -123,7 +123,7 @@ const Footer = () => {
           {/* Links */}
           {footerLinks.map((category) => (
             <div key={category.title}>
-              <h3 style={{ color: '#818cf8' }} className="text-sm font-semibold tracking-wider uppercase">
+              <h3 className="text-sm tracking-wider uppercase text-white font-semibold mb-4">
                 {category.title}
               </h3>
               <ul className="mt-4 space-y-3">
@@ -145,7 +145,7 @@ const Footer = () => {
           ))}
         </div>
         
-        <div className="mt-12 pt-8 border-t border-gray-700 flex flex-col md:flex-row justify-between items-center" style={{ borderColor: '#2a2a2a' }}>
+        <div className="mt-12 pt-8  border-t border-white/10 flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm" style={{ color: '#d6d4d4', opacity: 0.7 }}>
             &copy; {currentYear} Medibot Health Technologies. All rights reserved.
           </p>

@@ -35,10 +35,10 @@ const FAQ = () => {
   };
 
   return (
-    <section id="faq" className="py-20" style={{ background: '#121212' }}>
+    <section id="faq" className="py-20 w-full max-w-7xl mx-auto px-6" style={{ opacity: 1 }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-left">
-          <h2 className="text-3xl font-extrabold sm:text-4xl" style={{ color: '#6366f1' }}>
+          <h2 className="text-3xl font-extrabold sm:text-4xl text-white">
             Frequently Asked Questions
           </h2>
           <p className="mt-4 max-w-2xl text-xl" style={{ color: '#d6d4d4' }}>
@@ -52,18 +52,18 @@ const FAQ = () => {
               <button
                 className="flex justify-between items-center w-full px-6 py-4 text-left rounded-lg focus:outline-none transition-colors duration-200"
                 style={{ 
-                  backgroundColor: openIndex === index ? '#6366f1' : '#1a1a1a',
-                  color: openIndex === index ? '#d6d4d4' : '#d6d4d4',
+                  backgroundColor: openIndex === index ? '#7c3aed' : '#00000080',
+                  color: '#d6d4d4',
                 }}
                 onClick={() => toggleFaq(index)}
                 onMouseOver={(e) => {
                   if (openIndex !== index) {
-                    e.currentTarget.style.backgroundColor = '#262626';
+                    e.currentTarget.style.backgroundColor = '#8b5cf6';
                   }
                 }}
                 onMouseOut={(e) => {
                   if (openIndex !== index) {
-                    e.currentTarget.style.backgroundColor = '#1a1a1a';
+                    e.currentTarget.style.backgroundColor = '#00000080';
                   }
                 }}
               >
@@ -91,10 +91,9 @@ const FAQ = () => {
             Still have questions?{' '}
             <a 
               href="#contact" 
-              className="font-medium hover:underline" 
-              style={{ color: '#818cf8' }}
+              className="font-medium hover:underline text-purple-400" 
               onMouseOver={e => e.target.style.color = '#6366f1'}
-              onMouseOut={e => e.target.style.color = '#818cf8'}
+              onMouseOut={e => e.target.style.color = '#7c3aed'}
             >
               Contact our support team
             </a>

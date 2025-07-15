@@ -14,32 +14,32 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 w-full bg-slate-950/80 backdrop-blur-md z-50 border-b border-white/10 ${
         isScrolled ? 'bg-[#121212] shadow-lg' : 'bg-[#121212]/80'
       }`}
       style={{ minHeight: 72, backdropFilter: 'blur(8px)' }}
     >
       <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-18" style={{ height: 72 }}>
         <Link to="/" className="flex items-center">
-          <img src={medibot_logo} alt="Medibot" className="h-10 w-10 rounded-full p-1 bg-white" />
-          <span className="ml-2 text-2xl font-bold text-[#6366f1]">Medibot</span>
+          <img src={medibot_logo} alt="Medibot" className="h-10 w-10 rounded-full p-1 bg-white object-cover" />
+          <span className="text-xl font-bold text-white">Medibot</span>
         </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-10">
-          <Link to="/" className="text-[#d6d4d4] hover:text-white transition-colors">
+          <Link to="/" className="text-[#d6d4d4] hover:text-white transition-colors font-bold">
             Home
           </Link>
-          <a href="#features" className="text-[#d6d4d4] hover:text-white transition-colors">
+          <a href="#features" className="text-[#d6d4d4] hover:text-white transition-colors font-bold">
             Features
           </a>
-          <a href="#how-it-works" className="text-[#d6d4d4] hover:text-white transition-colors">
+          <a href="#how-it-works" className="text-[#d6d4d4] hover:text-white transition-colors font-bold">
             How It Works
           </a>
-          <a href="#about" className="text-[#d6d4d4] hover:text-white transition-colors">
+          <a href="#about" className="text-[#d6d4d4] hover:text-white transition-colors font-bold">
             About
           </a>
-          <a href="#faq" className="text-[#d6d4d4] hover:text-white transition-colors">
+          <a href="#faq" className="text-[#d6d4d4] hover:text-white transition-colors font-bold">
             FAQ
           </a>
         </nav>
@@ -48,13 +48,13 @@ const Header = () => {
         <div className="hidden md:flex items-center space-x-4">
           <Link 
             to="/signin" 
-            className="px-4 py-2 border border-[#d6d4d4] rounded-md text-[#d6d4d4] hover:bg-[#d6d4d4] hover:bg-opacity-10 transition-colors"
+            className="inline-flex items-center justify-center gap-2 whitespace-nowrap ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 py-2 h-10 px-6 bg-[#1a103d] text-white border border-[#a970ff] rounded-full text-base font-medium shadow-none hover:bg-[#1a103d] hover:border-[#a970ff] hover:text-white"
           >
             Sign In
           </Link>
           <Link 
             to="/signup" 
-            className="px-4 py-2 rounded-md text-[#d6d4d4] bg-[#6366f1] hover:bg-[#4f46e5] transition-colors"
+            className="inline-flex items-center justify-center gap-2 whitespace-nowrap ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 py-2 h-10 px-6 bg-[#1a103d] text-white border border-[#a970ff] rounded-full text-base font-medium shadow-none hover:bg-[#1a103d] hover:border-[#a970ff] hover:text-white"
           >
             Sign Up
           </Link>

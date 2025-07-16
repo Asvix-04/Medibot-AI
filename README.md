@@ -19,7 +19,7 @@
 
 # MediBot AI
 
-Is an advanced AI-powered medical chatbot designed to assist users in validating their medical queries, tracking health metrics, and connecting with nearby healthcare services. With an interactive conversational interface, MediBot provides a holistic digital healthcare experience through a combination of AI models and real-time integrations.
+Is an advanced AI-powered medical chatbot designed to assist users in validating their medical queries, tracking health metrics, and connecting with nearby healthcare services. With an interactive conversational interface, MediBot provides a holistic digital healthcare experience through a combination of AI models and real-time integrations. 
 
 ## Features
 
@@ -33,7 +33,7 @@ Is an advanced AI-powered medical chatbot designed to assist users in validating
   * Heart Rate
   * Pulse Rate
   * Cholesterol levels
-- Health Report Generator: Automatically generate personalized health reports.
+- Health Report Generator: Automatically generate personalized health reports for the users.
 
 ## Upcoming Features
 

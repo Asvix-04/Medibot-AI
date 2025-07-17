@@ -27,7 +27,7 @@ const PaymentPage = () => {
       const { data } = await axios.post(
         "http://localhost:5000/api/payment/create-order",
         {
-          amount: 100, // ₹100
+          amount: 10, // ₹100
         }
       );
 
@@ -71,13 +71,20 @@ const PaymentPage = () => {
       <div className="bg-white shadow-xl rounded-3xl p-8 max-w-md w-full">
         <div className="flex items-center mb-4">
           <FaLock className="text-[#7b4ee5] text-3xl mr-2" />
-          <h2 className="text-2xl font-bold text-[#7b4ee5]">Secure Payment with Razorpay</h2>
+          <h2 className="text-2xl font-bold text-[#7b4ee5]">
+            Secure Payment with Razorpay
+          </h2>
         </div>
-        <p className="text-gray-600 mb-6">You are paying <span className="font-semibold">₹100</span> for the Premium Subscription.</p>
+        <p className="text-gray-600 mb-6">
+          You are paying <span className="font-semibold">₹10</span> for the
+          Premium Subscription.
+        </p>
 
         <div className="space-y-4 mb-6">
           <div>
-            <label className="block text-left text-sm font-medium text-gray-700">Full Name</label>
+            <label className="block text-left text-sm font-medium text-gray-700">
+              Full Name
+            </label>
             <input
               type="text"
               name="name"
@@ -88,7 +95,9 @@ const PaymentPage = () => {
             />
           </div>
           <div>
-            <label className="block text-left text-sm font-medium text-gray-700">Email</label>
+            <label className="block text-left text-sm font-medium text-gray-700">
+              Email
+            </label>
             <input
               type="email"
               name="email"
@@ -99,7 +108,9 @@ const PaymentPage = () => {
             />
           </div>
           <div>
-            <label className="block text-left text-sm font-medium text-gray-700">Phone Number</label>
+            <label className="block text-left text-sm font-medium text-gray-700">
+              Phone Number
+            </label>
             <input
               type="tel"
               name="phone"
@@ -115,7 +126,7 @@ const PaymentPage = () => {
           onClick={handlePayment}
           className="w-full py-3 rounded-lg bg-gradient-to-r from-[#7b4ee5] to-[#a78bfa] text-white font-semibold hover:from-[#8e69e4] hover:to-[#9d7ef5] transition duration-300"
         >
-          Pay ₹100
+          Pay ₹10
         </button>
       </div>
     </div>

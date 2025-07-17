@@ -1,18 +1,18 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import defaultAvatar from '../assets/default-avatar.jpeg';
+import React, { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import defaultAvatar from "../assets/default-avatar.jpeg";
 import { doc, setDoc, getDoc } from "firebase/firestore";
-import { auth, db } from '../firebase';
-import { useToast } from '../context/ToastContext';
-import medibot_logo from '../assets/medibot_logo.jpg';
+import { auth, db } from "../firebase";
+import { useToast } from "../context/ToastContext";
+import medibot_logo from "../assets/medibot_logo.jpg";
 
 const ProfilePhotoSection = ({ profileImage, setProfileImage }) => {
   const fileInputRef = useRef(null);
-  
+
   const handleImageClick = () => {
     fileInputRef.current.click();
   };
-  
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -23,17 +23,17 @@ const ProfilePhotoSection = ({ profileImage, setProfileImage }) => {
       reader.readAsDataURL(file);
     }
   };
-  
+
   return (
     <div className="flex flex-col items-center">
-      <div 
-        onClick={handleImageClick} 
+      <div
+        onClick={handleImageClick}
         className="relative w-40 h-40 rounded-full overflow-hidden border-4 border-white shadow-xl cursor-pointer group hover:shadow-2xl transition-all duration-500 transform hover:scale-105"
-        style={{ boxShadow: '0 0 25px rgba(124, 58, 237, 0.2)' }}
+        style={{ boxShadow: "0 0 25px rgba(124, 58, 237, 0.2)" }}
       >
-        <img 
-          src={profileImage || defaultAvatar} 
-          alt="Profile" 
+        <img
+          src={profileImage || defaultAvatar}
+          alt="Profile"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-violet-900/80 to-indigo-600/30 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
@@ -51,10 +51,22 @@ const ProfilePhotoSection = ({ profileImage, setProfileImage }) => {
       />
       <button
         onClick={handleImageClick}
+        aria-label="Upload profile photo"
         className="mt-4 text-sm font-medium text-violet-600 hover:text-violet-800 flex items-center transition-colors"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-4 w-4 mr-1"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+          />
         </svg>
         Upload Photo
       </button>
@@ -64,9 +76,16 @@ const ProfilePhotoSection = ({ profileImage, setProfileImage }) => {
 
 const FormSection = ({ title, children, icon }) => {
   return (
-    <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 mb-8 backdrop-blur-sm transition-all duration-300 hover:shadow-xl transform hover:-translate-y-1">
+    <div
+      aria-labelledby={title}
+      role="region"
+      className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 mb-8 backdrop-blur-sm transition-all duration-300 hover:shadow-xl transform hover:-translate-y-1"
+    >
       <div className="flex items-center mb-6">
-        <div className="bg-gradient-to-br from-violet-500 to-indigo-600 p-3 rounded-xl mr-4 shadow-md">
+        <div
+          aria-hidden="true"
+          className="bg-gradient-to-br from-violet-500 to-indigo-600 p-3 rounded-xl mr-4 shadow-md"
+        >
           {React.cloneElement(icon, { className: "h-6 w-6 text-white" })}
         </div>
         <h3 className="text-xl font-semibold text-gray-800">{title}</h3>
@@ -76,14 +95,30 @@ const FormSection = ({ title, children, icon }) => {
   );
 };
 
-const InputField = ({ label, id, type = "text", value, onChange, placeholder, icon, disabled = false, children }) => {
+const InputField = ({
+  label,
+  id,
+  type = "text",
+  value,
+  onChange,
+  placeholder,
+  icon,
+  disabled = false,
+  children,
+}) => {
   return (
     <div className="mb-5">
-      <label htmlFor={id} className="block text-sm font-medium text-gray-700 mb-2">
+      <label
+        htmlFor={id}
+        className="block text-sm font-medium text-gray-700 mb-2"
+      >
         {label}
       </label>
       <div className="relative">
-        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+        <div
+          aria-hidden="true"
+          className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+        >
           {icon}
         </div>
         {children || (
@@ -94,8 +129,12 @@ const InputField = ({ label, id, type = "text", value, onChange, placeholder, ic
             value={value}
             onChange={onChange}
             disabled={disabled}
+            aria-labelledby={`${id}-label`}
+            aria-disabled={disabled ? "true" : "false"}
             placeholder={placeholder}
-            className={`block w-full pl-11 pr-4 py-3 text-gray-900 bg-gray-50 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 border border-gray-200 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed ${disabled ? 'bg-gray-100' : 'hover:bg-gray-100'}`}
+            className={`block w-full pl-11 pr-4 py-3 text-gray-900 bg-gray-50 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 border border-gray-200 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed ${
+              disabled ? "bg-gray-100" : "hover:bg-gray-100"
+            }`}
           />
         )}
       </div>
@@ -108,55 +147,109 @@ const PersonalInfoSection = ({ formData, setFormData }) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
   };
 
   return (
     <div>
-      <InputField 
-        label="Full Name" 
-        id="fullName" 
+      <InputField
+        label="Full Name"
+        id="fullName"
         value={formData.fullName}
         onChange={handleChange}
         placeholder="John Doe"
-        icon={<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-        </svg>}
+        icon={
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5 text-gray-400"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+            />
+          </svg>
+        }
       />
 
-      <InputField 
-        label="Display Name" 
-        id="displayName" 
+      <InputField
+        label="Display Name"
+        id="displayName"
         value={formData.displayName}
         onChange={handleChange}
         placeholder="@johndoe"
-        icon={<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-        </svg>}
-      >
-      </InputField>
-      <p className="mt-1 ml-1 text-xs text-gray-500">This is how you'll appear to other users</p>
+        icon={
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5 text-gray-400"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+            />
+          </svg>
+        }
+      ></InputField>
+      <p className="mt-1 ml-1 text-xs text-gray-500">
+        This is how you'll appear to other users
+      </p>
 
-      <InputField 
-        label="Date of Birth" 
-        id="dateOfBirth" 
+      <InputField
+        label="Date of Birth"
+        id="dateOfBirth"
         type="date"
         value={formData.dateOfBirth}
         onChange={handleChange}
-        icon={<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-        </svg>}
+        icon={
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5 text-gray-400"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+            />
+          </svg>
+        }
       />
 
       <div className="mb-5">
-        <label htmlFor="gender" className="block text-sm font-medium text-gray-700 mb-2">
+        <label
+          htmlFor="gender"
+          className="block text-sm font-medium text-gray-700 mb-2"
+        >
           Gender
         </label>
         <div className="relative">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 text-gray-400"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+              />
             </svg>
           </div>
           <select
@@ -173,8 +266,19 @@ const PersonalInfoSection = ({ formData, setFormData }) => {
             <option value="prefer-not-to-say">Prefer not to say</option>
           </select>
           <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 text-gray-400"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
             </svg>
           </div>
         </div>
@@ -188,59 +292,118 @@ const ContactInfoSection = ({ formData, setFormData }) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
   };
 
   return (
     <div>
-      <InputField 
-        label="Email Address" 
-        id="email" 
+      <InputField
+        label="Email Address"
+        id="email"
         type="email"
         value={formData.email}
         onChange={handleChange}
         placeholder="you@example.com"
         disabled={formData.emailVerified}
-        icon={<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
-        </svg>}
+        icon={
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5 text-gray-400"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
+            />
+          </svg>
+        }
       />
-      
+
       {formData.emailVerified ? (
         <div className="mt-1 ml-1 text-xs text-green-600 flex items-center mb-5">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-4 w-4 mr-1"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+            />
           </svg>
           Verified email
         </div>
       ) : (
-        <div className="mt-1 ml-1 text-xs text-gray-500 mb-5">We'll send a verification link to this email</div>
+        <div className="mt-1 ml-1 text-xs text-gray-500 mb-5">
+          We'll send a verification link to this email
+        </div>
       )}
 
-      <InputField 
-        label="Phone Number" 
-        id="phoneNumber" 
+      <InputField
+        label="Phone Number"
+        id="phoneNumber"
         type="tel"
         value={formData.phoneNumber}
         onChange={handleChange}
         placeholder="(555) 123-4567"
-        icon={<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-        </svg>}
+        icon={
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5 text-gray-400"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+            />
+          </svg>
+        }
       />
-      <p className="mt-1 ml-1 mb-5 text-xs text-gray-500">We'll only use this for account recovery and important notifications</p>
+      <p className="mt-1 ml-1 mb-5 text-xs text-gray-500">
+        We'll only use this for account recovery and important notifications
+      </p>
 
-      <InputField 
-        label="Location" 
-        id="location" 
+      <InputField
+        label="Location"
+        id="location"
         value={formData.location}
         onChange={handleChange}
         placeholder="City, Country"
-        icon={<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-        </svg>}
+        icon={
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5 text-gray-400"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+            />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+            />
+          </svg>
+        }
       />
     </div>
   );
@@ -251,20 +414,34 @@ const PreferencesSection = ({ formData, setFormData }) => {
     const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === "checkbox" ? checked : value,
     });
   };
 
   return (
     <div>
       <div className="mb-5">
-        <label htmlFor="language" className="block text-sm font-medium text-gray-700 mb-2">
+        <label
+          htmlFor="language"
+          className="block text-sm font-medium text-gray-700 mb-2"
+        >
           Preferred Language
         </label>
         <div className="relative">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 text-gray-400"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"
+              />
             </svg>
           </div>
           <select
@@ -283,21 +460,46 @@ const PreferencesSection = ({ formData, setFormData }) => {
             <option value="ar">Arabic</option>
           </select>
           <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 text-gray-400"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
             </svg>
           </div>
         </div>
       </div>
 
       <div className="mb-5">
-        <label htmlFor="timezone" className="block text-sm font-medium text-gray-700 mb-2">
+        <label
+          htmlFor="timezone"
+          className="block text-sm font-medium text-gray-700 mb-2"
+        >
           Timezone
         </label>
         <div className="relative">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 text-gray-400"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
             </svg>
           </div>
           <select
@@ -316,8 +518,19 @@ const PreferencesSection = ({ formData, setFormData }) => {
             <option value="IST">India Standard Time</option>
           </select>
           <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 text-gray-400"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
             </svg>
           </div>
         </div>
@@ -337,8 +550,16 @@ const PreferencesSection = ({ formData, setFormData }) => {
               />
             </div>
             <div className="ml-3 text-sm">
-              <label htmlFor="receiveEmails" className="font-medium text-gray-700">Receive email notifications</label>
-              <p className="text-xs text-gray-500 mt-1">Get updates about conversations, health insights, and recommendations</p>
+              <label
+                htmlFor="receiveEmails"
+                className="font-medium text-gray-700"
+              >
+                Receive email notifications
+              </label>
+              <p className="text-xs text-gray-500 mt-1">
+                Get updates about conversations, health insights, and
+                recommendations
+              </p>
             </div>
           </div>
         </div>
@@ -356,8 +577,12 @@ const PreferencesSection = ({ formData, setFormData }) => {
               />
             </div>
             <div className="ml-3 text-sm">
-              <label htmlFor="darkMode" className="font-medium text-gray-700">Use dark mode by default</label>
-              <p className="text-xs text-gray-500 mt-1">Enable dark mode for reduced eye strain and battery usage</p>
+              <label htmlFor="darkMode" className="font-medium text-gray-700">
+                Use dark mode by default
+              </label>
+              <p className="text-xs text-gray-500 mt-1">
+                Enable dark mode for reduced eye strain and battery usage
+              </p>
             </div>
           </div>
         </div>
@@ -375,8 +600,12 @@ const PreferencesSection = ({ formData, setFormData }) => {
               />
             </div>
             <div className="ml-3 text-sm">
-              <label htmlFor="shareData" className="font-medium text-gray-700">Help improve Medibot with anonymized data</label>
-              <p className="text-xs text-gray-500 mt-1">Your data will be anonymized and used to improve our AI systems</p>
+              <label htmlFor="shareData" className="font-medium text-gray-700">
+                Help improve Medibot with anonymized data
+              </label>
+              <p className="text-xs text-gray-500 mt-1">
+                Your data will be anonymized and used to improve our AI systems
+              </p>
             </div>
           </div>
         </div>
@@ -390,27 +619,27 @@ const ProfileSummary = () => {
   const { addToast } = useToast();
   const [profileImage, setProfileImage] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   const [personalInfo, setPersonalInfo] = useState({
-    fullName: '',
-    displayName: '',
-    dateOfBirth: '',
-    gender: ''
+    fullName: "",
+    displayName: "",
+    dateOfBirth: "",
+    gender: "",
   });
-  
+
   const [contactInfo, setContactInfo] = useState({
-    email: '',
+    email: "",
     emailVerified: false,
-    phoneNumber: '',
-    location: ''
+    phoneNumber: "",
+    location: "",
   });
-  
+
   const [preferences, setPreferences] = useState({
-    language: 'en',
-    timezone: 'UTC',
+    language: "en",
+    timezone: "UTC",
     receiveEmails: true,
     darkMode: false,
-    shareData: true
+    shareData: true,
   });
 
   useEffect(() => {
@@ -419,41 +648,45 @@ const ProfileSummary = () => {
       try {
         const user = auth.currentUser;
         if (!user) throw new Error("No user is signed in");
-        
+
         // Get profile data from Firestore
         const userDoc = await getDoc(doc(db, "users", user.uid));
-        
+
         if (userDoc.exists()) {
           const userData = userDoc.data();
-          
+
           // Set profile image if available
           if (userData.photoURL) {
             setProfileImage(userData.photoURL);
           }
-          
+
           // Set personal information
           setPersonalInfo({
-            fullName: userData.fullName || '',
-            displayName: userData.displayName || '',
-            dateOfBirth: userData.dateOfBirth || '',
-            gender: userData.gender || ''
+            fullName: userData.fullName || "",
+            displayName: userData.displayName || "",
+            dateOfBirth: userData.dateOfBirth || "",
+            gender: userData.gender || "",
           });
-          
+
           // Set contact information
           setContactInfo({
-            email: user.email || '',
+            email: user.email || "",
             emailVerified: user.emailVerified || false,
-            phoneNumber: userData.phoneNumber || '',
-            location: userData.location || ''
+            phoneNumber: userData.phoneNumber || "",
+            location: userData.location || "",
           });
-          
+
           // Set preferences
           setPreferences({
-            language: userData.language || 'en',
-            timezone: userData.timezone || 'UTC',
-            receiveEmails: userData.receiveEmails !== undefined ? userData.receiveEmails : true,
+            language: userData.language || "en",
+            timezone: userData.timezone || "UTC",
+            receiveEmails:
+              userData.receiveEmails !== undefined
+                ? userData.receiveEmails
+                : true,
             darkMode: userData.darkMode || false,
-            shareData: userData.shareData !== undefined ? userData.shareData : true
+            shareData:
+              userData.shareData !== undefined ? userData.shareData : true,
           });
         }
       } catch (error) {
@@ -461,18 +694,18 @@ const ProfileSummary = () => {
         addToast("Couldn't load profile data. Please try again.", "error");
       }
     };
-    
+
     fetchUserData();
   }, [addToast]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     try {
       const user = auth.currentUser;
       if (!user) throw new Error("No user is signed in");
-      
+
       // Combine data from all sections
       const profileData = {
         fullName: personalInfo.fullName,
@@ -487,41 +720,44 @@ const ProfileSummary = () => {
         darkMode: preferences.darkMode,
         shareData: preferences.shareData,
         photoURL: profileImage,
-        updatedAt: new Date()
+        updatedAt: new Date(),
       };
-      
+
       // Get user token for authentication
       const token = await user.getIdToken();
-      
+
       // Send to MongoDB via backend API
-      const response = await fetch('/api/users/profile', {
-        method: 'POST',
+      const response = await fetch("/api/users/profile", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(profileData)
+        body: JSON.stringify(profileData),
       });
-      
+
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to update profile');
+        throw new Error(errorData.message || "Failed to update profile");
       }
-      
+
       // Keep minimal data in Firestore for authentication purposes
       // This ensures auth state remains functional
-      await setDoc(doc(db, "users", user.uid), {
-        uid: user.uid,
-        email: user.email,
-        profileCompleted: true
-      }, { merge: true });
-      
+      await setDoc(
+        doc(db, "users", user.uid),
+        {
+          uid: user.uid,
+          email: user.email,
+          profileCompleted: true,
+        },
+        { merge: true }
+      );
+
       // Show success notification
       addToast("Profile updated successfully!", "success");
-      
+
       // Navigate to profile view
-      navigate('/user-profile');
-      
+      navigate("/user-profile");
     } catch (error) {
       console.error("Error saving profile:", error);
       addToast(`Error saving profile: ${error.message}`, "error");
@@ -536,65 +772,113 @@ const ProfileSummary = () => {
         {/* Header section with gradient background */}
         <div className="bg-gradient-to-r from-violet-600 to-indigo-700 py-5 px-4 relative">
           <div className="flex justify-center">
-            <img className="h-12 w-auto rounded-full p-1 bg-white" src={medibot_logo} alt="Medibot" />
+            <img
+              className="h-12 w-auto rounded-full p-1 bg-white"
+              src={medibot_logo}
+              alt="Medibot"
+            />
           </div>
-          <h1 className="mt-2 text-center text-2xl font-bold text-white">Complete Your Profile</h1>
+          <h1 className="mt-2 text-center text-2xl font-bold text-white">
+            Complete Your Profile
+          </h1>
           <p className="mt-1 text-center text-xs text-violet-100 max-w-sm mx-auto">
-            Help us personalize your experience and provide better healthcare insights
+            Help us personalize your experience and provide better healthcare
+            insights
           </p>
-          
+
           {/* Decorative triangle at bottom of header */}
-          <div className="absolute -bottom-3 left-0 right-0 h-6 bg-white" style={{
-            clipPath: 'polygon(0 100%, 100% 100%, 100% 0, 0 100%)',
-            opacity: 0.1
-          }}></div>
+          <div
+            className="absolute -bottom-3 left-0 right-0 h-6 bg-white"
+            style={{
+              clipPath: "polygon(0 100%, 100% 100%, 100% 0, 0 100%)",
+              opacity: 0.1,
+            }}
+          ></div>
         </div>
-        
+
         {/* Profile form content */}
         <div className="p-6">
           <div className="flex justify-center mb-8">
-            <ProfilePhotoSection profileImage={profileImage} setProfileImage={setProfileImage} />
+            <ProfilePhotoSection
+              profileImage={profileImage}
+              setProfileImage={setProfileImage}
+            />
           </div>
-          
+
           <form onSubmit={handleSubmit} className="space-y-8">
-            <FormSection 
-              title="Personal Information" 
+            <FormSection
+              title="Personal Information"
               icon={
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                  />
                 </svg>
               }
             >
-              <PersonalInfoSection 
+              <PersonalInfoSection
                 formData={personalInfo}
                 setFormData={setPersonalInfo}
               />
             </FormSection>
-            
-            <FormSection 
-              title="Contact Information" 
+
+            <FormSection
+              title="Contact Information"
               icon={
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  />
                 </svg>
               }
             >
-              <ContactInfoSection 
+              <ContactInfoSection
                 formData={contactInfo}
                 setFormData={setContactInfo}
               />
             </FormSection>
-            
-            <FormSection 
-              title="Preferences" 
+
+            <FormSection
+              title="Preferences"
               icon={
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
                 </svg>
               }
             >
-              <PreferencesSection 
+              <PreferencesSection
                 formData={preferences}
                 setFormData={setPreferences}
               />
@@ -608,16 +892,42 @@ const ProfileSummary = () => {
               >
                 {isSubmitting ? (
                   <span className="flex items-center">
-                    <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    <svg
+                      className="animate-spin -ml-1 mr-2 h-5 w-5 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
                     </svg>
                     Saving Profile...
                   </span>
                 ) : (
                   <span className="flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5 mr-2"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
                     </svg>
                     Save Profile
                   </span>

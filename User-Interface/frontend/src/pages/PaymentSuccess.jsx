@@ -10,7 +10,7 @@ const PaymentSuccess = () => {
         <h2 className="text-3xl font-bold text-[#7b4ee5] mb-2">Payment Successful!</h2>
         <p className="text-gray-700 mb-6">Thank you for your purchase. Your premium features are now unlocked.</p>
         <Link
-          to="/"
+          to="/chat"
           className="inline-block px-6 py-3 rounded-lg bg-gradient-to-r from-[#7b4ee5] to-[#a78bfa] text-white font-semibold hover:from-[#8e69e4] hover:to-[#9d7ef5] transition duration-300"
         >
           Go to Home

@@ -10,6 +10,7 @@ const Footer = () => {
       title: 'Product',
       links: [
         { name: 'Features', url: '/features' },
+        // new changes
         { name: 'Pricing', url: '/subscription' },
         { name: 'Integrations', url: '/integrations' },
         { name: 'Updates', url: '/updates' },

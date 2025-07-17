@@ -10,7 +10,7 @@ const Footer = () => {
       title: 'Product',
       links: [
         { name: 'Features', url: '/features' },
-        { name: 'Pricing', url: '/pricing' },
+        { name: 'Pricing', url: '/subscription' },
         { name: 'Integrations', url: '/integrations' },
         { name: 'Updates', url: '/updates' },
       ]

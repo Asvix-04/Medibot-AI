@@ -45,20 +45,20 @@ const ChatLayout = () => {
     try {
       setLoading(true);
       setError(null);
-      
+
       const user = auth.currentUser;
       if (!user) {
         throw new Error('User not authenticated');
       }
-      
+
       const token = await user.getIdToken();
-      
+
       const response = await axios.get(`${API_URL}/conversations/${conversationId}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-      
+
       // Format messages for the component
       const formattedMessages = response.data.data.messages.map(msg => ({
         id: msg._id || Date.now(),
@@ -66,7 +66,7 @@ const ChatLayout = () => {
         content: msg.content,
         timestamp: msg.timestamp
       }));
-      
+
       setMessages(formattedMessages);
     } catch (err) {
       console.error('Error fetching messages:', err);
@@ -81,22 +81,22 @@ const ChatLayout = () => {
     try {
       setLoading(true);
       setError(null);
-      
+
       const user = auth.currentUser;
       if (!user) {
         throw new Error('User not authenticated');
       }
-      
+
       const token = await user.getIdToken();
-      
+
       const response = await axios.get(`${API_URL}/conversations`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-      
+
       setConversations(response.data.data);
-      
+
       // If there are conversations and none is selected, select the first one
       if (response.data.data.length > 0 && !currentConversationId) {
         setCurrentConversationId(response.data.data[0].id);
@@ -124,27 +124,27 @@ const ChatLayout = () => {
     try {
       setLoading(true);
       setError(null);
-      
+
       const user = auth.currentUser;
       if (!user) {
         throw new Error('User not authenticated');
       }
-      
+
       const token = await user.getIdToken();
-      
+
       const response = await axios.post(`${API_URL}/conversations`, {}, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-      
+
       const newConversation = {
         id: response.data.data._id,
         title: response.data.data.title,
         preview: '',
         timestamp: response.data.data.createdAt
       };
-      
+
       setConversations([newConversation, ...conversations]);
       setCurrentConversationId(newConversation.id);
       setMessages([]);
@@ -159,7 +159,7 @@ const ChatLayout = () => {
   // Send message
   const handleSendMessage = async (content) => {
     if (!content.trim()) return;
-    
+
     // Add user message to local state immediately for UI responsiveness
     const userMessage = {
       id: Date.now(),
@@ -167,7 +167,7 @@ const ChatLayout = () => {
       content,
       timestamp: new Date(),
     };
-    
+
     setMessages([...messages, userMessage]);
     setIsTyping(true);
 
@@ -176,12 +176,12 @@ const ChatLayout = () => {
       if (!user) {
         throw new Error('User not authenticated');
       }
-      
+
       const token = await user.getIdToken();
-      
+
       // If we don't have a current conversation, create one
       let conversationId = currentConversationId;
-      
+
       if (!conversationId) {
         const convResponse = await axios.post(`${API_URL}/conversations`, {
           initialMessage: content
@@ -190,20 +190,20 @@ const ChatLayout = () => {
             Authorization: `Bearer ${token}`
           }
         });
-        
+
         conversationId = convResponse.data.data._id;
-        
+
         const newConversation = {
           id: conversationId,
           title: content.substring(0, 30) + (content.length > 30 ? '...' : ''),
           timestamp: new Date(),
           preview: content
         };
-        
+
         setConversations([newConversation, ...conversations]);
         setCurrentConversationId(conversationId);
       }
-      
+
       // Save the user message to the backend
       await axios.post(`${API_URL}/conversations/${conversationId}/messages`, {
         role: 'user',
@@ -213,7 +213,7 @@ const ChatLayout = () => {
           Authorization: `Bearer ${token}`
         }
       });
-      
+
       // Call the ML-powered medical chat API
       const response = await axios.post(`${API_URL}/chat/medical`, {
         message: content
@@ -222,10 +222,10 @@ const ChatLayout = () => {
           Authorization: `Bearer ${token}`
         }
       });
-      
+
       // Get the response from the ML model
       const botResponse = response.data.data.content;
-      
+
       // Add bot message to local state
       const botMessage = {
         id: Date.now() + 1,
@@ -233,10 +233,10 @@ const ChatLayout = () => {
         content: botResponse,
         timestamp: new Date()
       };
-      
+
       setIsTyping(false);
       setMessages(prev => [...prev, botMessage]);
-      
+
       // Save the bot message to the backend
       await axios.post(`${API_URL}/conversations/${conversationId}/messages`, {
         role: 'bot',
@@ -246,7 +246,7 @@ const ChatLayout = () => {
           Authorization: `Bearer ${token}`
         }
       });
-      
+
       // Update conversations list with new preview
       const updatedConversations = conversations.map(conv => {
         if (conv.id === conversationId) {
@@ -258,17 +258,17 @@ const ChatLayout = () => {
         }
         return conv;
       });
-      
+
       setConversations(updatedConversations);
-      
+
       // Refresh the conversations list to update the UI
       fetchConversations();
-      
+
     } catch (err) {
       setIsTyping(false);
       console.error('Error sending message:', err);
       setError('Failed to send message');
-      
+
       // Add an error message to the UI
       const errorMessage = {
         id: Date.now() + 2,
@@ -277,7 +277,7 @@ const ChatLayout = () => {
         isError: true,
         timestamp: new Date()
       };
-      
+
       setMessages(prev => [...prev, errorMessage]);
     }
   };
@@ -289,7 +289,7 @@ const ChatLayout = () => {
   };
 
   return (
-    <div className={`flex h-screen bg-gray-50 ${darkMode ? 'dark' : ''}`}>
+    <div className={`chat-layout-page flex h-screen min-h-screen overflow-hidden  ${darkMode ? 'dark:bg-gray-900' : 'bg-white'}`}>
       {/* Sidebar with New Chat button */}
       <Sidebar
         isOpen={sidebarOpen}
@@ -302,10 +302,10 @@ const ChatLayout = () => {
       />
 
       {/* Main content */}
-      <div className="flex flex-col flex-1 h-full transition-all duration-200 dark:bg-[#121212]">
+      <div className="chatpage-main-content flex-1 flex flex-col overflow-hidden">
         {/* Header - updated to violet gradient */}
-        <header className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-violet-600 to-violet-800 text-white shadow-md">
-          <div className="flex items-center space-x-3">
+        <header className="chatpage-header sticky top-0 z-20 flex items-center justify-between p-4 border-b border-gray-200/80 dark:border-gray-700/50 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm shadow-sm">
+          <div className="flex items-center space-x-4">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
               className="p-2 text-white hover:bg-violet-700/30 rounded-full transition-colors"
@@ -319,22 +319,25 @@ const ChatLayout = () => {
                 )}
               </svg>
             </button>
-            <Logo darkMode={darkMode} useColor={true} />
+              <h1 className='chatpage-heading text-xl font-bold text-gray-800 dark:text-white'>
+                <span className='bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent'>MediBot</span>
+                <span className='text-gray-600 dark:text-gray-300'> - Your Health Assistant</span>
+              </h1>
           </div>
 
           <div className="flex items-center space-x-4">
             {loading && (
-              <div className="text-sm text-violet-100 flex items-center">
+              <div className="text-sm text-violet-900 flex items-center">
                 <div className="w-4 h-4 rounded-full border-2 border-t-transparent border-violet-100 animate-spin mr-2"></div>
                 Loading...
               </div>
             )}
             {error && (
-              <div className="text-sm px-3 py-1 rounded-full bg-red-500/20 text-red-100">{error}</div>
+              <div className="text-sm px-3 py-1 rounded-full bg-red-600/20 text-red-600">{error}</div>
             )}
-            <Link 
+            <Link
               to="/settings"
-              className="p-2 text-white hover:bg-violet-700/30 rounded-full transition-colors"
+              className="p-2  text-gray-800 dark:text-white hover:bg-violet-700/30 rounded-full transition-colors"
               aria-label="Settings"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -342,9 +345,9 @@ const ChatLayout = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
             </Link>
-            <button 
+            <button
               onClick={() => setShowFeedback(true)}
-              className="p-2 text-white hover:bg-violet-700/30 rounded-full transition-colors"
+              className="p-2 text-gray-800 dark:text-white hover:bg-violet-700/30 rounded-full transition-colors"
               aria-label="Give Feedback"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -356,17 +359,17 @@ const ChatLayout = () => {
         </header>
 
         {/* Chat area */}
-        <main className="flex-1 overflow-y-auto p-4 bg-gray-50 dark:bg-[#121212]">
-          <ChatArea 
-            messages={messages} 
-            darkMode={darkMode} 
-            isTyping={isTyping} 
-            onSendMessage={handleSendMessage} 
+        <main className="chat-area flex-1 overflow-y-auto p-4 bg-gray-50 dark:bg-gray-900">
+          <ChatArea
+            messages={messages}
+            darkMode={darkMode}
+            isTyping={isTyping}
+            onSendMessage={handleSendMessage}
           />
         </main>
 
         {/* Chat input - updated border color */}
-        <div className="p-4 border-t border-violet-100 dark:border-[#2a2a2a] bg-white dark:bg-[#1a1a1a]">
+        <div className="chat-input w-full bg-gray-50 dark:bg-gray-900 p-4 rounded-lg space-x-2 sticky bottom-0 z-10 px-4 pb-6 pt-4">
           <ChatInput onSendMessage={handleSendMessage} darkMode={darkMode} />
         </div>
         <FeedbackForm isOpen={showFeedback} onClose={() => setShowFeedback(false)} />

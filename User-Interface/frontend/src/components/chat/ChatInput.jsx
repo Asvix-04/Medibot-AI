@@ -13,45 +13,56 @@ const ChatInput = ({ onSendMessage, darkMode }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex items-end">
-      <div className="relative flex-1 mr-2">
-        <textarea
-          className="w-full p-3 pr-12 rounded-lg resize-none border border-[#2a2a2a] bg-[#121212] text-[#d6d4d4] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#f75600] focus:border-[#f75600] transition-all"
-          placeholder="Type your message here..."
-          rows={1}
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-              e.preventDefault();
-              handleSubmit(e);
-            }
-          }}
-        />
-        <button
-          type="button"
-          className="absolute right-3 bottom-3 text-gray-500 hover:text-[#f75600] transition-colors"
-          onClick={() => setMessage('')}
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
+    <div className='mx-auto max-w-3xl'>
+      <div className='flex flex-col gap-2 rounded-xl bg-white dark:bg-gray-800 px-4 py-3 shadow-lg'>
+        <form onSubmit={handleSubmit} className="flex items-end">
+          <div className="relative flex-1 mr-2">
+            <textarea
+              className="outline-none w-full p-3 pr-12 rounded-lg resize-none transition-all bg-transparent text-sm placeholder-gray-500 dark:placeholder-gray-400 dark:text-white"
+              placeholder="Ask a health question..."
+              rows={1}
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault();
+                  handleSubmit(e);
+                }
+              }}
+            />
+            <button
+              type="button"
+              className="absolute right-3 bottom-3 text-gray-500 transition-colors"
+              onClick={() => setMessage('')}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-600 dark:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+          <VoiceChat setInputText={setMessage} />
+          <button
+            type="submit"
+            disabled={!message.trim()}
+            className={`p-4 mb-1 rounded-lg ${message.trim()
+              ?'text-[#c6afaf] hover:shadow-md transition-all cursor-pointer'
+              : 'bg-gray-300 text-gray-400 cursor-not-allowed dark:bg-gray-600'
+              }`}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4 text-gray-600 dark:text-white" 
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M22 2L11 13M22 2L15 22L11 13L2 9L22 2Z" />
+            </svg>
+          </button>
+        </form>
       </div>
-      <VoiceChat setInputText={setMessage}/>
-      <button
-        type="submit"
-        disabled={!message.trim()}
-        className={`p-4 mb-1 rounded-lg ${message.trim()
-            ? 'bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] text-[#d6d4d4] hover:shadow-md transition-all cursor-pointer'
-            : 'bg-gray-100 text-gray-400 cursor-not-allowed dark:bg-gray-800'
-          }`}
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-          <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-        </svg>
-      </button>
-    </form>
+    </div>
   );
 };
 

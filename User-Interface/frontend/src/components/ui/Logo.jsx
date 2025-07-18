@@ -18,7 +18,7 @@ const Logo = ({ darkMode, useColor = false }) => {
           ? 'text-white' 
           : darkMode 
             ? 'text-white' 
-            : 'text-gray-800'
+            : 'text-gray-600'
       }`}>
         Medibot
         <span className={`text-xs font-medium px-2 py-0.5 rounded-full ml-1 ${

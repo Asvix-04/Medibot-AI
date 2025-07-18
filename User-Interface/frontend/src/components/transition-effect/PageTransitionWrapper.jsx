@@ -30,11 +30,15 @@ const PageTransitionWrapper = ({ children, location }) => {
     setShowTransition(true);
     setShowContent(false);
 
-    const chime = new Audio('/sounds/chime.mp3'); 
-    chime.volume = 0.5;
+    const skipChimeRoutes = ['/chat', '/signin', '/signup']; // Add other routes here if needed
+
+    const shouldPlayChime = !skipChimeRoutes.includes(location.pathname);
+
+    const chime = shouldPlayChime ? new Audio('/sounds/chime.mp3') : null;
+    if (chime) chime.volume = 0.5;
 
     const handleInteraction = () => {
-      chime.play().catch((e) => console.warn("Autoplay blocked", e));
+      if (chime) { chime.play().catch((e) => console.warn("Autoplay blocked", e)) };
       window.removeEventListener('click', handleInteraction);
       window.removeEventListener('keydown', handleInteraction);
     };

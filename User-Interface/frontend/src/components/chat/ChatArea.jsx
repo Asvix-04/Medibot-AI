@@ -27,6 +27,14 @@ const ChatArea = ({
     scrollToBottom();
   }, [messages, isTyping]);
 
+  //chime sound for send and received msgs 
+    const chimeAudio = useRef(new Audio(chimeSound));
+  
+    useEffect(() => {
+      if (messages.length === 0) return;
+      chimeAudio.current.play();
+    }, [messages]);
+
   const handleSuggestionClick = (suggestion) => {
     if (onSendMessage) {
       onSendMessage(suggestion);

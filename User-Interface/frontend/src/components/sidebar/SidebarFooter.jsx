@@ -25,7 +25,7 @@ const SidebarFooter = ({ darkMode }) => {
               clipRule="evenodd"
             />
           </svg>
-          Settings
+          <span className='ml-3 font-medium'>Settings</span>
         </Link>
 
         <button
@@ -39,7 +39,7 @@ const SidebarFooter = ({ darkMode }) => {
               clipRule="evenodd"
             />
           </svg>
-          Sign out
+          <span className='ml-3 font-medium'>Sign out</span>
         </button>
       </div>
       

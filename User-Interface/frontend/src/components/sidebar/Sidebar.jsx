@@ -2,6 +2,7 @@ import React from 'react';
 import SidebarHeader from './SidebarHeader';
 import ChatHistory from './ChatHistory';
 import SidebarFooter from './SidebarFooter';
+import Logo from '../ui/Logo';
 
 const Sidebar = ({ 
   isOpen, 
@@ -14,12 +15,12 @@ const Sidebar = ({
 }) => {
   return (
     <div 
-      className={`flex flex-col w-64 h-full bg-gray-50 border-r border-gray-200 transition-all duration-300 ${
+      className={`chatpage-sidebar fixed inset-y-0 left-0 z-50 bg-card border-r border-border transition-all duration-300 ease-in-out flex flex-col lg:static lg:inset-0 w-[250px] ${
         isOpen ? 'translate-x-0' : '-translate-x-full absolute'
-      } dark:bg-gray-800 dark:border-gray-700 shadow-lg`}
+      }${darkMode} dark:border-gray-700 shadow-lg`}
     >
-      <div className="bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] p-4 text-white flex items-center">
-        <div className="text-lg font-bold">Medibot Chat</div>
+      <div className="p-4 text-white flex items-center">
+         <Logo darkMode={darkMode} useColor={darkMode} />
       </div>
       <SidebarHeader onNewChat={onNewChat} darkMode={darkMode} />
       <ChatHistory 

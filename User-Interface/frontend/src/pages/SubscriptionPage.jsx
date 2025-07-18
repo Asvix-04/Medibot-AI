@@ -1,25 +1,27 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { FaCheckCircle } from 'react-icons/fa';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { FaCheckCircle } from "react-icons/fa";
 
 const SubscriptionPage = () => {
   const navigate = useNavigate();
 
   const handleFreePlan = () => {
     // For free users, you can navigate to success/thank you page directly
-    navigate('health-dashboard');
+    navigate("health-dashboard");
   };
 
   const handlePremiumPlan = () => {
     // For paid users, go to the payment page
-    navigate('/payment');
+    navigate("/payment");
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#f8f7ff] via-[#ece9fe] to-[#f8f7ff] flex items-center justify-center p-6">
       <div className="max-w-5xl w-full">
-        <h2 className="text-4xl font-bold text-center mb-10 text-[#7b4ee5]">Choose Your Plan</h2>
-        
+        <h2 className="text-4xl font-bold text-center mb-10 text-[#7b4ee5]">
+          Choose Your Plan
+        </h2>
+
         <div className="grid md:grid-cols-2 gap-8">
           {/* Free Plan */}
           <div className="bg-white rounded-3xl shadow-lg border border-purple-100 hover:shadow-2xl transition duration-300 flex flex-col">
@@ -30,13 +32,12 @@ const SubscriptionPage = () => {
             <div className="p-6 flex-grow">
               <ul className="space-y-3">
                 {[
-                  "multilingual feature",
-                  "text to speech",
-                  "speech to text",
-                  "Speech to speech",
-                  "health monitoring (bp, sugar and cholesterol)",
-                  "multi-model feature (open-source or free models)",
-                  "medication reminder"
+                  "Multilingual Support: Communicate in multiple languages with ease",
+                  "Text to Speech: Converts written text into natural-sounding speech.",
+                  "Speech to Text: Converts spoken words into accurate text in real-time.",
+                  "Speech to Speech Translation: Talk in one language and get translated audio in another.",
+                  "Multimodal AI (Free Models): Uses open-source AI models for smart, responsive interactions.",
+                  "Visual Accessibility (ARIA Support): Designed to support visually impaired users with screen-reader and navigation-friendly features.",
                 ].map((item, idx) => (
                   <li key={idx} className="flex items-center text-gray-700">
                     <FaCheckCircle className="text-green-500 mr-2" /> {item}
@@ -63,12 +64,11 @@ const SubscriptionPage = () => {
             <div className="p-6 flex-grow">
               <ul className="space-y-3">
                 {[
-                  "prescription analysis",
-                  "multi-model feature (paid models)",
-                  "health monitoring (bp, sugar and cholesterol)",
-                  "medication summariser",
-                  "disease summariser",
-                  "mental health bot (if possible we’ll integrate it)"
+                  "All Basic Plan Features",
+                  "Prescription Analysis: Automatically reads and interprets prescriptions for easier understanding.",
+                  "Medication Summariser: Provides clear and concise summaries of your prescribed medications.",
+                  "Disease Summariser: Simplifies complex medical information into easy-to-understand language.",
+                  "Advanced Multimodal AI (Premium Models): Access more powerful AI models for enhanced performance and accuracy.",
                 ].map((item, idx) => (
                   <li key={idx} className="flex items-center text-gray-700">
                     <FaCheckCircle className="text-green-500 mr-2" /> {item}

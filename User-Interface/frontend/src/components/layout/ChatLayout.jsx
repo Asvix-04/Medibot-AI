@@ -138,7 +138,7 @@ const ChatLayout = () => {
       }
 
       const token = await user.getIdToken();
-
+      
       const response = await axios.post(
         `${API_URL}/conversations`,
         {},
@@ -258,6 +258,7 @@ const ChatLayout = () => {
         content: botResponse,
         timestamp: new Date(),
       };
+
       setMessages((prev) => [...prev, botMessage]);
       setIsTyping(false);
 
@@ -323,10 +324,10 @@ const ChatLayout = () => {
       />
 
       {/* Main content */}
-      <div className="flex flex-col flex-1 h-full transition-all duration-200 dark:bg-[#121212]">
+      <div className="chatpage-main-content flex-1 flex flex-col overflow-hidden">
         {/* Header - updated to violet gradient */}
-        <header className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-violet-600 to-violet-800 text-white shadow-md">
-          <div className="flex items-center space-x-3">
+        <header className="chatpage-header sticky top-0 z-20 flex items-center justify-between p-4 border-b border-gray-200/80 dark:border-gray-700/50 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm shadow-sm">
+          <div className="flex items-center space-x-4">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
               className="p-2 text-white hover:bg-violet-700/30 rounded-full transition-colors"
@@ -356,12 +357,15 @@ const ChatLayout = () => {
                 )}
               </svg>
             </button>
-            <Logo darkMode={darkMode} useColor={true} />
+              <h1 className='chatpage-heading text-xl font-bold text-gray-800 dark:text-white'>
+                <span className='bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent'>MediBot</span>
+                <span className='text-gray-600 dark:text-gray-300'> - Your Health Assistant</span>
+              </h1>
           </div>
 
           <div className="flex items-center space-x-4">
             {loading && (
-              <div className="text-sm text-violet-100 flex items-center">
+              <div className="text-sm text-violet-900 flex items-center">
                 <div className="w-4 h-4 rounded-full border-2 border-t-transparent border-violet-100 animate-spin mr-2"></div>
                 Loading...
               </div>
@@ -373,7 +377,7 @@ const ChatLayout = () => {
             )}
             <Link
               to="/settings"
-              className="p-2 text-white hover:bg-violet-700/30 rounded-full transition-colors"
+              className="p-2  text-gray-800 dark:text-white hover:bg-violet-700/30 rounded-full transition-colors"
               aria-label="Settings"
             >
               <svg
@@ -399,7 +403,7 @@ const ChatLayout = () => {
             </Link>
             <button
               onClick={() => setShowFeedback(true)}
-              className="p-2 text-white hover:bg-violet-700/30 rounded-full transition-colors"
+              className="p-2 text-gray-800 dark:text-white hover:bg-violet-700/30 rounded-full transition-colors"
               aria-label="Give Feedback"
             >
               <svg
@@ -436,7 +440,7 @@ const ChatLayout = () => {
         </main>
 
         {/* Chat input - updated border color */}
-        <div className="p-4 border-t border-violet-100 dark:border-[#2a2a2a] bg-white dark:bg-[#1a1a1a]">
+        <div className="chat-input w-full bg-gray-50 dark:bg-gray-900 p-4 rounded-lg space-x-2 sticky bottom-0 z-10 px-4 pb-6 pt-4">
           <ChatInput onSendMessage={handleSendMessage} darkMode={darkMode} />
         </div>
         <FeedbackForm

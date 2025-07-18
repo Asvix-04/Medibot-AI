@@ -52,8 +52,8 @@ const VoiceChat = ({ setInputText }) => {
       type="button"
       onClick={isRecording ? stopListening : startListening}
       className={`p-4 mb-1 mr-2 rounded-lg ml-2 transition-all ${isRecording
-          ? "bg-red-500 text-white animate-pulse"
-          : "bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] text-[#d6d4d4] hover:shadow-md cursor-pointer"
+          ? " text-[#6f6e6e] animate-pulse"
+          : "text-[#454343] dark:text-white hover:shadow-md cursor-pointer "
         }`}
     >
       {isRecording ? <MicOff size={20} /> : <Mic size={20} />}

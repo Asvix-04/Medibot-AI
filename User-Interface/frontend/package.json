@@ -16,6 +16,7 @@
     "axios": "^1.8.4",
     "boxicons": "^2.1.4",
     "chart.js": "^4.5.0",
+    "dayjs": "^1.11.13",
     "file-saver": "^2.0.5",
     "firebase": "^11.6.0",
     "framer-motion": "^12.23.0",
@@ -31,6 +32,7 @@
     "react-router-dom": "^7.5.0",
     "react-scripts": "5.0.1",
     "react-to-print": "^3.0.6",
+    "relative-time": "^1.0.0",
     "web-vitals": "^2.1.4",
     "zxcvbn": "^4.4.2"
   },

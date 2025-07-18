@@ -24,7 +24,8 @@
     "jspdf": "^3.0.1",
     "mongoose": "^8.13.2",
     "nodemailer": "^7.0.3",
-    "papaparse": "^5.5.2"
+    "papaparse": "^5.5.2",
+    "razorpay": "^2.9.6"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"

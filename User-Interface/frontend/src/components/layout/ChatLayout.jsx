@@ -311,7 +311,7 @@ const ChatLayout = () => {
   };
 
   return (
-    <div className={`flex h-screen bg-gray-50 ${darkMode ? "dark" : ""}`}>
+    <div className={`chat-layout-page flex h-screen min-h-screen overflow-hidden  ${darkMode ? 'dark:bg-gray-900' : 'bg-white'}`}>
       {/* Sidebar with New Chat button */}
       <Sidebar
         isOpen={sidebarOpen}
@@ -371,9 +371,7 @@ const ChatLayout = () => {
               </div>
             )}
             {error && (
-              <div className="text-sm px-3 py-1 rounded-full bg-red-500/20 text-red-100">
-                {error}
-              </div>
+              <div className="text-sm px-3 py-1 rounded-full bg-red-600/20 text-red-600">{error}</div>
             )}
             <Link
               to="/settings"
@@ -429,17 +427,15 @@ const ChatLayout = () => {
         </header>
 
         {/* Chat area */}
-        <main className="flex-1 overflow-y-auto p-4 bg-gray-50 dark:bg-[#121212]">
+        <main className="chat-area flex-1 overflow-y-auto p-4 bg-gray-50 dark:bg-gray-900">
           <ChatArea
             messages={messages}
             darkMode={darkMode}
             isTyping={isTyping}
             onSendMessage={handleSendMessage}
-            onEditSubmit={handleEditSubmit} // NEW COMMENT: Pass edit handler down to ChatArea -> ChatMessage
+            onEditSubmit={handleEditSubmit} 
           />
         </main>
-
-        {/* Chat input - updated border color */}
         <div className="chat-input w-full bg-gray-50 dark:bg-gray-900 p-4 rounded-lg space-x-2 sticky bottom-0 z-10 px-4 pb-6 pt-4">
           <ChatInput onSendMessage={handleSendMessage} darkMode={darkMode} />
         </div>

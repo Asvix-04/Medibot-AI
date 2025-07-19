@@ -3,20 +3,26 @@ import ChatMessage from "./ChatMessage";
 import SuggestionChips from "./SuggestionChips";
 import TypingIndicator from "./TypingIndicator";
 import medibot_logo from "../../assets/medibot_logo.jpg";
+import chimeSound from '../../assets/Text_Dispatch.mp3'
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 
-/**
- * Recent changes:
- * - Added support for edit & copy functionality in ChatMessage
- * - Added thumbs up / thumbs down / speaker feedback buttons in ChatMessage
- */
 
-const ChatArea = ({
-  messages,
-  darkMode,
-  isTyping = false,
-  onSendMessage,
-  onEditSubmit, //New: passed down for editing functionality
-}) => {
+dayjs.extend(relativeTime);
+
+const getDateLabel = (date) => {
+  const today = dayjs().startOf('day');
+  const messageDay = dayjs(date).startOf('day');
+
+  const diffDays = today.diff(messageDay, 'day');
+
+  if (diffDays === 0) return 'Today';
+  if (diffDays === 1) return 'Yesterday';
+  return dayjs(date).format('DD MMM YYYY');
+};
+
+const ChatArea = ({ messages, darkMode, isTyping = false, onSendMessage, onEditSubmit, }, date) => {
+
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -28,12 +34,12 @@ const ChatArea = ({
   }, [messages, isTyping]);
 
   //chime sound for send and received msgs 
-    const chimeAudio = useRef(new Audio(chimeSound));
-  
-    useEffect(() => {
-      if (messages.length === 0) return;
-      chimeAudio.current.play();
-    }, [messages]);
+  const chimeAudio = useRef(new Audio(chimeSound));
+
+  useEffect(() => {
+    if (messages.length === 0) return;
+    chimeAudio.current.play();
+  }, [messages]);
 
   const handleSuggestionClick = (suggestion) => {
     if (onSendMessage) {
@@ -109,57 +115,45 @@ const ChatArea = ({
   return (
     <div className="flex flex-col space-y-4 max-w-3xl mx-auto">
       {messages.length === 0 ? (
-        <div className="flex flex-col items-center justify-center w-full h-full py-12 sm:px-6 lg:px-8">
+        <div className="flex flex-col items-center justify-center h-full py-12">
+          {/* Updated welcome screen gradient to match theme */}
           <div className="p-4 rounded-full bg-gradient-to-r from-[#1a1a1a] to-[#232323] border border-[#2a2a2a]">
             <img
               src={medibot_logo}
               alt="Medibot Logo"
-              className="w-20 h-20 sm:w-16 sm:h-16 rounded-full border-2 border-[#2a2a2a] shadow-lg"
+              className="w-16 h-16 rounded-full border-2 border-[#2a2a2a] shadow-lg"
             />
           </div>
-          <h1 className="mt-6 sm:text-2xl text-2xl font-bold text-[#d6d4d4]">
+          {/* Updated heading text color */}
+          <h1 className="mt-6 text-2xl font-bold text-gray-800 dark:text-white">
             How can I help you today?
           </h1>
-          <p className="mt-2 text-center text-[#a8a8a8] max-w-md sm:text-sm">
-            I'm your medical assistant. Ask me about symptoms, health
-            information, or medical advice.
+          {/* Updated paragraph text color */}
+          <p className="mt-2 text-center  text-gray-600 dark:text-white max-w-md">
+            I'm your medical assistant. Ask me about symptoms, health information, or medical advice.
           </p>
-          <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-2">
+          <div className="mt-6 grid grid-cols-2 gap-3">
+            {/* Updated suggestion boxes */}
             <div
               className="p-3 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] shadow-sm hover:shadow-md transition-shadow cursor-pointer hover:border-[#6366f1]"
-              onClick={() =>
-                handleSuggestionClick(
-                  "I have a headache and feeling tired. What could it be?"
-                )
-              }
+              onClick={() => handleSuggestionClick("I have a headache and feeling tired. What could it be?")}
             >
-              <p className="text-sm sm:text-sm font-medium text-[#6366f1]">
-                🩺 Symptom Checker
-              </p>
-              <p className="text-xs sm:text-xs text-[#a8a8a8]">
-                Describe your symptoms
-              </p>
+              <p className="text-sm font-medium text-[#bb63f1]">🩺 Symptom Checker</p>
+              <p className="text-xs text-[#a8a8a8]">Describe your symptoms</p>
             </div>
             <div
               className="p-3 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] shadow-sm hover:shadow-md transition-shadow cursor-pointer hover:border-[#6366f1]"
-              onClick={() =>
-                handleSuggestionClick(
-                  "Tell me about common blood pressure medications"
-                )
-              }
+              onClick={() => handleSuggestionClick("Tell me about common blood pressure medications")}
             >
-              <p className="text-sm font-medium text-[#6366f1] sm:text-sm">
-                💊 Medication Info
-              </p>
-              <p className="text-xs text-[#a8a8a8] sm:text-xs">
-                Learn about your prescriptions
-              </p>
+              <p className="text-sm font-medium text-[#bb63f1]">💊 Medication Info</p>
+              <p className="text-xs text-[#a8a8a8]">Learn about your prescriptions</p>
             </div>
           </div>
         </div>
       ) : (
         <>
           {/* Renders all chat messages */}
+          <div className="text-sm text-gray-400 mb-4">{getDateLabel(date)}</div>
           {messages.map((message) => (
             <ChatMessage
               key={message.id}

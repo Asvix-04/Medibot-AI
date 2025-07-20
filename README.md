@@ -10,9 +10,9 @@
 
 ## Introducing Medibot a product of ASVIX.
 
-## 🎥 Watch MediBot in Action
+##Check out the live website:
 
-[![Watch the demo](https://img.shields.io/badge/Demo-Click%20to%20Watch-red?style=for-the-badge&logo=youtube)](https://youtu.be/XQC5HuJTyVY?feature=shared)
+[Visit the website here](https://medibot-ai.com)
 
 ---
 

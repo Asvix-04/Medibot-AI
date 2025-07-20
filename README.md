@@ -8,16 +8,15 @@
 ![Code Style](https://img.shields.io/badge/Code-Clean%20AF-00bfff?style=for-the-badge)
 ![Deployment Level](https://img.shields.io/badge/Status-Beta-yellow?style=for-the-badge)
 
-## Introducing Medibot a product of ASVIX.
 
-##Check out the live website:
+## Check out the live website:
 
 [Visit the website here](https://medibot-ai.com)
 
 ---
 
 
-# MediBot AI
+# Introducing Medibot a product of ASVIX.
 
 Is an advanced AI-powered medical chatbot designed to assist users in validating their medical queries, tracking health metrics, and connecting with nearby healthcare services. With an interactive conversational interface, MediBot provides a holistic digital healthcare experience through a combination of AI models and real-time integrations. 
 

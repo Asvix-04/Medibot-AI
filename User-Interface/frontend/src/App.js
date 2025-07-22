@@ -35,6 +35,9 @@ import Footer from "./components/landing/Footer";
 import SubscriptionPage from "./pages/SubscriptionPage";
 import PaymentPage from "./pages/PaymentPage";
 import PaymentSuccess from "./pages/PaymentSuccess";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import RefundPolicy from "./pages/RefundPolicy";
+import TermsAndConditions from "./pages/TermsAndConditions";
 
 const AppContent = () => {
   const location = useLocation();
@@ -72,6 +75,11 @@ const AppContent = () => {
             <Route path="/subscription" element={<SubscriptionPage />} />
             <Route path="/payment" element={<PaymentPage />} />
             <Route path="/payment-success" element={<PaymentSuccess />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/refund-policy" element={<RefundPolicy />} />
+            <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+            
+            {/* Protected Routes */}
             <Route
               path="/profile"
               element={

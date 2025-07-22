@@ -187,7 +187,7 @@ const Footer = () => {
           </p>
           <div className="mt-4 md:mt-0 flex space-x-6">
             <a
-              href="/privacy"
+              href="/privacy-policy"
               className="text-xs hover:text-white transition-colors"
               style={{ color: "#d6d4d4", opacity: 0.7 }}
               onMouseOver={(e) => {

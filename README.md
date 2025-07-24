@@ -104,7 +104,6 @@ cp .env.example .env
 npm start
 ```
 
-The application will now be available at [http://localhost:3000](http://localhost:3000).
 
 ---
 

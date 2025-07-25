@@ -81,7 +81,7 @@ const PageTransitionWrapper = ({ children, location }) => {
         )}
 
         {showContent && (
-          <div className="relative z-10">
+          <div className="relative z-10 pt-10">
             {children}
           </div>
         )}

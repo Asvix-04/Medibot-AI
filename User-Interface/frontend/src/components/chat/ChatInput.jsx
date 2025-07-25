@@ -17,12 +17,7 @@ const ChatInput = ({ onSendMessage, darkMode }) => {
   const fileInputRef = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedTool, setSelectedTool] = useState(null);
-  const [selectedModel, setSelectedModel] = useState('Gemini 2.0 Flash');
-
-  const handleModelChange = (e) => {
-    setSelectedModel(e.target.value);
-    console.log('Selected model:', e.target.value);
-  };
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -94,7 +89,7 @@ const ChatInput = ({ onSendMessage, darkMode }) => {
             <textarea
               className="outline-none w-full p-3 pr-12 rounded-lg resize-none transition-all bg-transparent text-sm placeholder-gray-500 dark:placeholder-gray-400 dark:text-white"
               placeholder="Ask a health question..."
-              rows={3}
+              rows={1}
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               onKeyDown={(e) => {
@@ -128,7 +123,6 @@ const ChatInput = ({ onSendMessage, darkMode }) => {
           </div>
 
           <div className="flex flex-wrap gap-2 justify-between items-center">
-
             <div className="flex gap-2">
               <ModelSelectorButton />
               <button

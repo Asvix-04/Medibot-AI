@@ -4,10 +4,10 @@ import axios from "axios";
 import Sidebar from "../sidebar";
 import { ChatArea, ChatInput } from "../chat";
 import ProfileDropdown from "../ui/ProfileDropdown";
-import Logo from "../ui/Logo";
 import { auth } from "../../firebase";
 import { Link } from "react-router-dom";
 import FeedbackForm from "../feedback/FeedbackForm";
+import SubscriptionPlanSwitcherButton from "../chat/subscription/SubscriptionPlanSwitcherButton";
 
 const ChatLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -19,6 +19,8 @@ const ChatLayout = () => {
   const [error, setError] = useState(null);
   const [isTyping, setIsTyping] = useState(false);
   const [showFeedback, setShowFeedback] = useState(false);
+  const [isBackgroundBlur, setIsBackgroundBlur] = useState(false);
+
 
   // API base URL
   const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
@@ -138,7 +140,7 @@ const ChatLayout = () => {
       }
 
       const token = await user.getIdToken();
-      
+
       const response = await axios.post(
         `${API_URL}/conversations`,
         {},
@@ -277,12 +279,12 @@ const ChatLayout = () => {
       const updatedConversations = conversations.map((conv) =>
         conv.id === conversationId
           ? {
-              ...conv,
-              preview:
-                botResponse.substring(0, 40) +
-                (botResponse.length > 40 ? "..." : ""),
-              timestamp: new Date(),
-            }
+            ...conv,
+            preview:
+              botResponse.substring(0, 40) +
+              (botResponse.length > 40 ? "..." : ""),
+            timestamp: new Date(),
+          }
           : conv
       );
       setConversations(updatedConversations);
@@ -311,7 +313,7 @@ const ChatLayout = () => {
   };
 
   return (
-    <div className={`chat-layout-page flex h-screen min-h-screen overflow-hidden  ${darkMode ? 'dark:bg-gray-900' : 'bg-white'}`}>
+    <div className={`chat-layout-page fixed inset-0 flex flex-col md:flex-row h-screen min-h-screen overflow-hidden ${darkMode ? 'dark:bg-gray-900' : 'bg-white'} `}>
       {/* Sidebar with New Chat button */}
       <Sidebar
         isOpen={sidebarOpen}
@@ -321,46 +323,40 @@ const ChatLayout = () => {
         currentConversationId={currentConversationId}
         onNewChat={createNewConversation}
         darkMode={darkMode}
+        className={"w-full md:w-72"}
+        isBackgroundBlur={isBackgroundBlur}
       />
-
       {/* Main content */}
       <div className="chatpage-main-content flex-1 flex flex-col overflow-hidden">
         {/* Header - updated to violet gradient */}
         <header className="chatpage-header sticky top-0 z-20 flex items-center justify-between p-4 border-b border-gray-200/80 dark:border-gray-700/50 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm shadow-sm">
           <div className="flex items-center space-x-4">
+            {/*Hamburger Button for mobile-only) */}
             <button
-              onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="p-2 text-white hover:bg-violet-700/30 rounded-full transition-colors"
-              aria-label="Toggle sidebar"
+              onClick={() => setSidebarOpen(true)}
+              className="md:hidden p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700"
+              aria-label="Open sidebar"
             >
               <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
+                className="w-6 h-6 text-gray-800 dark:text-white"
                 fill="none"
-                viewBox="0 0 24 24"
                 stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                {sidebarOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M11 19l-7-7 7-7m8 14l-7-7 7-7"
-                  />
-                ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                )}
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
               </svg>
             </button>
-              <h1 className='chatpage-heading text-xl font-bold text-gray-800 dark:text-white'>
-                <span className='bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent'>MediBot</span>
-                <span className='text-gray-600 dark:text-gray-300'> - Your Health Assistant</span>
-              </h1>
+            <SubscriptionPlanSwitcherButton darkMode={darkMode} isBackgroundBlur={isBackgroundBlur} setIsBackgroundBlur={setIsBackgroundBlur} />
+            <h1 className='chatpage-heading text-xl font-bold text-gray-800 dark:text-white'>
+              <span className='bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent'>MediBot</span>
+              <span className='text-gray-600 dark:text-gray-300'> - Your Health Assistant</span>
+            </h1>
           </div>
 
           <div className="flex items-center space-x-4">
@@ -425,18 +421,17 @@ const ChatLayout = () => {
             />
           </div>
         </header>
-
         {/* Chat area */}
-        <main className="chat-area flex-1 overflow-y-auto p-4 bg-gray-50 dark:bg-gray-900">
+        <main className="chat-area flex-1 min-h-0 overflow-y-auto p-4 bg-gray-50 dark:bg-gray-900">
           <ChatArea
             messages={messages}
             darkMode={darkMode}
             isTyping={isTyping}
             onSendMessage={handleSendMessage}
-            onEditSubmit={handleEditSubmit} 
+            onEditSubmit={handleEditSubmit}
           />
         </main>
-        <div className="chat-input w-full bg-gray-50 dark:bg-gray-900 p-4 rounded-lg space-x-2 sticky bottom-0 z-10 px-4 pb-6 pt-4">
+        <div className="chat-input w-full bg-gray-50 dark:bg-gray-900 p-2 md:p-4 rounded-lg space-x-2 sticky bottom-0 z-10">
           <ChatInput onSendMessage={handleSendMessage} darkMode={darkMode} />
         </div>
         <FeedbackForm

@@ -32,7 +32,6 @@ import { SettingsProvider } from "./context/SettingsContext";
 import PageTransitionWrapper from "./components/transition-effect/PageTransitionWrapper";
 import Header from "./components/landing/Header";
 import Footer from "./components/landing/Footer";
-import SubscriptionPage from "./pages/SubscriptionPage";
 import PaymentPage from "./pages/PaymentPage";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
@@ -72,7 +71,6 @@ const AppContent = () => {
             />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
-            <Route path="/subscription" element={<SubscriptionPage />} />
             <Route path="/payment" element={<PaymentPage />} />
             <Route path="/payment-success" element={<PaymentSuccess />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />

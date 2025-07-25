@@ -64,7 +64,7 @@ const ChatMessage = ({ message, onEditSubmit, darkMode }) => {
       )}
 
       <div className="max-w-[85%] relative flex flex-col space-y-3">
-          {message.file && (
+        {message.file && (
           <div className="mt-3">
             {message.file.type.startsWith("image/") ? (
               <img
@@ -85,9 +85,9 @@ const ChatMessage = ({ message, onEditSubmit, darkMode }) => {
         )}
 
         <div
-          className={`rounded-lg px-4 py-2 shadow-sm relative ${isBot
-            ? `${darkMode ? 'bg-[#1a1a1a] text-[#d6d4d4]' : 'bg-[#4c4a4a] text-[#d6d4d4]'} border border-[#2a2a2a]`
-            : `${darkMode ? 'bg-[#14254E] text-[#e8e2e7]' : 'bg-blue-600/20 text-[#3b393b]'}`
+          className={`rounded-lg px-4 py-2 shadow-sm relative leading-relaxed ${isBot
+            ? `${darkMode ? 'bg-gray-300/20 text-[#d6d4d4]' : 'bg-gray-300/20 text-[#0e0e0eee]'}`
+            : `${darkMode ? 'bg-[#14254E] text-[#e8e2e7]' : 'bg-blue-600/20 text-[#0a0a0a]'}`
             }`}
           onMouseEnter={() => !isBot && setIsHovering(true)}
           onMouseLeave={() => !isBot && setIsHovering(false)}
@@ -133,7 +133,7 @@ const ChatMessage = ({ message, onEditSubmit, darkMode }) => {
       </div>
 
       {!isBot && (
-        <div className="flex-shrink-0 h-8 w-8 rounded-full flex items-center justify-center dark:bg-blue-600 bg-[#7f7fe0] border border-[#2a2a2a] ml-2">
+        <div className="flex-shrink-0 h-8 w-8 rounded-full flex items-center justify-center dark:bg-blue-600 bg-[#7f7fe0] border border-[#181c54] ml-2">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-[#d6d4d4]" viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
           </svg>

@@ -113,39 +113,39 @@ const ChatArea = ({ messages, darkMode, isTyping = false, onSendMessage, onEditS
   };
 
   return (
-    <div className="flex flex-col space-y-4 max-w-3xl mx-auto">
+    <div className="flex flex-col space-y-2 sm:space-y-4 max-w-3xl mx-auto px-2 sm:px-4">
       {messages.length === 0 ? (
-        <div className="flex flex-col items-center justify-center h-full py-12">
+        <div className="flex flex-col items-center justify-center h-full py-4 sm:py-6 md:py-12">
           {/* Updated welcome screen gradient to match theme */}
-          <div className="p-4 rounded-full bg-gradient-to-r from-[#1a1a1a] to-[#232323] border border-[#2a2a2a]">
+          <div className="p-2 sm:p-3 rounded-full bg-gradient-to-r from-[#1a1a1a] to-[#232323] border border-[#2a2a2a]">
             <img
               src={medibot_logo}
               alt="Medibot Logo"
-              className="w-16 h-16 rounded-full border-2 border-[#2a2a2a] shadow-lg"
+              className="w-12 sm:w-16 md:w-16 h-12 sm:h-16 md:h-16 rounded-full border-2 border-[#2a2a2a] shadow-lg"
             />
           </div>
           {/* Updated heading text color */}
-          <h1 className="mt-6 text-2xl font-bold text-gray-800 dark:text-white">
+          <h1 className="mt-3 sm:mt-4 md:mt-6 text-lg sm:text-xl md:text-2xl font-bold text-gray-800 dark:text-white text-center">
             How can I help you today?
           </h1>
           {/* Updated paragraph text color */}
-          <p className="mt-2 text-center  text-gray-600 dark:text-white max-w-md">
+          <p className="mt-1 sm:mt-2 text-center text-sm sm:text-base md:text-base text-gray-600 dark:text-white max-w-xs sm:max-w-md">
             I'm your medical assistant. Ask me about symptoms, health information, or medical advice.
           </p>
-          <div className="mt-6 grid grid-cols-2 gap-3">
+          <div className="mt-3 sm:mt-4 md:mt-6 grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
             {/* Updated suggestion boxes */}
             <div
-              className="p-3 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] shadow-sm hover:shadow-md transition-shadow cursor-pointer hover:border-[#6366f1]"
+              className="p-2 sm:p-3 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] shadow-sm hover:shadow-md transition-shadow cursor-pointer hover:border-[#6366f1]"
               onClick={() => handleSuggestionClick("I have a headache and feeling tired. What could it be?")}
             >
-              <p className="text-sm font-medium text-[#bb63f1]">🩺 Symptom Checker</p>
+              <p className="text-xs sm:text-sm font-medium text-[#bb63f1]">🩺 Symptom Checker</p>
               <p className="text-xs text-[#a8a8a8]">Describe your symptoms</p>
             </div>
             <div
-              className="p-3 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] shadow-sm hover:shadow-md transition-shadow cursor-pointer hover:border-[#6366f1]"
+              className="p-2 sm:p-3 rounded-lg border border-[#2a2a2a] bg-[#1a1a1a] shadow-sm hover:shadow-md transition-shadow cursor-pointer hover:border-[#6366f1]"
               onClick={() => handleSuggestionClick("Tell me about common blood pressure medications")}
             >
-              <p className="text-sm font-medium text-[#bb63f1]">💊 Medication Info</p>
+              <p className="text-xs sm:text-sm font-medium text-[#bb63f1]">💊 Medication Info</p>
               <p className="text-xs text-[#a8a8a8]">Learn about your prescriptions</p>
             </div>
           </div>
@@ -153,12 +153,12 @@ const ChatArea = ({ messages, darkMode, isTyping = false, onSendMessage, onEditS
       ) : (
         <>
           {/* Renders all chat messages */}
-          <div className="text-sm text-gray-400 mb-4">{getDateLabel(date)}</div>
+          <div className="text-xs sm:text-sm text-gray-400 mb-2 sm:mb-4">{getDateLabel(date)}</div>
           {messages.map((message) => (
             <ChatMessage
               key={message.id}
               message={message}
-              onEditSubmit={onEditSubmit} // NEW: Enables editing user messages
+              onEditSubmit={onEditSubmit}
               darkMode={darkMode}
             />
           ))}
@@ -168,7 +168,7 @@ const ChatArea = ({ messages, darkMode, isTyping = false, onSendMessage, onEditS
           {messages.length > 0 &&
             !isTyping &&
             messages[messages.length - 1].role === "bot" && (
-              <div className="mt-4 mb-2">
+              <div className="mt-2 sm:mt-4 mb-1 sm:mb-2">
                 <SuggestionChips
                   suggestions={getSuggestions()}
                   onSuggestionClick={handleSuggestionClick}

@@ -39,7 +39,7 @@ Is an advanced AI-powered medical chatbot designed to assist users in validating
 - Prescription analysis and OCR from scanned documents
 - Speech-to-speech chatbot interaction
 - Real-time consultation with certified doctors
-- Medicine lookup and information retrieval
+- Medicine lookup and information retrieval 
 
 ---
 
@@ -53,7 +53,7 @@ Follow these instructions to set up and run the MediBot AI locally on your machi
 - npm (v7 or higher)
 - Git
 - MongoDB
-- Firebase Project
+- Firebase console
 
 ---
 
